@@ -7,8 +7,17 @@ class SignUpController {
     if (!httpRequest.body.name) {
       return BadRequest(new MissingParamError('name'));
     }
+
     if (!httpRequest.body.email) {
       return BadRequest(new MissingParamError('email'));
+    }
+
+    if (!httpRequest.body.password) {
+      return BadRequest(new MissingParamError('password'));
+    }
+
+    if (!httpRequest.body.passwordConfirmation) {
+      return BadRequest(new MissingParamError('passwordConfirmation'));
     }
 
     return {} as IHttpResponse;
