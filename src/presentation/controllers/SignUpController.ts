@@ -4,20 +4,12 @@ import BadRequest from '../helpers/BadRequest';
 
 class SignUpController {
   handle(httpRequest: IHttpRequest): IHttpResponse {
-    if (!httpRequest.body.name) {
-      return BadRequest(new MissingParamError('name'));
-    }
+    const requiredField = ['name', 'email', 'password', 'passwordConfirmation'];
 
-    if (!httpRequest.body.email) {
-      return BadRequest(new MissingParamError('email'));
-    }
-
-    if (!httpRequest.body.password) {
-      return BadRequest(new MissingParamError('password'));
-    }
-
-    if (!httpRequest.body.passwordConfirmation) {
-      return BadRequest(new MissingParamError('passwordConfirmation'));
+    for (const field of requiredField) {
+      if (!httpRequest.body[field]) {
+        return BadRequest(new MissingParamError(field));
+      }
     }
 
     return {} as IHttpResponse;
