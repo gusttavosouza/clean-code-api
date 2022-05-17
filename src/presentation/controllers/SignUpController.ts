@@ -1,9 +1,17 @@
+import { InvalidParamError } from '../errors/InvalidParamError';
 import MissingParamError from '../errors/MissingParamError';
 import { IHttpRequest, IHttpResponse } from '../interfaces/IHttp';
 import BadRequest from '../helpers/BadRequest';
 import IController from '../interfaces/IController';
+import IEmailValidator from '../interfaces/IEmailValidator';
 
 class SignUpController implements IController {
+  private readonly emailValidator: IEmailValidator;
+
+  constructor(emailValidator: IEmailValidator) {
+    this.emailValidator = emailValidator;
+  }
+
   handle(httpRequest: IHttpRequest): IHttpResponse {
     const requiredField = ['name', 'email', 'password', 'passwordConfirmation'];
 
@@ -11,6 +19,11 @@ class SignUpController implements IController {
       if (!httpRequest.body[field]) {
         return BadRequest(new MissingParamError(field));
       }
+    }
+
+    const isValid = this.emailValidator.isValid(httpRequest.body.email);
+    if (!isValid) {
+      return BadRequest(new InvalidParamError('email'));
     }
 
     return {} as IHttpResponse;
