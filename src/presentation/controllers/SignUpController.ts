@@ -1,7 +1,6 @@
 import { InvalidParamError, MissingParamError } from '../errors';
 import { IHttpRequest, IHttpResponse } from '../interfaces/IHttp';
-import BadRequest from '../helpers/BadRequest';
-import InternalError from '../helpers/InternalError';
+import { BadRequest, InternalError } from '../helpers';
 import IController from '../interfaces/IController';
 import IEmailValidator from '../interfaces/IEmailValidator';
 
