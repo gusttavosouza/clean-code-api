@@ -1,10 +1,9 @@
-import InvalidParamError from '../errors/InvalidParamError';
-import MissingParamError from '../errors/MissingParamError';
+import { InvalidParamError, MissingParamError } from '../errors';
 import { IHttpRequest, IHttpResponse } from '../interfaces/IHttp';
 import BadRequest from '../helpers/BadRequest';
+import InternalError from '../helpers/InternalError';
 import IController from '../interfaces/IController';
 import IEmailValidator from '../interfaces/IEmailValidator';
-import InternalError from '../helpers/InternalError';
 
 class SignUpController implements IController {
   private readonly emailValidator: IEmailValidator;
