@@ -4,7 +4,7 @@ import { IHttpRequest, IHttpResponse } from '../interfaces/IHttp';
 import BadRequest from '../helpers/BadRequest';
 import IController from '../interfaces/IController';
 import IEmailValidator from '../interfaces/IEmailValidator';
-import ServerError from '../errors/ServerError';
+import InternalError from '../helpers/InternalError';
 
 class SignUpController implements IController {
   private readonly emailValidator: IEmailValidator;
@@ -33,10 +33,7 @@ class SignUpController implements IController {
         return BadRequest(new InvalidParamError('email'));
       }
     } catch (error) {
-      return {
-        statusCode: 500,
-        body: new ServerError(),
-      };
+      return InternalError();
     }
 
     return {} as IHttpResponse;
