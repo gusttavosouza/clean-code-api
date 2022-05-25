@@ -1,12 +1,12 @@
-import { IAddAccount } from '../../domain/usecases/AddAccount';
-import { InvalidParamError, MissingParamError } from '../errors';
-import { BadRequest, InternalError } from '../helpers';
+import { InvalidParamError, MissingParamError } from '../../errors';
+import { BadRequest, InternalError } from '../../helpers';
 import {
   IController,
   IEmailValidator,
   IHttpRequest,
   IHttpResponse,
-} from '../interfaces';
+  IAddAccount,
+} from './SignUpProtocols';
 
 class SignUpController implements IController {
   private readonly emailValidator: IEmailValidator;
