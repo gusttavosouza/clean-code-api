@@ -1,5 +1,5 @@
 import { InvalidParamError, MissingParamError } from '../../errors';
-import { BadRequest, InternalError } from '../../helpers';
+import { BadRequest, InternalError, Success } from '../../helpers';
 import {
   IController,
   IEmailValidator,
@@ -48,10 +48,7 @@ class SignUpController implements IController {
         password,
       });
 
-      return {
-        statusCode: 200,
-        body: account,
-      };
+      return Success(account);
     } catch (error) {
       return InternalError();
     }
