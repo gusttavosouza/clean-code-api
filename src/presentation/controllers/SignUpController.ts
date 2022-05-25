@@ -1,3 +1,4 @@
+import { IAddAccount } from '../../domain/usecases/AddAccount';
 import { InvalidParamError, MissingParamError } from '../errors';
 import { BadRequest, InternalError } from '../helpers';
 import {
@@ -9,9 +10,11 @@ import {
 
 class SignUpController implements IController {
   private readonly emailValidator: IEmailValidator;
+  private readonly addAccount: IAddAccount;
 
-  constructor(emailValidator: IEmailValidator) {
+  constructor(emailValidator: IEmailValidator, addAccount: IAddAccount) {
     this.emailValidator = emailValidator;
+    this.addAccount = addAccount;
   }
 
   handle(httpRequest: IHttpRequest): IHttpResponse {
@@ -29,7 +32,7 @@ class SignUpController implements IController {
         }
       }
 
-      const { email, password, passwordConfirmation } = httpRequest.body;
+      const { email, password, passwordConfirmation, name } = httpRequest.body;
       if (password !== passwordConfirmation) {
         return BadRequest(new InvalidParamError('passwordConfirmation'));
       }
@@ -38,6 +41,12 @@ class SignUpController implements IController {
       if (!isValid) {
         return BadRequest(new InvalidParamError('email'));
       }
+
+      this.addAccount.add({
+        name,
+        email,
+        password,
+      });
     } catch (error) {
       return InternalError();
     }
