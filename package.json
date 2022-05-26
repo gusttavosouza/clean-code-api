@@ -16,7 +16,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.0.0",
     "git-commit-msg-linter": "^4.1.2",
-    "husky": "^7.0.4",
+    "husky": "^8.0.1",
     "jest": "^27.5.1",
     "lint-staged": "^12.4.0",
     "prettier": "^2.6.2",
@@ -31,5 +31,8 @@
     "test:integration": "yarn test -- --watch -c jest-integration-config.js",
     "test:staged": "yarn test --findRelatedTests",
     "test:ci": "yarn test --coverage"
+  },
+  "dependencies": {
+    "husky": "^8.0.1"
   }
 }
