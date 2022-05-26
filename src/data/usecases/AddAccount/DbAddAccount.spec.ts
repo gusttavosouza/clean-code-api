@@ -1,4 +1,4 @@
-import { IEncrypter } from '../../interfaces/Encrypter';
+import { IEncrypter } from './DbAddAccountProtocols';
 import DbAddAccount from './DbAddAccount';
 
 interface ISutTypes {
