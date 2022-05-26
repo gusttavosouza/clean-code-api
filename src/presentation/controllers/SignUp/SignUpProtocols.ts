@@ -1,4 +1,8 @@
-export * from '../../interfaces';
+export { IController, IHttpRequest, IHttpResponse } from '../../interfaces';
 export { default as IEmailValidator } from '../../interfaces/IEmailValidator';
-export * from '../../../domain/usecases/AddAccount';
-export * from '../../../domain/models/Account';
+export { IAccountModel } from '../../../domain/models/Account';
+
+export {
+  IAddAccount,
+  IAddAccountModel,
+} from '../../../domain/usecases/AddAccount';

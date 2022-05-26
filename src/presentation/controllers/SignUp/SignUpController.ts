@@ -52,8 +52,6 @@ class SignUpController implements IController {
     } catch (error) {
       return InternalError();
     }
-
-    return {} as IHttpResponse;
   }
 }
 
