@@ -39,7 +39,7 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "husky": "^8.0.1",
-    "mongodb": "^4.6.0",
+    "mongodb": "3.5.1",
     "validator": "^13.7.0"
   }
 }
