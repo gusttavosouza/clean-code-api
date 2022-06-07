@@ -5,7 +5,12 @@ import {
 } from '../../presentation/interfaces';
 import { LogControllerDecorator } from './log';
 
-describe('LogController Decorator', () => {
+interface ISutTypes {
+  sut: LogControllerDecorator;
+  controllerStub: IController;
+}
+
+const makeController = (): IController => {
   class ControllerStub implements IController {
     async handle(_: IHttpRequest): Promise<IHttpResponse> {
       const httpResponse: IHttpResponse = {
@@ -20,11 +25,19 @@ describe('LogController Decorator', () => {
       return new Promise(resolve => resolve(httpResponse));
     }
   }
+  return new ControllerStub();
+};
 
-  const controllerStub = new ControllerStub();
+const makeSut = (): ISutTypes => {
+  const controllerStub = makeController();
+  const sut = new LogControllerDecorator(controllerStub);
+  return { controllerStub, sut };
+};
+
+describe('LogController Decorator', () => {
+  const { controllerStub, sut } = makeSut();
   const handleSpy = jest.spyOn(controllerStub, 'handle');
   test('Should call controller handle', async () => {
-    const sut = new LogControllerDecorator(controllerStub);
     const httpRequest = {
       body: {
         email: 'any_email',
