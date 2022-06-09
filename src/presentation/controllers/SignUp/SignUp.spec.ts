@@ -1,3 +1,4 @@
+import { IHttpRequest } from '../../interfaces/IHttp';
 import SignUpController from './SignUpController';
 import {
   InvalidParamError,
@@ -10,6 +11,7 @@ import {
   IAddAccount,
   IAddAccountModel,
 } from './SignUpProtocols';
+import { BadRequest, InternalError, Success } from '../../helpers';
 
 interface ISutTypes {
   sut: SignUpController;
@@ -26,21 +28,32 @@ const makeEmailValidator = (): IEmailValidator => {
   return new EmailValidatorStub();
 };
 
+const makeFakeAccount = (): IAccountModel => ({
+  id: 'valid_id',
+  name: 'valid_name',
+  email: 'valid_email@email.com',
+  password: 'valid_password',
+});
+
 const makeAddAccount = (): IAddAccount => {
   class AddAccountStub implements IAddAccount {
     async add(_: IAddAccountModel): Promise<IAccountModel> {
-      const fakeAccount = {
-        id: 'valid_id',
-        name: 'valid_name',
-        email: 'valid_email@email.com',
-        password: 'valid_password',
-      };
+      const fakeAccount = makeFakeAccount();
 
       return new Promise(resolve => resolve(fakeAccount));
     }
   }
   return new AddAccountStub();
 };
+
+const makeFakeRequest = (): IHttpRequest => ({
+  body: {
+    name: 'any_name',
+    email: 'any_email@mail.com',
+    password: 'any_password',
+    passwordConfirmation: 'any_password',
+  },
+});
 
 const makeSut = (): ISutTypes => {
   const emailValidatorStub = makeEmailValidator();
@@ -65,8 +78,7 @@ describe('SignUp Controller', () => {
       },
     };
     const httpResponse = await sut.handle(httpRequest);
-    expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual(new MissingParamError('name'));
+    expect(httpResponse).toEqual(BadRequest(new MissingParamError('name')));
   });
 
   test('Should return 400 if no email is provide', async () => {
@@ -79,8 +91,7 @@ describe('SignUp Controller', () => {
       },
     };
     const httpResponse = await sut.handle(httpRequest);
-    expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual(new MissingParamError('email'));
+    expect(httpResponse).toEqual(BadRequest(new MissingParamError('email')));
   });
 
   test('Should return 400 if no password is provide', async () => {
@@ -93,8 +104,7 @@ describe('SignUp Controller', () => {
       },
     };
     const httpResponse = await sut.handle(httpRequest);
-    expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual(new MissingParamError('password'));
+    expect(httpResponse).toEqual(BadRequest(new MissingParamError('password')));
   });
 
   test('Should return 400 if no passwordConfirmation is provide', async () => {
@@ -107,9 +117,8 @@ describe('SignUp Controller', () => {
       },
     };
     const httpResponse = await sut.handle(httpRequest);
-    expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual(
-      new MissingParamError('passwordConfirmation'),
+    expect(httpResponse).toEqual(
+      BadRequest(new MissingParamError('passwordConfirmation')),
     );
   });
 
@@ -124,9 +133,8 @@ describe('SignUp Controller', () => {
       },
     };
     const httpResponse = await sut.handle(httpRequest);
-    expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual(
-      new InvalidParamError('passwordConfirmation'),
+    expect(httpResponse).toEqual(
+      BadRequest(new InvalidParamError('passwordConfirmation')),
     );
   });
 
@@ -134,31 +142,16 @@ describe('SignUp Controller', () => {
     const { sut, emailValidatorStub } = makeSut();
     jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false);
 
-    const httpRequest = {
-      body: {
-        name: 'any_name',
-        email: 'invalid_email@mail.com',
-        password: 'any_password',
-        passwordConfirmation: 'any_password',
-      },
-    };
+    const httpRequest = makeFakeRequest();
     const httpResponse = await sut.handle(httpRequest);
-    expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual(new InvalidParamError('email'));
+    expect(httpResponse).toEqual(BadRequest(new InvalidParamError('email')));
   });
 
   test('Should call EmailValidator With correct email', async () => {
     const { sut, emailValidatorStub } = makeSut();
     const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid');
 
-    const httpRequest = {
-      body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_password',
-        passwordConfirmation: 'any_password',
-      },
-    };
+    const httpRequest = makeFakeRequest();
 
     await sut.handle(httpRequest);
     expect(isValidSpy).toHaveBeenCalledWith('any_email@mail.com');
@@ -170,31 +163,16 @@ describe('SignUp Controller', () => {
       throw new Error();
     });
 
-    const httpRequest = {
-      body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_password',
-        passwordConfirmation: 'any_password',
-      },
-    };
+    const httpRequest = makeFakeRequest();
     const httpResponse = await sut.handle(httpRequest);
-    expect(httpResponse.statusCode).toBe(500);
-    expect(httpResponse.body).toEqual(new ServerError('erro'));
+    expect(httpResponse).toEqual(InternalError(new ServerError(null)));
   });
 
   test('Should call AddAccount with correct values', async () => {
     const { sut, addAccountStub } = makeSut();
     const addSpy = jest.spyOn(addAccountStub, 'add');
 
-    const httpRequest = {
-      body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_password',
-        passwordConfirmation: 'any_password',
-      },
-    };
+    const httpRequest = makeFakeRequest();
 
     await sut.handle(httpRequest);
     expect(addSpy).toHaveBeenCalledWith({
@@ -210,37 +188,17 @@ describe('SignUp Controller', () => {
       return new Promise((_, reject) => reject(new Error()));
     });
 
-    const httpRequest = {
-      body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_password',
-        passwordConfirmation: 'any_password',
-      },
-    };
+    const httpRequest = makeFakeRequest();
     const httpResponse = await sut.handle(httpRequest);
-    expect(httpResponse.statusCode).toBe(500);
-    expect(httpResponse.body).toEqual(new ServerError('error'));
+    expect(httpResponse).toEqual(InternalError(new ServerError(null)));
   });
 
   test('Should return 200 valid data is provided', async () => {
     const { sut } = makeSut();
 
-    const httpRequest = {
-      body: {
-        name: 'valid_name',
-        email: 'valid_email@mail.com',
-        password: 'valid_password',
-        passwordConfirmation: 'valid_password',
-      },
-    };
+    const httpRequest = makeFakeRequest();
     const httpResponse = await sut.handle(httpRequest);
-    expect(httpResponse.statusCode).toBe(200);
-    expect(httpResponse.body).toEqual({
-      id: 'valid_id',
-      name: 'valid_name',
-      email: 'valid_email@email.com',
-      password: 'valid_password',
-    });
+
+    expect(httpResponse).toEqual(Success(makeFakeAccount()));
   });
 });
