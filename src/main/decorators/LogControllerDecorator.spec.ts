@@ -7,7 +7,7 @@ import {
   IHttpRequest,
   IHttpResponse,
 } from '../../presentation/interfaces';
-import { LogControllerDecorator } from './log';
+import { LogControllerDecorator } from './LogControllerDecorator';
 
 interface ISutTypes {
   sut: LogControllerDecorator;
