@@ -15,10 +15,7 @@ const makeController = (): IController => {
     async handle(_: IHttpRequest): Promise<IHttpResponse> {
       const httpResponse: IHttpResponse = {
         body: {
-          email: 'any_email',
           name: 'any_name',
-          password: 'any_password',
-          passwordConfirmation: 'any_password',
         },
         statusCode: 200,
       };
@@ -35,9 +32,9 @@ const makeSut = (): ISutTypes => {
 };
 
 describe('LogController Decorator', () => {
-  const { controllerStub, sut } = makeSut();
-  const handleSpy = jest.spyOn(controllerStub, 'handle');
   test('Should call controller handle', async () => {
+    const { controllerStub, sut } = makeSut();
+    const handleSpy = jest.spyOn(controllerStub, 'handle');
     const httpRequest = {
       body: {
         email: 'any_email',
@@ -49,5 +46,25 @@ describe('LogController Decorator', () => {
     await sut.handle(httpRequest);
 
     expect(handleSpy).toHaveBeenCalledWith(httpRequest);
+  });
+
+  test('Should return the same result of the controller', async () => {
+    const { sut } = makeSut();
+    const httpRequest = {
+      body: {
+        email: 'any_email',
+        name: 'any_name',
+        password: 'any_password',
+        passwordConfirmation: 'any_password',
+      },
+    };
+    const httpResponse = await sut.handle(httpRequest);
+
+    expect(httpResponse).toEqual({
+      body: {
+        name: 'any_name',
+      },
+      statusCode: 200,
+    });
   });
 });
