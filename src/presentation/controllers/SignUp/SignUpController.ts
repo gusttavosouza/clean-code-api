@@ -50,7 +50,7 @@ class SignUpController implements IController {
 
       return Success(account);
     } catch (error) {
-      return InternalError();
+      return InternalError(error);
     }
   }
 }
