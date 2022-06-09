@@ -1,3 +1,4 @@
+import ILogErrorRepository from '../../data/interfaces/ILogErrorRepository';
 import {
   IController,
   IHttpRequest,
@@ -6,14 +7,20 @@ import {
 
 export class LogControllerDecorator implements IController {
   private readonly controller: IController;
-  constructor(controller: IController) {
+  private readonly logErrorRepository: ILogErrorRepository;
+
+  constructor(
+    controller: IController,
+    logErrorRepository: ILogErrorRepository,
+  ) {
     this.controller = controller;
+    this.logErrorRepository = logErrorRepository;
   }
 
   async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
     const httpResponse = await this.controller.handle(httpRequest);
     if (httpResponse.statusCode === 500) {
-      console.log('ERRO DE SERVIDOR');
+      await this.logErrorRepository.log(httpRequest.body.stack);
     }
     return httpResponse;
   }
