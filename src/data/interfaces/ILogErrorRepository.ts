@@ -1,5 +1,5 @@
 interface ILogErrorRepository {
-  log(stack: string): Promise<void>;
+  logError(stack: string): Promise<void>;
 }
 
 export default ILogErrorRepository;
