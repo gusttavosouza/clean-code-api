@@ -1,3 +1,4 @@
+import { IAuthentication } from '../../../domain/usecases/IAuthentication';
 import { InvalidParamError, MissingParamError } from '../../errors';
 import { BadRequest, InternalError } from '../../helpers';
 import { IEmailValidator, IHttpRequest } from '../../interfaces';
@@ -6,6 +7,7 @@ import { LoginController } from './LoginController';
 interface ISutTypes {
   sut: LoginController;
   emailValidatorStub: IEmailValidator;
+  authenticationStub: IAuthentication;
 }
 
 const makeEmailValidator = (): IEmailValidator => {
@@ -18,12 +20,24 @@ const makeEmailValidator = (): IEmailValidator => {
   return new EmailValidatorStub();
 };
 
+const makeAuthentication = (): IAuthentication => {
+  class AuthenticationStub implements IAuthentication {
+    async auth(email: string, password: string): Promise<string> {
+      return new Promise(resolve => resolve('any_token'));
+    }
+  }
+
+  return new AuthenticationStub();
+};
+
 const makeSut = (): ISutTypes => {
   const emailValidatorStub = makeEmailValidator();
-  const sut = new LoginController(emailValidatorStub);
+  const authenticationStub = makeAuthentication();
+  const sut = new LoginController(emailValidatorStub, authenticationStub);
   return {
     sut,
     emailValidatorStub,
+    authenticationStub,
   };
 };
 
@@ -82,7 +96,14 @@ describe('', () => {
     });
 
     const httpResponse = await sut.handle(makeFakeRequest());
-
     expect(httpResponse).toEqual(InternalError(new Error()));
+  });
+
+  test('Should call Authentication with correct values', async () => {
+    const { sut, authenticationStub } = makeSut();
+    const authSpy = jest.spyOn(authenticationStub, 'auth');
+    await sut.handle(makeFakeRequest());
+
+    expect(authSpy).toBeCalledWith('mail@email.com', 'any_password');
   });
 });
