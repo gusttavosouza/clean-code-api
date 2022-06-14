@@ -1,9 +1,11 @@
-import { IAuthentication } from '../../../domain/usecases/IAuthentication';
-import { InvalidParamError, MissingParamError } from '../../errors';
-import { BadRequest, InternalError } from '../../helpers';
-import Unauthorized from '../../helpers/Unauthorized';
-import { IEmailValidator, IHttpRequest } from '../../interfaces';
 import { LoginController } from './LoginController';
+import { InvalidParamError, MissingParamError } from '../../errors';
+import { BadRequest, InternalError, Unauthorized } from '../../helpers';
+import {
+  IEmailValidator,
+  IHttpRequest,
+  IAuthentication,
+} from './LoginControllerProtocols';
 
 interface ISutTypes {
   sut: LoginController;
