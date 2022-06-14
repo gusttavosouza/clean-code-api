@@ -1,5 +1,10 @@
 import { InvalidParamError, MissingParamError } from '../../errors';
-import { BadRequest, InternalError, Unauthorized } from '../../helpers';
+import {
+  BadRequest,
+  InternalError,
+  Success,
+  Unauthorized,
+} from '../../helpers';
 import {
   IController,
   IEmailValidator,
@@ -41,6 +46,8 @@ export class LoginController implements IController {
       if (!accessToken) {
         return Unauthorized();
       }
+
+      return Success({ accessToken });
     } catch (error) {
       return InternalError(error);
     }
