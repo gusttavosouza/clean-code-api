@@ -22,24 +22,19 @@ export class LoginController implements IController {
 
   public async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
     try {
-      const { email, password } = httpRequest.body;
-      if (!email) {
-        return new Promise(resolve =>
-          resolve(BadRequest(new MissingParamError('email'))),
-        );
+      const requiredField = ['email', 'password'];
+
+      for (const field of requiredField) {
+        if (!httpRequest.body[field]) {
+          return BadRequest(new MissingParamError(field));
+        }
       }
 
-      if (!password) {
-        return new Promise(resolve =>
-          resolve(BadRequest(new MissingParamError('password'))),
-        );
-      }
+      const { email, password } = httpRequest.body;
 
       const isValid = this.emailValidator.isValid(email);
       if (!isValid) {
-        return new Promise(resolve =>
-          resolve(BadRequest(new InvalidParamError('email'))),
-        );
+        return BadRequest(new InvalidParamError('email'));
       }
 
       await this.authentication.auth(email, password);
