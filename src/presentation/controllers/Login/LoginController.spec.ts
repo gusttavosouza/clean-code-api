@@ -1,6 +1,7 @@
 import { IAuthentication } from '../../../domain/usecases/IAuthentication';
 import { InvalidParamError, MissingParamError } from '../../errors';
 import { BadRequest, InternalError } from '../../helpers';
+import Unauthorized from '../../helpers/Unauthorized';
 import { IEmailValidator, IHttpRequest } from '../../interfaces';
 import { LoginController } from './LoginController';
 
@@ -22,7 +23,7 @@ const makeEmailValidator = (): IEmailValidator => {
 
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
-    async auth(email: string, password: string): Promise<string> {
+    async auth(_: string, __: string): Promise<string> {
       return new Promise(resolve => resolve('any_token'));
     }
   }
@@ -105,5 +106,15 @@ describe('', () => {
     await sut.handle(makeFakeRequest());
 
     expect(authSpy).toBeCalledWith('mail@email.com', 'any_password');
+  });
+
+  test('Should return 401 if invalid credentials are provided', async () => {
+    const { sut, authenticationStub } = makeSut();
+    jest
+      .spyOn(authenticationStub, 'auth')
+      .mockReturnValueOnce(new Promise(resolve => resolve(null)));
+
+    const httpResponse = await sut.handle(makeFakeRequest());
+    expect(httpResponse).toEqual(Unauthorized());
   });
 });
