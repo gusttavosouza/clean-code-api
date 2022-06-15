@@ -1,3 +1,4 @@
+import { CompareFieldsValidation } from '../../presentation/helpers/Validation/CompareFieldsValidation';
 import { IValidation } from '../../presentation/helpers/Validation/IValidation';
 import { RequiredFieldValidation } from '../../presentation/helpers/Validation/RequiredFieldValidation';
 import { ValidationComposite } from '../../presentation/helpers/Validation/ValidationComposite';
@@ -13,6 +14,10 @@ describe('SignUpValidation', () => {
     for (const field of ['name', 'email', 'password', 'passwordConfirmation']) {
       validation.push(new RequiredFieldValidation(field));
     }
+
+    validation.push(
+      new CompareFieldsValidation('password', 'passwordConfirmation'),
+    );
     expect(ValidationComposite).toHaveBeenLastCalledWith(validation);
   });
 });
