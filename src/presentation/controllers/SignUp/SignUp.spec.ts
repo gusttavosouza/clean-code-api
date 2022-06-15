@@ -183,6 +183,8 @@ describe('SignUp Controller', () => {
 
     const httpResponse = await sut.handle(makeFakeRequest());
 
-    expect(httpResponse).toEqual(Success(makeFakeAccount()));
+    expect(httpResponse).toEqual(
+      BadRequest(new MissingParamError('any_field')),
+    );
   });
 });
