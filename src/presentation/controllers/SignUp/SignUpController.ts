@@ -1,4 +1,4 @@
-import { InvalidParamError, MissingParamError } from '../../errors';
+import { InvalidParamError } from '../../errors';
 import { BadRequest, InternalError, Success } from '../../helpers';
 import {
   IController,
@@ -29,18 +29,6 @@ class SignUpController implements IController {
       const error = this.validation.validate(httpRequest.body);
       if (error) {
         return BadRequest(error);
-      }
-      const requiredField = [
-        'name',
-        'email',
-        'password',
-        'passwordConfirmation',
-      ];
-
-      for (const field of requiredField) {
-        if (!httpRequest.body[field]) {
-          return BadRequest(new MissingParamError(field));
-        }
       }
 
       const { email, password, passwordConfirmation, name } = httpRequest.body;
