@@ -1,8 +1,6 @@
-import { InvalidParamError } from '../../errors';
 import { BadRequest, InternalError, Success } from '../../helpers';
 import {
   IController,
-  IEmailValidator,
   IHttpRequest,
   IHttpResponse,
   IAddAccount,
@@ -10,16 +8,10 @@ import {
 } from './SignUpProtocols';
 
 class SignUpController implements IController {
-  private readonly emailValidator: IEmailValidator;
   private readonly addAccount: IAddAccount;
   private readonly validation: IValidation;
 
-  constructor(
-    emailValidator: IEmailValidator,
-    addAccount: IAddAccount,
-    validation: IValidation,
-  ) {
-    this.emailValidator = emailValidator;
+  constructor(addAccount: IAddAccount, validation: IValidation) {
     this.addAccount = addAccount;
     this.validation = validation;
   }
@@ -32,12 +24,6 @@ class SignUpController implements IController {
       }
 
       const { email, password, name } = httpRequest.body;
-
-      const isValid = this.emailValidator.isValid(email);
-      if (!isValid) {
-        return BadRequest(new InvalidParamError('email'));
-      }
-
       const account = await this.addAccount.add({
         name,
         email,
