@@ -1,3 +1,4 @@
+import { IHashComparer } from '../../interfaces/cryptography/IHashComparer';
 import {
   IAuthentication,
   IAuthenticationModel,
@@ -6,13 +7,22 @@ import { ILoadAccountByEmailRepository } from '../../interfaces/db/ILoadAccountB
 
 export class DbAuthentication implements IAuthentication {
   private readonly loadAccountByEmail: ILoadAccountByEmailRepository;
+  private readonly hashCompare: IHashComparer;
 
-  constructor(loadAccountByEmail: ILoadAccountByEmailRepository) {
+  constructor(
+    loadAccountByEmail: ILoadAccountByEmailRepository,
+    hashCompare: IHashComparer,
+  ) {
     this.loadAccountByEmail = loadAccountByEmail;
+    this.hashCompare = hashCompare;
   }
 
   public async auth(authentication: IAuthenticationModel): Promise<string> {
-    await this.loadAccountByEmail.load(authentication.email);
+    const account = await this.loadAccountByEmail.load(authentication.email);
+
+    if (!account) {
+      await this.hashCompare.compare(authentication.password, account.password);
+    }
     return null;
   }
 }
