@@ -1,3 +1,3 @@
 export { IController, IHttpRequest, IHttpResponse } from '../../interfaces';
-export { default as IEmailValidator } from '../../interfaces/IEmailValidator';
-export * from '../../../domain/usecases/IAuthentication';
+export { IAuthentication } from '../../../domain/usecases/IAuthentication';
+export { IValidation } from '../../helpers/Validation/IValidation';
