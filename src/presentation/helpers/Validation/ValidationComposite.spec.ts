@@ -7,17 +7,17 @@ interface ISutTypes {
   validationStubs: IValidation[];
 }
 
-const makeValidationStub = (): IValidation => {
+const makeValidation = (): IValidation => {
   class ValidationStub implements IValidation {
     validate(_: any): Error {
-      return new MissingParamError('field');
+      return null;
     }
   }
   return new ValidationStub();
 };
 
 const makeSut = (): ISutTypes => {
-  const validationStubs = [makeValidationStub(), makeValidationStub()];
+  const validationStubs = [makeValidation(), makeValidation()];
   const sut = new ValidationComposite(validationStubs);
   return {
     sut,
@@ -43,5 +43,11 @@ describe('Validation Composite', () => {
       .mockReturnValueOnce(new MissingParamError('field'));
     const error = sut.validate({ field: 'any_value' });
     expect(error).toEqual(new Error());
+  });
+
+  test('Should not return if validation succeeds', () => {
+    const { sut } = makeSut();
+    const error = sut.validate({ field: 'any_value' });
+    expect(error).toBeFalsy();
   });
 });
