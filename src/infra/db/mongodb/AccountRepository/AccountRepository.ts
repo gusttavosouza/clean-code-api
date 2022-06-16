@@ -1,4 +1,4 @@
-import { IAddAccountRepository } from '../../../../data/interfaces/IAddAccountRepository';
+import { IAddAccountRepository } from '../../../../data/interfaces/db/IAddAccountRepository';
 import { IAccountModel } from '../../../../domain/models/Account';
 import { IAddAccountModel } from '../../../../domain/usecases/AddAccount';
 

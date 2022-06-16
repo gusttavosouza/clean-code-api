@@ -1,6 +1,6 @@
 import { IAccountModel } from '../../../domain/models/Account';
 import { IAuthenticationModel } from '../../../domain/usecases/IAuthentication';
-import { ILoadAccountByEmailRepository } from '../../interfaces/ILoadAccountByEmailRepository';
+import { ILoadAccountByEmailRepository } from '../../interfaces/db/ILoadAccountByEmailRepository';
 import { DbAuthentication } from './DbAuthentication';
 
 interface ISutTypes {
