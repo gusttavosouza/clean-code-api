@@ -1,5 +1,5 @@
 import { EmailValidation } from '../../../presentation/helpers/Validation/EmailValidation';
-import { IValidation } from '../../../presentation/helpers/Validation/IValidation';
+import { IValidation } from '../../../presentation/interfaces/IValidation';
 import { RequiredFieldValidation } from '../../../presentation/helpers/Validation/RequiredFieldValidation';
 import { ValidationComposite } from '../../../presentation/helpers/Validation/ValidationComposite';
 import { makeLoginValidation } from './LoginValidation';

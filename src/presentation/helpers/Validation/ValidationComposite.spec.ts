@@ -1,4 +1,4 @@
-import { IValidation } from './IValidation';
+import { IValidation } from '../../interfaces/IValidation';
 import { MissingParamError } from '../../errors';
 import { ValidationComposite } from './ValidationComposite';
 
