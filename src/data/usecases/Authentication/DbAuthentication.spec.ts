@@ -90,4 +90,23 @@ describe('DBAuthentication UseCase', () => {
     await sut.auth(makeFakeAuthentication());
     expect(compareSpy).toHaveBeenCalledWith('any_password', 'hashed_password');
   });
+
+  test('Should throw if HashCompare throws', async () => {
+    const { sut, hashCompareStub } = makeSut();
+    jest
+      .spyOn(hashCompareStub, 'compare')
+      .mockReturnValueOnce(new Promise((_, reject) => reject(new Error())));
+
+    const promise = sut.auth(makeFakeAuthentication());
+    await expect(promise).rejects.toThrow();
+  });
+
+  test('Should return null id HashCompare returns false', async () => {
+    const { sut, hashCompareStub } = makeSut();
+    jest
+      .spyOn(hashCompareStub, 'compare')
+      .mockReturnValueOnce(new Promise(resolve => resolve(false)));
+    const accessToken = await sut.auth(makeFakeAuthentication());
+    expect(accessToken).toBeNull();
+  });
 });
