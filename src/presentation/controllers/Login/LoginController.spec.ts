@@ -11,6 +11,7 @@ import {
   IAuthentication,
   IValidation,
 } from './LoginControllerProtocols';
+import { IAuthenticationModel } from '../../../domain/usecases/IAuthentication';
 
 interface ISutTypes {
   sut: LoginController;
@@ -20,7 +21,7 @@ interface ISutTypes {
 
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
-    async auth(_: string, __: string): Promise<string> {
+    async auth(_: IAuthenticationModel): Promise<string> {
       return new Promise(resolve => resolve('any_token'));
     }
   }
@@ -60,7 +61,10 @@ describe('', () => {
     const authSpy = jest.spyOn(authenticationStub, 'auth');
     await sut.handle(makeFakeRequest());
 
-    expect(authSpy).toBeCalledWith('mail@email.com', 'any_password');
+    expect(authSpy).toBeCalledWith({
+      email: 'mail@email.com',
+      password: 'any_password',
+    });
   });
 
   test('Should return 401 if invalid credentials are provided', async () => {
