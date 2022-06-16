@@ -1,4 +1,4 @@
-import { BadRequest, InternalError, Success } from '../../helpers';
+import { BadRequest, InternalError, Success } from '../../helpers/http';
 import {
   IController,
   IHttpRequest,

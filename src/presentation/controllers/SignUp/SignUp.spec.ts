@@ -7,7 +7,7 @@ import {
   IAddAccountModel,
   IValidation,
 } from './SignUpProtocols';
-import { BadRequest, InternalError, Success } from '../../helpers';
+import { BadRequest, InternalError, Success } from '../../helpers/http';
 
 interface ISutTypes {
   sut: SignUpController;

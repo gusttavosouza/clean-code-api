@@ -1,7 +1,6 @@
 import ILogErrorRepository from '../../data/interfaces/ILogErrorRepository';
 import { IAccountModel } from '../../domain/models/Account';
-import { Success } from '../../presentation/helpers';
-import InternalError from '../../presentation/helpers/InternalError';
+import { Success, InternalError } from '../../presentation/helpers/http';
 import {
   IController,
   IHttpRequest,

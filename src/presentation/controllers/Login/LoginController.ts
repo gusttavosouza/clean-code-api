@@ -10,7 +10,7 @@ import {
   InternalError,
   Success,
   Unauthorized,
-} from '../../helpers';
+} from '../../helpers/http';
 
 export class LoginController implements IController {
   private readonly authentication: IAuthentication;

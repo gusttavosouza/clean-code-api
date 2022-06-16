@@ -5,7 +5,7 @@ import {
   InternalError,
   Success,
   Unauthorized,
-} from '../../helpers';
+} from '../../helpers/http';
 import {
   IHttpRequest,
   IAuthentication,

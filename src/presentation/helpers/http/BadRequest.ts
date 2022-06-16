@@ -1,4 +1,4 @@
-import { IHttpResponse } from '../interfaces/IHttp';
+import { IHttpResponse } from '../../interfaces/IHttp';
 
 const BadRequest = (error: Error): IHttpResponse => {
   return {
