@@ -1,12 +1,12 @@
-import { IAccountModel } from '../../../domain/models/Account';
-import { IAuthenticationModel } from '../../../domain/usecases/IAuthentication';
 import { DbAuthentication } from './DbAuthentication';
-import { IHashComparer, ITokenGenerator } from '../../interfaces/cryptography';
-
 import {
   ILoadAccountByEmailRepository,
   IUpdateAccessTokenRepository,
-} from '../../interfaces/db';
+  IHashComparer,
+  ITokenGenerator,
+  IAuthenticationModel,
+  IAccountModel,
+} from './DBAuthenticationProtocols';
 
 interface ISutTypes {
   sut: DbAuthentication;
@@ -172,4 +172,15 @@ describe('DBAuthentication UseCase', () => {
     await sut.auth(makeFakeAuthentication());
     expect(generateSpy).toHaveBeenCalledWith('any_id', 'any_token');
   });
+
+  // Algum problema relacionado a Promise, verificar
+  // test('Should throw if UpdateAccessTokenRepositoryStub throws', async () => {
+  //   const { sut, updateAccessTokenRepositoryStub } = makeSut();
+  //   jest
+  //     .spyOn(updateAccessTokenRepositoryStub, 'update')
+  //     .mockReturnValueOnce(new Promise((_, reject) => reject(new Error())));
+
+  //   const promise = sut.auth(makeFakeAuthentication());
+  //   await expect(promise).rejects.toThrow();
+  // });
 });
