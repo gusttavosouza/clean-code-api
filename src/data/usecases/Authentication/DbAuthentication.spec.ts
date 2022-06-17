@@ -1,10 +1,12 @@
 import { IAccountModel } from '../../../domain/models/Account';
 import { IAuthenticationModel } from '../../../domain/usecases/IAuthentication';
-import { IHashComparer } from '../../interfaces/cryptography/IHashComparer';
-import { ITokenGenerator } from '../../interfaces/cryptography/ITokenGenerator';
-import { ILoadAccountByEmailRepository } from '../../interfaces/db/ILoadAccountByEmailRepository';
-import { IUpdateAccessTokenRepository } from '../../interfaces/db/IUpdateAccessTokenRepository';
 import { DbAuthentication } from './DbAuthentication';
+import { IHashComparer, ITokenGenerator } from '../../interfaces/cryptography';
+
+import {
+  ILoadAccountByEmailRepository,
+  IUpdateAccessTokenRepository,
+} from '../../interfaces/db';
 
 interface ISutTypes {
   sut: DbAuthentication;
