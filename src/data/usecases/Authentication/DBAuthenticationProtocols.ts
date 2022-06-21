@@ -1,4 +1,4 @@
-export { IHashComparer, ITokenGenerator } from '../../interfaces/cryptography';
+export { IHashComparer, IEncrypter } from '../../interfaces/cryptography';
 export { IAccountModel } from '../../../domain/models/Account';
 export {
   IAuthenticationModel,
