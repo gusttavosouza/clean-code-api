@@ -173,14 +173,15 @@ describe('DBAuthentication UseCase', () => {
     expect(generateSpy).toHaveBeenCalledWith('any_id', 'any_token');
   });
 
-  // Algum problema relacionado a Promise, verificar
-  // test('Should throw if UpdateAccessTokenRepositoryStub throws', async () => {
-  //   const { sut, updateAccessTokenRepositoryStub } = makeSut();
-  //   jest
-  //     .spyOn(updateAccessTokenRepositoryStub, 'update')
-  //     .mockReturnValueOnce(new Promise((_, reject) => reject(new Error())));
+  test('Should throw if UpdateAccessTokenRepositoryStub throws', async () => {
+    const { sut, updateAccessTokenRepositoryStub } = makeSut();
+    jest
+      .spyOn(updateAccessTokenRepositoryStub, 'update')
+      .mockImplementationOnce(() => {
+        throw new Error();
+      });
 
-  //   const promise = sut.auth(makeFakeAuthentication());
-  //   await expect(promise).rejects.toThrow();
-  // });
+    const promise = sut.auth(makeFakeAuthentication());
+    await expect(promise).rejects.toThrow();
+  });
 });
