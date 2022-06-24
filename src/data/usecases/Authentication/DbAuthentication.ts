@@ -27,7 +27,9 @@ export class DbAuthentication implements IAuthentication {
   }
 
   public async auth(authentication: IAuthenticationModel): Promise<string> {
-    const account = await this.loadAccountByEmail.load(authentication.email);
+    const account = await this.loadAccountByEmail.loadByEmail(
+      authentication.email,
+    );
 
     if (account) {
       const { id, password } = account;
@@ -37,7 +39,7 @@ export class DbAuthentication implements IAuthentication {
       );
       if (isValid) {
         const accessToken = await this.encrypter.encrypt(id);
-        this.updateAccessTokenRepository.update(id, accessToken);
+        this.updateAccessTokenRepository.updateAccessToken(id, accessToken);
         return accessToken;
       }
     }
