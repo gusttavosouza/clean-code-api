@@ -13,10 +13,10 @@ import {
 } from '../../helpers/http';
 
 export class LoginController implements IController {
-  private readonly authentication: IAuthentication;
-  private readonly validation: IValidation;
-
-  constructor(authentication: IAuthentication, validation: IValidation) {
+  constructor(
+    private readonly authentication: IAuthentication,
+    private readonly validation: IValidation,
+  ) {
     this.authentication = authentication;
     this.validation = validation;
   }

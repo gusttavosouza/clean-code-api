@@ -6,12 +6,9 @@ import {
 } from '../../presentation/interfaces';
 
 export class LogControllerDecorator implements IController {
-  private readonly controller: IController;
-  private readonly logErrorRepository: ILogErrorRepository;
-
   constructor(
-    controller: IController,
-    logErrorRepository: ILogErrorRepository,
+    private readonly controller: IController,
+    private readonly logErrorRepository: ILogErrorRepository,
   ) {
     this.controller = controller;
     this.logErrorRepository = logErrorRepository;

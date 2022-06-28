@@ -8,10 +8,10 @@ import {
 } from './SignUpProtocols';
 
 class SignUpController implements IController {
-  private readonly addAccount: IAddAccount;
-  private readonly validation: IValidation;
-
-  constructor(addAccount: IAddAccount, validation: IValidation) {
+  constructor(
+    private readonly addAccount: IAddAccount,
+    private readonly validation: IValidation,
+  ) {
     this.addAccount = addAccount;
     this.validation = validation;
   }

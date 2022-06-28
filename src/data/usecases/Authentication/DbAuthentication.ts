@@ -8,16 +8,11 @@ import {
 } from './DBAuthenticationProtocols';
 
 export class DbAuthentication implements IAuthentication {
-  private readonly loadAccountByEmail: ILoadAccountByEmailRepository;
-  private readonly hashCompare: IHashComparer;
-  private readonly encrypter: IEncrypter;
-  private readonly updateAccessTokenRepository: IUpdateAccessTokenRepository;
-
   constructor(
-    loadAccountByEmail: ILoadAccountByEmailRepository,
-    hashCompare: IHashComparer,
-    encrypter: IEncrypter,
-    updateAccessTokenRepository: IUpdateAccessTokenRepository,
+    private readonly loadAccountByEmail: ILoadAccountByEmailRepository,
+    private readonly hashCompare: IHashComparer,
+    private readonly encrypter: IEncrypter,
+    private readonly updateAccessTokenRepository: IUpdateAccessTokenRepository,
   ) {
     this.loadAccountByEmail = loadAccountByEmail;
     this.hashCompare = hashCompare;

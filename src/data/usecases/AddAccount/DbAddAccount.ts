@@ -7,10 +7,10 @@ import {
 } from './DbAddAccountProtocols';
 
 export default class DbAddAccount implements IAddAccount {
-  private readonly hasher: IHasher;
-  private readonly addAccountRepository: IAddAccountRepository;
-
-  constructor(hasher: IHasher, addAccountRepository: IAddAccountRepository) {
+  constructor(
+    private readonly hasher: IHasher,
+    private readonly addAccountRepository: IAddAccountRepository,
+  ) {
     this.hasher = hasher;
     this.addAccountRepository = addAccountRepository;
   }
