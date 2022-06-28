@@ -4,7 +4,7 @@ import {
   EmailValidation,
 } from '@presentation/helpers/Validation';
 
-import EmailValidatorAdapter from '@utils/EmailValidatorAdapter';
+import EmailValidatorAdapter from '@main/adapters/validators/EmailValidatorAdapter';
 
 export const makeLoginValidation = (): ValidationComposite => {
   return new ValidationComposite([

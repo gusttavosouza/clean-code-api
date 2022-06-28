@@ -12,6 +12,5 @@ module.exports = {
     '^@infra/(.*)$': '<rootDir>/src/infra/$1',
     '^@main/(.*)$': '<rootDir>/src/main/$1',
     '^@presentation/(.*)$': '<rootDir>/src/presentation/$1',
-    '^@utils/(.*)$': '<rootDir>/src/utils/$1',
   },
 };
