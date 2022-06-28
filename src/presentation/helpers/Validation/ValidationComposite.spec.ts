@@ -1,5 +1,5 @@
-import { IValidation } from '../../interfaces/IValidation';
-import { MissingParamError } from '../../errors';
+import { IValidation } from '@presentation/interfaces/IValidation';
+import { MissingParamError } from '@presentation/errors';
 import { ValidationComposite } from './ValidationComposite';
 
 interface ISutTypes {

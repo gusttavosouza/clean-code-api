@@ -1,5 +1,5 @@
-import { UnauthorizedError } from '../../errors';
-import { IHttpResponse } from '../../interfaces/IHttp';
+import { UnauthorizedError } from '@presentation/errors';
+import { IHttpResponse } from '@presentation/interfaces/IHttp';
 
 const Unauthorized = (): IHttpResponse => {
   return {

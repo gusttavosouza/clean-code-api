@@ -1,16 +1,16 @@
 import {
+  BadRequest,
+  InternalError,
+  Success,
+  Unauthorized,
+} from '@presentation/helpers/http';
+import {
   IValidation,
   IController,
   IHttpRequest,
   IHttpResponse,
   IAuthentication,
 } from './LoginControllerProtocols';
-import {
-  BadRequest,
-  InternalError,
-  Success,
-  Unauthorized,
-} from '../../helpers/http';
 
 export class LoginController implements IController {
   constructor(

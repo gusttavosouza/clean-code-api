@@ -1,5 +1,5 @@
-import { IHttpResponse } from '../../interfaces/IHttp';
-import ServerError from '../../errors/ServerError';
+import { IHttpResponse } from '@presentation/interfaces/IHttp';
+import ServerError from '@presentation/errors/ServerError';
 
 const InternalError = (error: Error): IHttpResponse => {
   return {

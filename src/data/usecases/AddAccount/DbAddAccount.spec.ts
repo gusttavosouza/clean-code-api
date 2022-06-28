@@ -1,10 +1,10 @@
+import DbAddAccount from './DbAddAccount';
 import {
   IAccountModel,
   IAddAccountModel,
   IAddAccountRepository,
   IHasher,
 } from './DbAddAccountProtocols';
-import DbAddAccount from './DbAddAccount';
 
 interface ISutTypes {
   sut: DbAddAccount;

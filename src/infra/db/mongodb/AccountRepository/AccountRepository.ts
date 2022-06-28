@@ -2,9 +2,9 @@ import {
   IUpdateAccessTokenRepository,
   ILoadAccountByEmailRepository,
   IAddAccountRepository,
-} from '../../../../data/interfaces/db/Account';
-import { IAccountModel } from '../../../../domain/models/Account';
-import { IAddAccountModel } from '../../../../domain/usecases/AddAccount';
+} from '@data/interfaces/db/Account';
+import { IAccountModel } from '@domain/models/Account';
+import { IAddAccountModel } from '@domain/usecases/AddAccount';
 
 import { MongoHelper } from '../helpers/MongoHelper';
 

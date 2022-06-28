@@ -1,11 +1,11 @@
-import { ILogErrorRepository } from '../../data/interfaces/db/Log/ILogErrorRepository';
-import { IAccountModel } from '../../domain/models/Account';
-import { Success, InternalError } from '../../presentation/helpers/http';
+import { ILogErrorRepository } from '@data/interfaces/db/Log/ILogErrorRepository';
+import { IAccountModel } from '@domain/models/Account';
+import { Success, InternalError } from '@presentation/helpers/http';
 import {
   IController,
   IHttpRequest,
   IHttpResponse,
-} from '../../presentation/interfaces';
+} from '@presentation/interfaces';
 import { LogControllerDecorator } from './LogControllerDecorator';
 
 interface ISutTypes {

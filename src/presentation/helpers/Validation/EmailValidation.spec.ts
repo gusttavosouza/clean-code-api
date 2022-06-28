@@ -1,6 +1,6 @@
+import { IEmailValidator } from '@presentation/interfaces';
+import { InvalidParamError } from '@presentation/errors';
 import { EmailValidation } from './EmailValidation';
-import { IEmailValidator } from '../../interfaces';
-import { InvalidParamError } from '../../errors';
 
 interface ISutTypes {
   sut: EmailValidation;

@@ -1,13 +1,13 @@
-import { IHttpRequest } from '../../interfaces/IHttp';
+import { BadRequest, InternalError, Success } from '@presentation/helpers/http';
+import { IHttpRequest } from '@presentation/interfaces';
+import { MissingParamError, ServerError } from '@presentation/errors';
 import SignUpController from './SignUpController';
-import { MissingParamError, ServerError } from '../../errors';
 import {
   IAccountModel,
   IAddAccount,
   IAddAccountModel,
   IValidation,
 } from './SignUpProtocols';
-import { BadRequest, InternalError, Success } from '../../helpers/http';
 
 interface ISutTypes {
   sut: SignUpController;

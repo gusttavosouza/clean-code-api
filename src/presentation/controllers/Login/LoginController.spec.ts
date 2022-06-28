@@ -1,17 +1,17 @@
-import { LoginController } from './LoginController';
-import { MissingParamError } from '../../errors';
+import { MissingParamError } from '@presentation/errors';
+import { IAuthenticationModel } from '@domain/usecases/IAuthentication';
 import {
   BadRequest,
   InternalError,
   Success,
   Unauthorized,
-} from '../../helpers/http';
+} from '@presentation/helpers/http';
+import { LoginController } from './LoginController';
 import {
   IHttpRequest,
   IAuthentication,
   IValidation,
 } from './LoginControllerProtocols';
-import { IAuthenticationModel } from '../../../domain/usecases/IAuthentication';
 
 interface ISutTypes {
   sut: LoginController;
@@ -41,11 +41,7 @@ const makeSut = (): ISutTypes => {
   const authenticationStub = makeAuthentication();
   const validationStub = makeValidation();
   const sut = new LoginController(authenticationStub, validationStub);
-  return {
-    sut,
-    authenticationStub,
-    validationStub,
-  };
+  return { sut, authenticationStub, validationStub };
 };
 
 const makeFakeRequest = (): IHttpRequest => ({

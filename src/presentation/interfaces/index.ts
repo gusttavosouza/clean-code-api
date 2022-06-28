@@ -1,3 +1,4 @@
-export { default as IEmailValidator } from './IEmailValidator';
-export { default as IController } from './IController';
+export { IEmailValidator } from './IEmailValidator';
+export { IController } from './IController';
+export { IValidation } from './IValidation';
 export { IHttpRequest, IHttpResponse } from './IHttp';
