@@ -1,5 +1,5 @@
 import { IValidation } from '../../../presentation/interfaces/IValidation';
-import { makeSignUpValidation } from './SignUpValidation';
+import { makeSignUpValidation } from './SignUpValidationFactory';
 import { IEmailValidator } from '../../../presentation/interfaces';
 
 import {

@@ -5,7 +5,7 @@ import SignUpController from '../../../presentation/controllers/SignUp/SignUpCon
 import { AccountMongoRepository } from '../../../infra/db/mongodb/AccountRepository/AccountRepository';
 import { IController } from '../../../presentation/interfaces';
 import { LogControllerDecorator } from '../../decorators/LogControllerDecorator';
-import { makeSignUpValidation } from './SignUpValidation';
+import { makeSignUpValidation } from './SignUpValidationFactory';
 
 export const makeSignUpController = (): IController => {
   const salt = 12;

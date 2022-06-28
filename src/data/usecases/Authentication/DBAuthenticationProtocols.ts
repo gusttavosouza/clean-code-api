@@ -8,4 +8,4 @@ export {
 export {
   ILoadAccountByEmailRepository,
   IUpdateAccessTokenRepository,
-} from '../../interfaces/db';
+} from '../../interfaces/db/Account';

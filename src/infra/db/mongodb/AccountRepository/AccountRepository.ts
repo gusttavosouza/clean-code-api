@@ -1,6 +1,8 @@
-import { IUpdateAccessTokenRepository } from '../../../../data/interfaces/db/IUpdateAccessTokenRepository';
-import { ILoadAccountByEmailRepository } from '../../../../data/interfaces/db/ILoadAccountByEmailRepository';
-import { IAddAccountRepository } from '../../../../data/interfaces/db/IAddAccountRepository';
+import {
+  IUpdateAccessTokenRepository,
+  ILoadAccountByEmailRepository,
+  IAddAccountRepository,
+} from '../../../../data/interfaces/db/Account';
 import { IAccountModel } from '../../../../domain/models/Account';
 import { IAddAccountModel } from '../../../../domain/usecases/AddAccount';
 
