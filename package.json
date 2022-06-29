@@ -31,6 +31,7 @@
     "supertest": "4.0.2",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
+    "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.0.0",
     "typescript": "^4.6.3"
   },
@@ -41,7 +42,7 @@
     "test:integration": "yarn test -- --watch -c jest-integration-config.js",
     "test:staged": "yarn test --findRelatedTests",
     "test:ci": "yarn test --coverage",
-    "start": "sucrase-node src/main/server.ts"
+    "start": "ts-node-dev -r tsconfig-paths/register src/main/server.ts"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
