@@ -4,7 +4,6 @@
     "module": "CommonJS",
     "target": "ES2019",
     "esModuleInterop": true,
-    "allowJs": true,
     "baseUrl": ".",
     "paths": {
       "@data/*": [
@@ -23,5 +22,12 @@
         "./src/presentation/*"
       ],
     }
-  }
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.test.ts",
+  ]
 }
