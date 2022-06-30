@@ -40,7 +40,7 @@
     "build": "rimraf dist && tsc && tsconfig-replace-paths -p tsconfig.json -s ./src -o ./dist",
     "start": "node dist/main/server.js",
     "dev": "ts-node-dev -r tsconfig-paths/register src/main/server.ts",
-    "up": "yarn build && docker compose up",
+    "up": "yarn build && docker compose up -d",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "yarn test -- --watch -c jest-unit-config.js",
