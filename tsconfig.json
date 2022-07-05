@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "dist",
     "module": "CommonJS",
     "target": "ES2019",
     "esModuleInterop": true,
+    "sourceMap": true,
     "baseUrl": ".",
     "paths": {
       "@data/*": [
