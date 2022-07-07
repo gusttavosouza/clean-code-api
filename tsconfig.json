@@ -4,32 +4,29 @@
     "module": "CommonJS",
     "target": "ES2019",
     "esModuleInterop": true,
-    "rootDir": "src",
     "sourceMap": true,
-    "baseUrl": ".",
+    "rootDir": "src",
+    "baseUrl": "src",
     "paths": {
       "@data/*": [
-        "./src/data/*"
+        "data/*"
       ],
       "@domain/*": [
-        "./src/domain/*"
+        "domain/*"
       ],
       "@infra/*": [
-        "./src/infra/*"
+        "infra/*"
       ],
       "@main/*": [
-        "./src/main/*"
+        "main/*"
       ],
       "@presentation/*": [
-        "./src/presentation/*"
+        "presentation/*"
       ],
     }
   },
   "include": [
     "src"
   ],
-  "exclude": [
-    "**/*.spec.ts",
-    "**/*.test.ts",
-  ]
+  "exclude": []
 }

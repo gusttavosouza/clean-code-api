@@ -38,8 +38,9 @@
   },
   "scripts": {
     "start": "node ./dist/main/server.js",
-    "build": "rimraf dist && tsc && tsconfig-replace-paths -p tsconfig.json -s ./src -o ./dist",
-    "debug": "node --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
+    "build:watch": "tsc -w",
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
     "dev": "ts-node-dev -r tsconfig-paths/register src/main/server.ts",
     "up": "yarn build && docker compose up",
     "down": "docker compose down",
@@ -55,10 +56,18 @@
     "express": "4.17.1",
     "husky": "^8.0.1",
     "jsonwebtoken": "^8.5.1",
+    "module-alias": "^2.2.2",
     "mongodb": "3.5.1",
     "validator": "^13.7.0"
   },
   "engines": {
     "node": "16.x"
+  },
+  "_moduleAliases": {
+    "@data": "dist/data",
+    "@domain": "dist/domain",
+    "@infra": "dist/infra",
+    "@main": "dist/main",
+    "@presentation": "dist/presentation"
   }
 }
