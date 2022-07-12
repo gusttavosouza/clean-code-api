@@ -7,12 +7,15 @@ import {
   IAddAccount,
   IAddAccountModel,
   IValidation,
+  IAuthentication,
+  IAuthenticationModel,
 } from './SignUpProtocols';
 
 interface ISutTypes {
   sut: SignUpController;
   addAccountStub: IAddAccount;
   validationStub: IValidation;
+  authenticationStub: IAuthentication;
 }
 
 const makeFakeAccount = (): IAccountModel => ({
@@ -51,15 +54,30 @@ const makeFakeRequest = (): IHttpRequest => ({
   },
 });
 
+const makeAuthentication = (): IAuthentication => {
+  class AuthenticationStub implements IAuthentication {
+    async auth(_: IAuthenticationModel): Promise<string> {
+      return new Promise(resolve => resolve('any_token'));
+    }
+  }
+  return new AuthenticationStub();
+};
+
 const makeSut = (): ISutTypes => {
   const addAccountStub = makeAddAccount();
   const validationStub = makeValidation();
-  const sut = new SignUpController(addAccountStub, validationStub);
+  const authenticationStub = makeAuthentication();
+  const sut = new SignUpController(
+    addAccountStub,
+    validationStub,
+    authenticationStub,
+  );
 
   return {
     sut,
     addAccountStub,
     validationStub,
+    authenticationStub,
   };
 };
 
@@ -119,5 +137,16 @@ describe('SignUp Controller', () => {
     expect(httpResponse).toEqual(
       BadRequest(new MissingParamError('any_field')),
     );
+  });
+
+  test('Should call Authentication with correct values', async () => {
+    const { sut, authenticationStub } = makeSut();
+    const authSpy = jest.spyOn(authenticationStub, 'auth');
+    await sut.handle(makeFakeRequest());
+
+    expect(authSpy).toBeCalledWith({
+      email: 'any_email@mail.com',
+      password: 'any_password',
+    });
   });
 });
