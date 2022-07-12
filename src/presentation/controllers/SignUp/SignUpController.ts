@@ -16,7 +16,7 @@ import {
   IAuthentication,
 } from './SignUpProtocols';
 
-class SignUpController implements IController {
+export class SignUpController implements IController {
   constructor(
     private readonly addAccount: IAddAccount,
     private readonly validation: IValidation,
@@ -52,5 +52,3 @@ class SignUpController implements IController {
     }
   }
 }
-
-export default SignUpController;

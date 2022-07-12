@@ -10,7 +10,7 @@ import {
   ServerError,
   EmailInUseError,
 } from '@presentation/errors';
-import SignUpController from './SignUpController';
+import { SignUpController } from './SignUpController';
 import {
   IAccountModel,
   IAddAccount,
