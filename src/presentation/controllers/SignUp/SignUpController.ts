@@ -27,14 +27,14 @@ class SignUpController implements IController {
       }
 
       const { email, password, name } = httpRequest.body;
-      const account = await this.addAccount.add({
+      await this.addAccount.add({
         name,
         email,
         password,
       });
 
-      await this.authentication.auth({ email, password });
-      return Success(account);
+      const accessToken = await this.authentication.auth({ email, password });
+      return Success({ accessToken });
     } catch (error) {
       return InternalError(error);
     }
