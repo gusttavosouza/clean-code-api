@@ -1,6 +1,15 @@
-import { BadRequest, InternalError, Success } from '@presentation/helpers/http';
+import {
+  BadRequest,
+  InternalError,
+  Success,
+  Forbidden,
+} from '@presentation/helpers/http';
 import { IHttpRequest } from '@presentation/interfaces';
-import { MissingParamError, ServerError } from '@presentation/errors';
+import {
+  MissingParamError,
+  ServerError,
+  EmailInUseError,
+} from '@presentation/errors';
 import SignUpController from './SignUpController';
 import {
   IAccountModel,
@@ -105,6 +114,16 @@ describe('SignUp Controller', () => {
     const httpRequest = makeFakeRequest();
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(InternalError(new ServerError(null)));
+  });
+
+  test('Should return 403 if AddAccount returns null', async () => {
+    const { sut, addAccountStub } = makeSut();
+    jest
+      .spyOn(addAccountStub, 'add')
+      .mockReturnValueOnce(new Promise(resolve => resolve(null)));
+    const httpRequest = makeFakeRequest();
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(Forbidden(new EmailInUseError()));
   });
 
   test('Should return 200 valid data is provided', async () => {
