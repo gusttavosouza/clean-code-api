@@ -1,11 +1,11 @@
-import EmailValidatorAdapter from '@main/adapters/validators/EmailValidatorAdapter';
+import EmailValidatorAdapter from '@infra/validators/EmailValidatorAdapter';
 
 import {
   ValidationComposite,
   RequiredFieldValidation,
   EmailValidation,
   CompareFieldsValidation,
-} from '@presentation/helpers/Validation';
+} from '@validation/Validators';
 
 export const makeSignUpValidation = (): ValidationComposite => {
   return new ValidationComposite([

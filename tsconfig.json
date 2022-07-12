@@ -23,6 +23,9 @@
       "@presentation/*": [
         "presentation/*"
       ],
+      "@validation/*": [
+        "validation/*"
+      ],
     }
   },
   "include": [

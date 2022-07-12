@@ -1,5 +1,5 @@
-import { IEmailValidator } from '@presentation/interfaces';
 import { InvalidParamError } from '@presentation/errors';
+import { IEmailValidator } from 'validation/interfaces/IEmailValidator';
 import { EmailValidation } from './EmailValidation';
 
 interface ISutTypes {
