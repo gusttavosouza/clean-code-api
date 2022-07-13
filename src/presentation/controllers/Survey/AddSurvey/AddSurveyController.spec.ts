@@ -1,5 +1,11 @@
+import { BadRequest } from '@presentation/helpers/http';
 import { IHttpRequest, IValidation } from '@presentation/interfaces';
 import { AddSurveyController } from './AddSurveyController';
+
+interface ISutTypes {
+  sut: AddSurveyController;
+  validationStub: IValidation;
+}
 
 const makeFakeRequest = (): IHttpRequest => ({
   body: {
@@ -23,11 +29,6 @@ const makeFakeValidation = (): IValidation => {
   return new ValidationStub();
 };
 
-interface ISutTypes {
-  sut: AddSurveyController;
-  validationStub: IValidation;
-}
-
 const makeSut = (): ISutTypes => {
   const validationStub = makeFakeValidation();
   const sut = new AddSurveyController(validationStub);
@@ -45,5 +46,12 @@ describe('AddSurvey Controller', () => {
     const httpRequest = makeFakeRequest();
     await sut.handle(httpRequest);
     expect(validateSpy).toHaveBeenCalledWith(httpRequest.body);
+  });
+
+  test('Should return 400 if Validation fails', async () => {
+    const { sut, validationStub } = makeSut();
+    jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new Error());
+    const httpResponse = await sut.handle(makeFakeRequest());
+    expect(httpResponse).toEqual(BadRequest(new Error()));
   });
 });
