@@ -1,4 +1,4 @@
-import { BadRequest } from '@presentation/helpers/http';
+import { BadRequest, InternalError } from '@presentation/helpers/http';
 import {
   IController,
   IHttpRequest,
@@ -17,13 +17,17 @@ export class AddSurveyController implements IController {
   }
 
   public async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
-    const error = this.validation.validate(httpRequest.body);
-    if (error) {
-      return BadRequest(error);
-    }
-    const { question, answers } = httpRequest.body;
-    await this.addSurvey.add({ question, answers });
+    try {
+      const error = this.validation.validate(httpRequest.body);
+      if (error) {
+        return BadRequest(error);
+      }
+      const { question, answers } = httpRequest.body;
+      await this.addSurvey.add({ question, answers });
 
-    return null;
+      return null;
+    } catch (error) {
+      return InternalError(error);
+    }
   }
 }
