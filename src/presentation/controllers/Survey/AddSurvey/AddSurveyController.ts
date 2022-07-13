@@ -1,4 +1,8 @@
-import { BadRequest, InternalError } from '@presentation/helpers/http';
+import {
+  BadRequest,
+  InternalError,
+  NoContent,
+} from '@presentation/helpers/http';
 import {
   IController,
   IHttpRequest,
@@ -25,7 +29,7 @@ export class AddSurveyController implements IController {
       const { question, answers } = httpRequest.body;
       await this.addSurvey.add({ question, answers });
 
-      return null;
+      return NoContent();
     } catch (error) {
       return InternalError(error);
     }
