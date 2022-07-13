@@ -4,11 +4,16 @@ import {
   IHttpRequest,
   IHttpResponse,
   IValidation,
+  IAddSurvey,
 } from './AddSurveyControllerProtocols';
 
 export class AddSurveyController implements IController {
-  constructor(private readonly validation: IValidation) {
+  constructor(
+    private readonly validation: IValidation,
+    private readonly addSurvey: IAddSurvey,
+  ) {
     this.validation = validation;
+    this.addSurvey = addSurvey;
   }
 
   public async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
@@ -16,7 +21,9 @@ export class AddSurveyController implements IController {
     if (error) {
       return BadRequest(error);
     }
+    const { question, answers } = httpRequest.body;
+    await this.addSurvey.add({ question, answers });
 
-    return new Promise(resolve => resolve(null));
+    return null;
   }
 }
