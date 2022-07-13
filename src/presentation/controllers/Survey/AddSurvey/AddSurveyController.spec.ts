@@ -1,4 +1,8 @@
-import { BadRequest, InternalError } from '@presentation/helpers/http';
+import {
+  BadRequest,
+  InternalError,
+  NoContent,
+} from '@presentation/helpers/http';
 import { AddSurveyController } from './AddSurveyController';
 import {
   IHttpRequest,
@@ -89,5 +93,11 @@ describe('AddSurvey Controller', () => {
       );
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(InternalError(new Error()));
+  });
+
+  test('Should return 204 on success', async () => {
+    const { sut } = makeSut();
+    const httpResponse = await sut.handle(makeFakeRequest());
+    expect(httpResponse).toEqual(NoContent());
   });
 });
