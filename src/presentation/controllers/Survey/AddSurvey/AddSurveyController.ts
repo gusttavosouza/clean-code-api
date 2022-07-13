@@ -1,3 +1,4 @@
+import { BadRequest } from '@presentation/helpers/http';
 import {
   IController,
   IHttpRequest,
@@ -11,7 +12,10 @@ export class AddSurveyController implements IController {
   }
 
   public async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
-    this.validation.validate(httpRequest.body);
+    const error = this.validation.validate(httpRequest.body);
+    if (error) {
+      return BadRequest(error);
+    }
 
     return new Promise(resolve => resolve(null));
   }
