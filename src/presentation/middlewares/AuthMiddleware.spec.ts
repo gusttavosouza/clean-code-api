@@ -1,7 +1,7 @@
 import { IAccountModel } from '@domain/models/Account';
 import { ILoadAccountByToken } from '@domain/usecases/ILoadAccountByToken';
 import { AccessDeniedError } from '@presentation/errors';
-import { Forbidden, Success } from '@presentation/helpers/http';
+import { Forbidden, InternalError, Success } from '@presentation/helpers/http';
 import { IHttpRequest } from '@presentation/interfaces';
 import { AuthMiddleware } from './AuthMiddleware';
 
@@ -70,5 +70,14 @@ describe('Auth Middleware', () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(Success({ accountId: 'valid_id' }));
+  });
+
+  it('Should return 500 if LoadAccountByToken throws', async () => {
+    const { sut, loadAccountByTokenStub } = makeSut();
+    jest
+      .spyOn(loadAccountByTokenStub, 'load')
+      .mockReturnValueOnce(new Promise((_, reject) => reject(new Error())));
+    const httpResponse = await sut.handle(makeFakeRequest());
+    expect(httpResponse).toEqual(InternalError(new Error()));
   });
 });
