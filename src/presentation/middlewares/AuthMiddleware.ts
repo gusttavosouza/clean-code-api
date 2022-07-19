@@ -1,3 +1,4 @@
+import { ILoadAccountByToken } from '@domain/usecases/ILoadAccountByToken';
 import { AccessDeniedError } from '@presentation/errors';
 import { Forbidden } from '@presentation/helpers/http';
 import {
@@ -7,7 +8,16 @@ import {
 } from '@presentation/interfaces';
 
 export class AuthMiddleware implements IMiddleware {
+  constructor(private readonly loadAccountByToken: ILoadAccountByToken) {
+    this.loadAccountByToken = loadAccountByToken;
+  }
+
   public async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
-    return new Promise(resolve => resolve(Forbidden(new AccessDeniedError())));
+    const accessToken = httpRequest.headers?.['x-access-token'];
+    if (!accessToken) {
+      return Forbidden(new AccessDeniedError());
+    }
+    this.loadAccountByToken.load(accessToken);
+    return new Promise(resolve => resolve(null));
   }
 }
