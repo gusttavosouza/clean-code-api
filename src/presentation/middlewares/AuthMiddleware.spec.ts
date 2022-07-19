@@ -66,7 +66,7 @@ describe('Auth Middleware', () => {
     expect(loadSpy).toHaveBeenCalledWith('any_token');
   });
 
-  it('Should return 403 if LoadAccountByToken returns null', async () => {
+  it('Should return 200 if LoadAccountByToken returns an account', async () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(Success({ accountId: 'valid_id' }));
