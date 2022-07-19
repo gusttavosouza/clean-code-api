@@ -14,10 +14,9 @@ export class AuthMiddleware implements IMiddleware {
 
   public async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
     const accessToken = httpRequest.headers?.['x-access-token'];
-    if (!accessToken) {
-      return Forbidden(new AccessDeniedError());
+    if (accessToken) {
+      this.loadAccountByToken.load(accessToken);
     }
-    this.loadAccountByToken.load(accessToken);
-    return new Promise(resolve => resolve(null));
+    return Forbidden(new AccessDeniedError());
   }
 }
