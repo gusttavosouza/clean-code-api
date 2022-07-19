@@ -1,24 +1,53 @@
 import { IDecrypter } from '@data/interfaces/cryptography/IDecrypter';
+import { ILoadAccountByTokenRepository } from '@data/interfaces/db/Account/ILoadAccountByTokenRepository';
+import { IAccountModel } from '../AddAccount/DbAddAccountProtocols';
 import { DbLoadAccountByToken } from './DbLoadAccountByToken';
 
 interface ISytTypes {
   decrypterStub: IDecrypter;
   sut: DbLoadAccountByToken;
+  loadAccountTokenRepositoryStub: ILoadAccountByTokenRepository;
 }
+
+const makeFakeAccount = (): IAccountModel => ({
+  id: 'valid_id',
+  name: 'valid_name',
+  email: 'valid_email@mail.com@email.com',
+  password: 'valid_password',
+});
 
 const makeDecrypter = (): IDecrypter => {
   class DecrypterStub implements IDecrypter {
     async decrypt(_: string): Promise<string> {
-      return new Promise(resolve => resolve('any_value'));
+      return new Promise(resolve => resolve('any_token'));
     }
   }
   return new DecrypterStub();
 };
 
+const makeLoadAccountTokenRepository = (): ILoadAccountByTokenRepository => {
+  class LoadAccountTokenRepositoryStub
+    implements ILoadAccountByTokenRepository
+  {
+    async loadByToken(_: string, __?: string): Promise<IAccountModel> {
+      return new Promise(resolve => resolve(makeFakeAccount()));
+    }
+  }
+  return new LoadAccountTokenRepositoryStub();
+};
+
 const makeSut = (): ISytTypes => {
   const decrypterStub = makeDecrypter();
-  const sut = new DbLoadAccountByToken(decrypterStub);
-  return { sut, decrypterStub };
+  const loadAccountTokenRepositoryStub = makeLoadAccountTokenRepository();
+  const sut = new DbLoadAccountByToken(
+    decrypterStub,
+    loadAccountTokenRepositoryStub,
+  );
+  return {
+    sut,
+    decrypterStub,
+    loadAccountTokenRepositoryStub,
+  };
 };
 
 describe('DbLoadAccountByToken Usecase', () => {
@@ -35,6 +64,16 @@ describe('DbLoadAccountByToken Usecase', () => {
       .spyOn(decrypterStub, 'decrypt')
       .mockReturnValueOnce(new Promise(resolve => resolve(null)));
     const account = await sut.load('any_token');
-    expect(account).toBe(null);
+    expect(account).toBeNull();
+  });
+
+  test('Should call LoadAccountTokenRepository with correct values', async () => {
+    const { sut, loadAccountTokenRepositoryStub } = makeSut();
+    const loadByTokenSpy = jest.spyOn(
+      loadAccountTokenRepositoryStub,
+      'loadByToken',
+    );
+    await sut.load('any_token', 'any_role');
+    expect(loadByTokenSpy).toHaveBeenCalledWith('any_token', 'any_role');
   });
 });
