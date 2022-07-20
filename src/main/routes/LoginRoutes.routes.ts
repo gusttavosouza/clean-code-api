@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { AdapterExpressRoute } from '@main/adapters/express/ExpressRouteAdapter';
+import { AdapterExpressRoute } from '@main/adapters/ExpressRouteAdapter';
 import { makeSignUpController } from '@main/factories/controllers/Login/SignUp/SignUpControllerFactory';
 import { makeLoginController } from '@main/factories/controllers/Login/Login/LoginControllerFactory';
 

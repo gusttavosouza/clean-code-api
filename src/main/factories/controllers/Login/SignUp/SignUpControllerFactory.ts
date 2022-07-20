@@ -1,7 +1,7 @@
 import { SignUpController } from '@presentation/controllers/Login/SignUp/SignUpController';
 import { IController } from '@presentation/interfaces';
-import { makeDbAuthentication } from '@main/factories/usecases/authentication/DbAuthenticationFactory';
-import { makeDbAddAccount } from '@main/factories/usecases/addAccount/DbAddAccountFactory';
+import { makeDbAuthentication } from '@main/factories/usecases/account/authentication/DbAuthenticationFactory';
+import { makeDbAddAccount } from '@main/factories/usecases/account/addAccount/DbAddAccountFactory';
 import { makeLogControllerDecoratorFactory } from '@main/factories/decorators/LogControllerDecoratorFactory';
 import { makeSignUpValidation } from './SignUpValidationFactory';
 
