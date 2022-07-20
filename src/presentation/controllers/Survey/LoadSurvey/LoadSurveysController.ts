@@ -1,4 +1,4 @@
-import { InternalError, Success } from '@presentation/helpers/http';
+import { InternalError, NoContent, Success } from '@presentation/helpers/http';
 import {
   IController,
   IHttpRequest,
@@ -14,6 +14,10 @@ export class LoadSurveysController implements IController {
   public async handle(_: IHttpRequest): Promise<IHttpResponse> {
     try {
       const surveys = await this.loadSurveys.load();
+      if (!surveys.length) {
+        return NoContent();
+      }
+
       return Success(surveys);
     } catch (error) {
       return InternalError(error);
