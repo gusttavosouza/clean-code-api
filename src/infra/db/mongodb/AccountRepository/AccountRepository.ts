@@ -3,6 +3,7 @@ import {
   ILoadAccountByEmailRepository,
   IAddAccountRepository,
 } from '@data/interfaces/db/Account';
+import { ILoadAccountByTokenRepository } from '@data/interfaces/db/Account/ILoadAccountByTokenRepository';
 import { IAccountModel } from '@domain/models/Account';
 import { IAddAccountModel } from '@domain/usecases/AddAccount';
 
@@ -12,8 +13,21 @@ export class AccountMongoRepository
   implements
     IAddAccountRepository,
     ILoadAccountByEmailRepository,
-    IUpdateAccessTokenRepository
+    IUpdateAccessTokenRepository,
+    ILoadAccountByTokenRepository
 {
+  public async loadByToken(
+    token: string,
+    role?: string,
+  ): Promise<IAccountModel> {
+    const accountCollection = await MongoHelper.getCollection('accounts');
+    const account = await accountCollection.findOne({
+      accessToken: token,
+      role,
+    });
+    return account && MongoHelper.mapper(account);
+  }
+
   public async add(accountData: IAddAccountModel): Promise<IAccountModel> {
     const accountCollection = await MongoHelper.getCollection('accounts');
     const result = await accountCollection.insertOne(accountData);
