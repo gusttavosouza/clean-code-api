@@ -1,11 +1,16 @@
 import jwt from 'jsonwebtoken';
 import { IEncrypter } from '@data/interfaces/cryptography';
+import { IDecrypter } from '@data/interfaces/cryptography/IDecrypter';
 
-export class JwtAdapter implements IEncrypter {
+export class JwtAdapter implements IEncrypter, IDecrypter {
   private readonly secret: string;
 
   constructor(secret: string) {
     this.secret = secret;
+  }
+
+  public async decrypt(value: string): Promise<string> {
+    throw new Error('Method not implemented.');
   }
 
   public async encrypt(value: string): Promise<string> {
