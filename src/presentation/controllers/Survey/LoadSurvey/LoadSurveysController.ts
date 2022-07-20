@@ -1,3 +1,4 @@
+import { Success } from '@presentation/helpers/http';
 import {
   IController,
   IHttpRequest,
@@ -11,7 +12,7 @@ export class LoadSurveysController implements IController {
   }
 
   public async handle(_: IHttpRequest): Promise<IHttpResponse> {
-    await this.loadSurveys.load();
-    return null;
+    const surveys = await this.loadSurveys.load();
+    return Success(surveys);
   }
 }
