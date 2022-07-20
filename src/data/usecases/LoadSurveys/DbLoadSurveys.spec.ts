@@ -62,14 +62,12 @@ describe('DbLoadSurveys', () => {
     expect(surveys).toEqual(makeFakeSurveys());
   });
 
-  // test('Should return 500 LoadSurveys throws', async () => {
-  //   const { sut, loadSurveysStub } = makeSut();
-  //   jest
-  //     .spyOn(loadSurveysStub, 'load')
-  //     .mockReturnValueOnce(
-  //       new Promise((resolve, reject) => reject(new Error())),
-  //     );
-  //   const httpResponse = await sut.handle({});
-  //   expect(httpResponse).toEqual(InternalError(new Error()));
-  // });
+  test('should throw if Decrypter throws', async () => {
+    const { loadSurveysRepositoryStub, sut } = makeSut();
+    jest
+      .spyOn(loadSurveysRepositoryStub, 'loadAll')
+      .mockReturnValueOnce(new Promise((_, reject) => reject(new Error())));
+    const promise = sut.loadAll();
+    await expect(promise).rejects.toThrow();
+  });
 });
