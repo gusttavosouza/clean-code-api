@@ -1,3 +1,4 @@
+import mockdate from 'mockdate';
 import {
   BadRequest,
   InternalError,
@@ -26,6 +27,7 @@ const makeFakeRequest = (): IHttpRequest => ({
         answer: 'any_answer',
       },
     ],
+    date: new Date(),
   },
 });
 
@@ -61,6 +63,14 @@ const makeSut = (): ISutTypes => {
 };
 
 describe('AddSurvey Controller', () => {
+  beforeAll(() => {
+    mockdate.set(new Date());
+  });
+
+  afterAll(() => {
+    mockdate.reset();
+  });
+
   test('Should call validation with correct values', async () => {
     const { sut, validationStub } = makeSut();
     const validateSpy = jest.spyOn(validationStub, 'validate');
