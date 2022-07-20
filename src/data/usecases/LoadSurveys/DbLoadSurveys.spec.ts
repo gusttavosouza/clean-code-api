@@ -55,4 +55,21 @@ describe('DbLoadSurveys', () => {
     await sut.loadAll();
     expect(loadSpy).toHaveBeenCalled();
   });
+
+  test('Should return a list of Surveys on success', async () => {
+    const { sut } = makeSut();
+    const surveys = await sut.loadAll();
+    expect(surveys).toEqual(makeFakeSurveys());
+  });
+
+  // test('Should return 500 LoadSurveys throws', async () => {
+  //   const { sut, loadSurveysStub } = makeSut();
+  //   jest
+  //     .spyOn(loadSurveysStub, 'load')
+  //     .mockReturnValueOnce(
+  //       new Promise((resolve, reject) => reject(new Error())),
+  //     );
+  //   const httpResponse = await sut.handle({});
+  //   expect(httpResponse).toEqual(InternalError(new Error()));
+  // });
 });
