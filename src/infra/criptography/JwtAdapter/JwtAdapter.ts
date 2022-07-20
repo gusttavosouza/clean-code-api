@@ -10,7 +10,8 @@ export class JwtAdapter implements IEncrypter, IDecrypter {
   }
 
   public async decrypt(value: string): Promise<string> {
-    throw new Error('Method not implemented.');
+    await jwt.verify(value, this.secret);
+    return new Promise(resolve => resolve(null));
   }
 
   public async encrypt(value: string): Promise<string> {
