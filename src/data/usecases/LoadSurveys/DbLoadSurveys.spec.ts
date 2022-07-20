@@ -62,7 +62,7 @@ describe('DbLoadSurveys', () => {
     expect(surveys).toEqual(makeFakeSurveys());
   });
 
-  test('should throw if Decrypter throws', async () => {
+  test('should throw if LoadSurveys throws', async () => {
     const { loadSurveysRepositoryStub, sut } = makeSut();
     jest
       .spyOn(loadSurveysRepositoryStub, 'loadAll')
