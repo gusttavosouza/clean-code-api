@@ -1,4 +1,4 @@
-import { Success } from '@presentation/helpers/http';
+import { InternalError, Success } from '@presentation/helpers/http';
 import mockdate from 'mockdate';
 import { LoadSurveysController } from './LoadSurveysController';
 import { ILoadSurveys, ISurveyModel } from './LoadSurveysControllerProtocols';
@@ -74,5 +74,16 @@ describe('AddSurvey Controller', () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle({});
     expect(httpResponse).toEqual(Success(makeFakeSurveys()));
+  });
+
+  test('Should return 500 LoadSurveys throws', async () => {
+    const { sut, loadSurveysStub } = makeSut();
+    jest
+      .spyOn(loadSurveysStub, 'load')
+      .mockReturnValueOnce(
+        new Promise((resolve, reject) => reject(new Error())),
+      );
+    const httpResponse = await sut.handle({});
+    expect(httpResponse).toEqual(InternalError(new Error()));
   });
 });
