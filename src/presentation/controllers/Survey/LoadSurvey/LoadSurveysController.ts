@@ -13,7 +13,7 @@ export class LoadSurveysController implements IController {
 
   public async handle(_: IHttpRequest): Promise<IHttpResponse> {
     try {
-      const surveys = await this.loadSurveys.load();
+      const surveys = await this.loadSurveys.loadAll();
       if (!surveys.length) {
         return NoContent();
       }
