@@ -61,19 +61,6 @@ describe('Survey Mongo Repository', () => {
           ],
           date: new Date(),
         },
-        {
-          question: 'other_question',
-          answers: [
-            {
-              image: 'other_image',
-              answer: 'other_answer',
-            },
-            {
-              answer: 'other_answer',
-            },
-          ],
-          date: new Date(),
-        },
       ]);
 
       const sut = makeSut();
