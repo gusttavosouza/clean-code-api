@@ -65,7 +65,7 @@ describe('Survey Mongo Repository', () => {
 
       const sut = makeSut();
       const surveys = await sut.loadAll();
-      expect(surveys.length).toBe(2);
+      expect(surveys.length).toBe(1);
       expect(surveys[0].question).toBe('any_question');
     });
 
