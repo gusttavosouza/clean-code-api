@@ -43,7 +43,7 @@
     "build:watch": "tsc -w",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
-    "dev": "ts-node-dev -r tsconfig-paths/register src/main/server.ts",
+    "dev": "yarn build && ts-node-dev -r tsconfig-paths/register src/main/server.ts",
     "up": "yarn build && docker compose up",
     "down": "docker compose down",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
