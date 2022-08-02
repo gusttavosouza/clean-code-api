@@ -1,10 +1,6 @@
-import { SurveyAnswerModel } from '@domain/models/Survey';
+import { ISurveyModel } from '@presentation/controllers/Survey/LoadSurvey/LoadSurveysControllerProtocols';
 
-export type AddSurveyModel = {
-  question: string;
-  answers: SurveyAnswerModel[];
-  date: Date;
-};
+export type AddSurveyModel = Omit<ISurveyModel, 'id'>;
 
 export interface IAddSurvey {
   add(data: AddSurveyModel): Promise<void>;
