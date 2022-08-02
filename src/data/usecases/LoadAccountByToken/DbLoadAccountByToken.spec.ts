@@ -3,11 +3,11 @@ import { ILoadAccountByTokenRepository } from '@data/interfaces/db/Account/ILoad
 import { IAccountModel } from '../AddAccount/DbAddAccountProtocols';
 import { DbLoadAccountByToken } from './DbLoadAccountByToken';
 
-interface ISytTypes {
+type SutTypes = {
   decrypterStub: IDecrypter;
   sut: DbLoadAccountByToken;
   loadAccountTokenRepositoryStub: ILoadAccountByTokenRepository;
-}
+};
 
 const makeFakeAccount = (): IAccountModel => ({
   id: 'valid_id',
@@ -36,7 +36,7 @@ const makeLoadAccountTokenRepository = (): ILoadAccountByTokenRepository => {
   return new LoadAccountTokenRepositoryStub();
 };
 
-const makeSut = (): ISytTypes => {
+const makeSut = (): SutTypes => {
   const decrypterStub = makeDecrypter();
   const loadAccountTokenRepositoryStub = makeLoadAccountTokenRepository();
   const sut = new DbLoadAccountByToken(

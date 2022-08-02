@@ -20,12 +20,12 @@ import {
   IAuthenticationModel,
 } from './SignUpProtocols';
 
-interface ISutTypes {
+type SutTypes = {
   sut: SignUpController;
   addAccountStub: IAddAccount;
   validationStub: IValidation;
   authenticationStub: IAuthentication;
-}
+};
 
 const makeFakeAccount = (): IAccountModel => ({
   id: 'valid_id',
@@ -72,7 +72,7 @@ const makeAuthentication = (): IAuthentication => {
   return new AuthenticationStub();
 };
 
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const addAccountStub = makeAddAccount();
   const validationStub = makeValidation();
   const authenticationStub = makeAuthentication();

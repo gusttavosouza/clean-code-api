@@ -1,7 +1,7 @@
 export { IHashComparer, IEncrypter } from '@data/interfaces/cryptography';
-export { IAccountModel } from '@domain/models/Account';
+export { AccountModel as IAccountModel } from '@domain/models/Account';
 export {
-  IAuthenticationModel,
+  AuthenticationModel as IAuthenticationModel,
   IAuthentication,
 } from '@domain/usecases/IAuthentication';
 

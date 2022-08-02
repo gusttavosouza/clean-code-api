@@ -4,4 +4,4 @@ export {
   IMiddleware,
 } from '@presentation/interfaces';
 export { ILoadAccountByToken } from '@domain/usecases/ILoadAccountByToken';
-export { IAccountModel } from '@domain/models/Account';
+export { AccountModel as IAccountModel } from '@domain/models/Account';

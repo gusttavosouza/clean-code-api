@@ -1,5 +1,5 @@
-import { IAccountModel } from '@domain/models/Account';
+import { AccountModel } from '@domain/models/Account';
 
 export interface ILoadAccountByEmailRepository {
-  loadByEmail(email: string): Promise<IAccountModel>;
+  loadByEmail(email: string): Promise<AccountModel>;
 }

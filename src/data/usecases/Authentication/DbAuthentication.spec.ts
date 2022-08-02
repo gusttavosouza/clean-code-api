@@ -8,13 +8,13 @@ import {
   IEncrypter,
 } from './DBAuthenticationProtocols';
 
-interface ISutTypes {
+type SutTypes = {
   sut: DbAuthentication;
   loadAccountByEmailRepositoryStub: ILoadAccountByEmailRepository;
   hashCompareStub: IHashComparer;
   encrypterStub: IEncrypter;
   updateAccessTokenRepositoryStub: IUpdateAccessTokenRepository;
-}
+};
 
 const makeFakeAccount = (): IAccountModel => ({
   id: 'any_id',
@@ -69,7 +69,7 @@ const makeUpdateAccessTokenRepositoryStub =
     return new UpdateAccessTokenRepositoryStub();
   };
 
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const loadAccountByEmailRepositoryStub = makeLoadAccountByEmailRepository();
   const hashCompareStub = makeHashComparer();
   const encrypterStub = makeEncrypter();
