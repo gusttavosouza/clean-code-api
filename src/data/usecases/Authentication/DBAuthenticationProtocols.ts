@@ -3,7 +3,7 @@ export { AccountModel as IAccountModel } from '@domain/models/Account';
 export {
   AuthenticationModel as IAuthenticationModel,
   IAuthentication,
-} from '@domain/usecases/IAuthentication';
+} from '@domain/usecases/Authentication';
 
 export {
   ILoadAccountByEmailRepository,

@@ -10,6 +10,7 @@ import {
   ServerError,
   EmailInUseError,
 } from '@presentation/errors';
+import { IAuthenticationModel } from '@data/usecases/Authentication/DBAuthenticationProtocols';
 import { SignUpController } from './SignUpController';
 import {
   IAccountModel,
@@ -17,7 +18,6 @@ import {
   IAddAccountModel,
   IValidation,
   IAuthentication,
-  IAuthenticationModel,
 } from './SignUpProtocols';
 
 type SutTypes = {

@@ -3,7 +3,7 @@ import { BcryptAdapter } from '@infra/criptography/BcryptAdapter/BcryptAdapter';
 import { AccountMongoRepository } from '@infra/db/mongodb/AccountRepository/AccountRepository';
 import { JwtAdapter } from '@infra/criptography/JwtAdapter/JwtAdapter';
 import env from '@main/config/env';
-import { IAuthentication } from '@domain/usecases/IAuthentication';
+import { IAuthentication } from '@domain/usecases/Authentication';
 
 export const makeDbAuthentication = (): IAuthentication => {
   const bcryptAdapter = new BcryptAdapter(env.salt);

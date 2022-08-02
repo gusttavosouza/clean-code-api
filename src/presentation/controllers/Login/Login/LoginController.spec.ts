@@ -1,5 +1,5 @@
 import { MissingParamError } from '@presentation/errors';
-import { AuthenticationModel } from '@domain/usecases/IAuthentication';
+import { AuthenticationModel } from '@domain/usecases/Authentication';
 import {
   BadRequest,
   InternalError,

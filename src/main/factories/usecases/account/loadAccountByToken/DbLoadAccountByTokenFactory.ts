@@ -1,4 +1,4 @@
-import { ILoadAccountByToken } from '@domain/usecases/ILoadAccountByToken';
+import { ILoadAccountByToken } from '@domain/usecases/LoadAccountByToken';
 import { JwtAdapter } from '@infra/criptography/JwtAdapter/JwtAdapter';
 import { AccountMongoRepository } from '@infra/db/mongodb/AccountRepository/AccountRepository';
 import env from '@main/config/env';

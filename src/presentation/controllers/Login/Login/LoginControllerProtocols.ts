@@ -4,4 +4,4 @@ export {
   IHttpResponse,
   IValidation,
 } from '@presentation/interfaces';
-export { IAuthentication } from '@domain/usecases/IAuthentication';
+export { IAuthentication } from '@domain/usecases/Authentication';
