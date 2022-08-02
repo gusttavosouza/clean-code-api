@@ -5,4 +5,7 @@ export {
   IValidation,
 } from '@presentation/interfaces';
 export { ILoadSurveys } from '@domain/usecases/LoadSurveys';
-export { ISurveyModel, ISurveyAnswerModel } from '@domain/models/Survey';
+export {
+  SurveyModel as ISurveyModel,
+  SurveyAnswerModel as ISurveyAnswerModel,
+} from '@domain/models/Survey';

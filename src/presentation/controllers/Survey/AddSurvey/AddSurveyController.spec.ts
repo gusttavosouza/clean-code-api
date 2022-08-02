@@ -12,11 +12,11 @@ import {
   IAddSurveyModel,
 } from './AddSurveyControllerProtocols';
 
-interface ISutTypes {
+type SutTypes = {
   sut: AddSurveyController;
   validationStub: IValidation;
   addSurveyStub: IAddSurvey;
-}
+};
 
 const makeFakeRequest = (): IHttpRequest => ({
   body: {
@@ -50,7 +50,7 @@ const makeFakeAddSurveyStub = (): IAddSurvey => {
   return new AddSurveyStub();
 };
 
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const validationStub = makeFakeValidation();
   const addSurveyStub = makeFakeAddSurveyStub();
   const sut = new AddSurveyController(validationStub, addSurveyStub);

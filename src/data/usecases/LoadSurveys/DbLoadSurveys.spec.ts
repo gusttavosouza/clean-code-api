@@ -1,13 +1,13 @@
 import { ILoadSurveysRepository } from '@data/interfaces/db/Survey/ILoadSurveysRepository';
-import { ISurveyModel } from '@domain/models/Survey';
+import { SurveyModel } from '@domain/models/Survey';
 import { DbLoadSurveys } from './DbLoadSurveys';
 
-interface ISutTypes {
+type SutTypes = {
   sut: DbLoadSurveys;
   loadSurveysRepositoryStub: ILoadSurveysRepository;
-}
+};
 
-const makeFakeSurveys = (): ISurveyModel[] => {
+const makeFakeSurveys = (): SurveyModel[] => {
   return [
     {
       id: 'any_id',
@@ -36,14 +36,14 @@ const makeFakeSurveys = (): ISurveyModel[] => {
 
 const makeLoadSurveysRepositoryStub = (): ILoadSurveysRepository => {
   class LoadSurveysRepositoryStub implements ILoadSurveysRepository {
-    public async loadAll(): Promise<ISurveyModel[]> {
+    public async loadAll(): Promise<SurveyModel[]> {
       return new Promise(resolve => resolve(makeFakeSurveys()));
     }
   }
   return new LoadSurveysRepositoryStub();
 };
 
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const loadSurveysRepositoryStub = makeLoadSurveysRepositoryStub();
   const sut = new DbLoadSurveys(loadSurveysRepositoryStub);
   return { sut, loadSurveysRepositoryStub };

@@ -1,5 +1,5 @@
 import { ILogErrorRepository } from '@data/interfaces/db/Log/ILogErrorRepository';
-import { IAccountModel } from '@domain/models/Account';
+import { AccountModel } from '@domain/models/Account';
 import { Success, InternalError } from '@presentation/helpers/http';
 import {
   IController,
@@ -8,13 +8,13 @@ import {
 } from '@presentation/interfaces';
 import { LogControllerDecorator } from './LogControllerDecorator';
 
-interface ISutTypes {
+type SutTypes = {
   sut: LogControllerDecorator;
   controllerStub: IController;
   logErrorRepositoryStub: ILogErrorRepository;
-}
+};
 
-const makeFakeAccount = (): IAccountModel => ({
+const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@email.com',
@@ -54,7 +54,7 @@ const makeFakeError = (): IHttpResponse => {
   return InternalError(fakeError);
 };
 
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const controllerStub = makeController();
   const logErrorRepositoryStub = makeLogErrorRepository();
   const sut = new LogControllerDecorator(

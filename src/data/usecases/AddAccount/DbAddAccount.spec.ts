@@ -7,12 +7,12 @@ import {
   ILoadAccountByEmailRepository,
 } from './DbAddAccountProtocols';
 
-interface ISutTypes {
+type SutTypes = {
   sut: DbAddAccount;
   hasherStub: IHasher;
   addAccountRepositoryStub: IAddAccountRepository;
   loadAccountByEmailRepositoryStub: ILoadAccountByEmailRepository;
-}
+};
 
 const makeHasher = (): IHasher => {
   class HasherStub implements IHasher {
@@ -58,7 +58,7 @@ const makeLoadAccountByEmailRepository = (): ILoadAccountByEmailRepository => {
   return new LoadAccountByEmailRepositoryStub();
 };
 
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const hasherStub = makeHasher();
   const addAccountRepositoryStub = makeAddAccountRepository();
   const loadAccountByEmailRepositoryStub = makeLoadAccountByEmailRepository();

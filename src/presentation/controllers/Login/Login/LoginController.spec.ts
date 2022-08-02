@@ -1,5 +1,5 @@
 import { MissingParamError } from '@presentation/errors';
-import { IAuthenticationModel } from '@domain/usecases/IAuthentication';
+import { AuthenticationModel } from '@domain/usecases/IAuthentication';
 import {
   BadRequest,
   InternalError,
@@ -13,15 +13,15 @@ import {
   IValidation,
 } from './LoginControllerProtocols';
 
-interface ISutTypes {
+type SutTypes = {
   sut: LoginController;
   authenticationStub: IAuthentication;
   validationStub: IValidation;
-}
+};
 
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
-    async auth(_: IAuthenticationModel): Promise<string> {
+    async auth(_: AuthenticationModel): Promise<string> {
       return new Promise(resolve => resolve('any_token'));
     }
   }
@@ -37,7 +37,7 @@ const makeValidation = (): IValidation => {
   }
   return new ValidationStub();
 };
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const authenticationStub = makeAuthentication();
   const validationStub = makeValidation();
   const sut = new LoginController(authenticationStub, validationStub);

@@ -3,10 +3,10 @@ import mockdate from 'mockdate';
 import { LoadSurveysController } from './LoadSurveysController';
 import { ILoadSurveys, ISurveyModel } from './LoadSurveysControllerProtocols';
 
-interface ISutTypes {
+type SutTypes = {
   sut: LoadSurveysController;
   loadSurveysStub: ILoadSurveys;
-}
+};
 
 const makeFakeSurveys = (): ISurveyModel[] => {
   return [
@@ -44,7 +44,7 @@ const makeLoadSurveysStub = (): ILoadSurveys => {
   return new LoadSurveysStub();
 };
 
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const loadSurveysStub = makeLoadSurveysStub();
   const sut = new LoadSurveysController(loadSurveysStub);
 
