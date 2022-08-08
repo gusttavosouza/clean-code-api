@@ -1,5 +1,4 @@
-import { ILoadSurveysRepository } from '@data/interfaces/db/Survey/ILoadSurveysRepository';
-import { SurveyModel } from '@domain/models/Survey';
+import { ILoadSurveysRepository, SurveyModel } from './DbLoadSurveysProtocols';
 import { DbLoadSurveys } from './DbLoadSurveys';
 
 type SutTypes = {

@@ -5,12 +5,12 @@ import {
   Forbidden,
 } from '@presentation/helpers/http';
 import { IHttpRequest } from '@presentation/interfaces';
+import { IAuthenticationModel } from '@data/usecases/Authentication/DBAuthenticationProtocols';
 import {
   MissingParamError,
   ServerError,
   EmailInUseError,
 } from '@presentation/errors';
-import { IAuthenticationModel } from '@data/usecases/Authentication/DBAuthenticationProtocols';
 import { SignUpController } from './SignUpController';
 import {
   IAccountModel,
