@@ -1,6 +1,8 @@
-import { ILoadSurveyByIdRepository } from '@data/interfaces/db/Survey/ILoadSurveyByIdRepository';
 import MockDate from 'mockdate';
-import { SurveyModel } from '../../../domain/models/Survey';
+import {
+  ILoadSurveyByIdRepository,
+  SurveyModel,
+} from './DbLoadSurveyByIdProtocols';
 import { DbLoadSurveyById } from './DbLoadSurveyById';
 
 type SutTypes = {
