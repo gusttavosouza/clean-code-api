@@ -12,7 +12,7 @@ export class DbSaveSurveyResult implements ISaveSurveyResultRepository {
   }
 
   public async save(data: SaveSurveyResultModel): Promise<SurveyResultModel> {
-    await this.saveSurveyResultRepository.save(data);
-    return null;
+    const surveyResultModel = await this.saveSurveyResultRepository.save(data);
+    return surveyResultModel;
   }
 }
