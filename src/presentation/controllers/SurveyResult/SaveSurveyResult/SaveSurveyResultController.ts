@@ -15,11 +15,17 @@ export class SaveSurveyResultController implements IController {
   public async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
     try {
       const { surveyId } = httpRequest.params;
+      const { answer } = httpRequest.body;
       const survey = await this.loadSurveyById.loadById(surveyId);
-      console.log(survey);
       if (!survey) {
         return Forbidden(new InvalidParamError('Survey not found'));
       }
+
+      const answers = survey.answers.map(item => item.answer);
+      if (!answers.includes(answer)) {
+        return Forbidden(new InvalidParamError('answer'));
+      }
+
       return null;
     } catch (error) {
       return InternalError(error);
