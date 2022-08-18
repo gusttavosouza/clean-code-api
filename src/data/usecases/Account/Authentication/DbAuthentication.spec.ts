@@ -3,8 +3,8 @@ import {
   ILoadAccountByEmailRepository,
   IUpdateAccessTokenRepository,
   IHashComparer,
-  IAuthenticationModel,
-  IAccountModel,
+  AuthenticationModel,
+  AccountModel,
   IEncrypter,
 } from './DBAuthenticationProtocols';
 
@@ -16,14 +16,14 @@ type SutTypes = {
   updateAccessTokenRepositoryStub: IUpdateAccessTokenRepository;
 };
 
-const makeFakeAccount = (): IAccountModel => ({
+const makeFakeAccount = (): AccountModel => ({
   id: 'any_id',
   name: 'any_name',
   email: 'any_email',
   password: 'hashed_password',
 });
 
-const makeFakeAuthentication = (): IAuthenticationModel => ({
+const makeFakeAuthentication = (): AuthenticationModel => ({
   email: 'any_email@mail.com',
   password: 'any_password',
 });
@@ -32,7 +32,7 @@ const makeLoadAccountByEmailRepository = (): ILoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub
     implements ILoadAccountByEmailRepository
   {
-    async loadByEmail(_: string): Promise<IAccountModel> {
+    async loadByEmail(_: string): Promise<AccountModel> {
       return new Promise(resolve => resolve(makeFakeAccount()));
     }
   }

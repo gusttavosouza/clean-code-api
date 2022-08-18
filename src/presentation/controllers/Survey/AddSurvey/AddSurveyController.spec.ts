@@ -9,7 +9,7 @@ import {
   IHttpRequest,
   IValidation,
   IAddSurvey,
-  IAddSurveyModel,
+  AddSurveyModel,
 } from './AddSurveyControllerProtocols';
 
 type SutTypes = {
@@ -43,7 +43,7 @@ const makeFakeValidation = (): IValidation => {
 
 const makeFakeAddSurveyStub = (): IAddSurvey => {
   class AddSurveyStub implements IAddSurvey {
-    async add(_: IAddSurveyModel): Promise<void> {
+    async add(_: AddSurveyModel): Promise<void> {
       return new Promise(resolve => resolve());
     }
   }

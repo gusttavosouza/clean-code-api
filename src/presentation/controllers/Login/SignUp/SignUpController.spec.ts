@@ -5,7 +5,7 @@ import {
   Forbidden,
 } from '@presentation/helpers/http';
 import { IHttpRequest } from '@presentation/interfaces';
-import { IAuthenticationModel } from '@data/usecases/Authentication/DBAuthenticationProtocols';
+import { AuthenticationModel } from '@data/usecases/Account/Authentication/DBAuthenticationProtocols';
 import {
   MissingParamError,
   ServerError,
@@ -13,9 +13,9 @@ import {
 } from '@presentation/errors';
 import { SignUpController } from './SignUpController';
 import {
-  IAccountModel,
+  AccountModel,
   IAddAccount,
-  IAddAccountModel,
+  AddAccountModel,
   IValidation,
   IAuthentication,
 } from './SignUpProtocols';
@@ -27,7 +27,7 @@ type SutTypes = {
   authenticationStub: IAuthentication;
 };
 
-const makeFakeAccount = (): IAccountModel => ({
+const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@email.com',
@@ -36,7 +36,7 @@ const makeFakeAccount = (): IAccountModel => ({
 
 const makeAddAccount = (): IAddAccount => {
   class AddAccountStub implements IAddAccount {
-    async add(_: IAddAccountModel): Promise<IAccountModel> {
+    async add(_: AddAccountModel): Promise<AccountModel> {
       const fakeAccount = makeFakeAccount();
 
       return new Promise(resolve => resolve(fakeAccount));
@@ -65,7 +65,7 @@ const makeFakeRequest = (): IHttpRequest => ({
 
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
-    async auth(_: IAuthenticationModel): Promise<string> {
+    async auth(_: AuthenticationModel): Promise<string> {
       return new Promise(resolve => resolve('any_token'));
     }
   }

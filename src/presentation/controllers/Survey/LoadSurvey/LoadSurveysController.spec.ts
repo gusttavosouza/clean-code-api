@@ -1,14 +1,14 @@
 import { InternalError, NoContent, Success } from '@presentation/helpers/http';
 import mockdate from 'mockdate';
 import { LoadSurveysController } from './LoadSurveysController';
-import { ILoadSurveys, ISurveyModel } from './LoadSurveysControllerProtocols';
+import { ILoadSurveys, SurveyModel } from './LoadSurveysControllerProtocols';
 
 type SutTypes = {
   sut: LoadSurveysController;
   loadSurveysStub: ILoadSurveys;
 };
 
-const makeFakeSurveys = (): ISurveyModel[] => {
+const makeFakeSurveys = (): SurveyModel[] => {
   return [
     {
       id: 'any_id',
@@ -37,7 +37,7 @@ const makeFakeSurveys = (): ISurveyModel[] => {
 
 const makeLoadSurveysStub = (): ILoadSurveys => {
   class LoadSurveysStub implements ILoadSurveys {
-    async loadAll(): Promise<ISurveyModel[]> {
+    async loadAll(): Promise<SurveyModel[]> {
       return new Promise(resolve => resolve(makeFakeSurveys()));
     }
   }

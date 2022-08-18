@@ -1,5 +1,5 @@
 export {
   IAddSurvey,
-  AddSurveyModel as IAddSurveyModel,
-} from '@domain/usecases/AddSurvey';
+  AddSurveyModel
+} from '@domain/usecases/Survey/AddSurvey';
 export { IAddSurveyRepository } from '@data/interfaces/db/Survey/IAddSurveyRepository';

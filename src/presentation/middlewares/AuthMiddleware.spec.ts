@@ -4,7 +4,7 @@ import { AuthMiddleware } from './AuthMiddleware';
 import {
   ILoadAccountByToken,
   IHttpRequest,
-  IAccountModel,
+  AccountModel,
 } from './AuthMiddlewareProtocols';
 
 interface ISytTypes {
@@ -18,7 +18,7 @@ const makeFakeRequest = (): IHttpRequest => ({
   },
 });
 
-const makeFakeAccount = (): IAccountModel => ({
+const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@mail.com@email.com',
@@ -27,7 +27,7 @@ const makeFakeAccount = (): IAccountModel => ({
 
 const makeFakeLoadAccountByToken = (): ILoadAccountByToken => {
   class LoadAccountByTokenStub implements ILoadAccountByToken {
-    async load(_: string, __?: string): Promise<IAccountModel> {
+    async load(_: string, __?: string): Promise<AccountModel> {
       const account = makeFakeAccount();
       return new Promise(resolve => resolve(account));
     }

@@ -1,8 +1,8 @@
-import { AddSurveyModel } from '@domain/usecases/AddSurvey';
+import { AddSurveyModel } from '@domain/usecases/Survey/AddSurvey';
 import { IAddSurveyRepository } from '@data/interfaces/db/Survey/IAddSurveyRepository';
 import { ILoadSurveysRepository } from '@data/interfaces/db/Survey/ILoadSurveysRepository';
 import { SurveyModel } from '@domain/models/Survey';
-import { ILoadSurveyByIdRepository } from '@data/usecases/LoadSurveyById/DbLoadSurveyByIdProtocols';
+import { ILoadSurveyByIdRepository } from '@data/usecases/Survey/LoadSurveyById/DbLoadSurveyByIdProtocols';
 import { MongoHelper } from '../helpers/MongoHelper';
 
 export class SurveyMongoRepository

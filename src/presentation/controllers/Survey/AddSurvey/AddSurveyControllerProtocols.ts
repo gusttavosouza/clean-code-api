@@ -6,5 +6,5 @@ export {
 } from '@presentation/interfaces';
 export {
   IAddSurvey,
-  AddSurveyModel as IAddSurveyModel,
-} from '@domain/usecases/AddSurvey';
+  AddSurveyModel
+} from '@domain/usecases/Survey/AddSurvey';

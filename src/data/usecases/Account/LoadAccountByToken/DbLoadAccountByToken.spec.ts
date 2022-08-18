@@ -2,7 +2,7 @@ import { DbLoadAccountByToken } from './DbLoadAccountByToken';
 import {
   IDecrypter,
   ILoadAccountByTokenRepository,
-  IAccountModel,
+  AccountModel,
 } from './DbLoadAccountByTokenProtocols';
 
 type SutTypes = {
@@ -11,7 +11,7 @@ type SutTypes = {
   loadAccountTokenRepositoryStub: ILoadAccountByTokenRepository;
 };
 
-const makeFakeAccount = (): IAccountModel => ({
+const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@mail.com@email.com',
@@ -31,7 +31,7 @@ const makeLoadAccountTokenRepository = (): ILoadAccountByTokenRepository => {
   class LoadAccountTokenRepositoryStub
     implements ILoadAccountByTokenRepository
   {
-    async loadByToken(_: string, __?: string): Promise<IAccountModel> {
+    async loadByToken(_: string, __?: string): Promise<AccountModel> {
       return new Promise(resolve => resolve(makeFakeAccount()));
     }
   }

@@ -1,7 +1,7 @@
 import DbAddAccount from './DbAddAccount';
 import {
-  IAccountModel,
-  IAddAccountModel,
+  AccountModel,
+  AddAccountModel,
   IAddAccountRepository,
   IHasher,
   ILoadAccountByEmailRepository,
@@ -24,14 +24,14 @@ const makeHasher = (): IHasher => {
   return new HasherStub();
 };
 
-const makeFakeAccount = (): IAccountModel => ({
+const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@mail.com@email.com',
   password: 'valid_password',
 });
 
-const makeFakeAccountData = (): IAddAccountModel => ({
+const makeFakeAccountData = (): AddAccountModel => ({
   name: 'valid_name',
   email: 'valid_email@mail.com',
   password: 'valid_password',
@@ -39,7 +39,7 @@ const makeFakeAccountData = (): IAddAccountModel => ({
 
 const makeAddAccountRepository = (): IAddAccountRepository => {
   class AddAccountRepositoryStub implements IAddAccountRepository {
-    add(_: IAddAccountModel): Promise<IAccountModel> {
+    add(_: AddAccountModel): Promise<AccountModel> {
       return new Promise(resolve => resolve(makeFakeAccount()));
     }
   }
@@ -51,7 +51,7 @@ const makeLoadAccountByEmailRepository = (): ILoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub
     implements ILoadAccountByEmailRepository
   {
-    async loadByEmail(_: string): Promise<IAccountModel> {
+    async loadByEmail(_: string): Promise<AccountModel> {
       return new Promise(resolve => resolve(null));
     }
   }
