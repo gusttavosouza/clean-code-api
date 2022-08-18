@@ -24,8 +24,12 @@ export const MongoHelper = {
     return this.client.db().collection(name);
   },
 
-  mapper(collection: any): any {
-    const { _id, ...collectionWithoutId } = collection;
+  mapper(data: any): any {
+    const { _id, ...collectionWithoutId } = data;
     return { ...collectionWithoutId, id: _id };
+  },
+
+  mapperCollection(collection: any[]): any[] {
+    return collection.map(item => MongoHelper.mapper(item));
   },
 };
