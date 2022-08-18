@@ -15,14 +15,14 @@ const makeFakeSurveyResult = (): SurveyResultModel => ({
   id: 'any_id',
   accountId: 'any_account_id',
   surveyId: 'any_survey_id',
-  answers: 'any_answers',
+  answer: 'any_answers',
   date: new Date(),
 });
 
 const makeFakeResultData = (): SaveSurveyResultModel => ({
   accountId: 'any_account_id',
   surveyId: 'any_survey_id',
-  answers: 'any_answers',
+  answer: 'any_answers',
   date: new Date(),
 });
 
