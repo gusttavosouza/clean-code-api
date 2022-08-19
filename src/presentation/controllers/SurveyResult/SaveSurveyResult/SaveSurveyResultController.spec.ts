@@ -1,6 +1,6 @@
 import mockdate from 'mockdate';
 import { InvalidParamError } from '@presentation/errors';
-import { Forbidden, InternalError } from '@presentation/helpers/http';
+import { Forbidden, InternalError, Success } from '@presentation/helpers/http';
 import { SurveyResultModel } from '@domain/models/SurveyResult';
 import {
   SaveSurveyResultModel,
@@ -158,5 +158,11 @@ describe('SaveSurveyResult Controller', () => {
       );
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(InternalError(new Error()));
+  });
+
+  test('Should return 200 on success', async () => {
+    const { sut } = makeSut();
+    const httpResponse = await sut.handle(makeFakeRequest());
+    expect(httpResponse).toEqual(Success(makeFakeSurveyResult()));
   });
 });
