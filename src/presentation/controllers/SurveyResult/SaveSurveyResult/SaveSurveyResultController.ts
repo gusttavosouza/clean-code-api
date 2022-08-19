@@ -5,17 +5,24 @@ import {
   IHttpRequest,
   IHttpResponse,
   ILoadSurveyById,
+  ISaveSurveyResult,
 } from './SaveSurveyResultControllerProtocols';
 
 export class SaveSurveyResultController implements IController {
-  constructor(private readonly loadSurveyById: ILoadSurveyById) {
+  constructor(
+    private readonly loadSurveyById: ILoadSurveyById,
+    private readonly saveSurveyResult: ISaveSurveyResult,
+  ) {
     this.loadSurveyById = loadSurveyById;
+    this.saveSurveyResult = saveSurveyResult;
   }
 
   public async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
     try {
       const { surveyId } = httpRequest.params;
       const { answer } = httpRequest.body;
+      const { accountId } = httpRequest;
+
       const survey = await this.loadSurveyById.loadById(surveyId);
       if (!survey) {
         return Forbidden(new InvalidParamError('Survey not found'));
@@ -25,6 +32,13 @@ export class SaveSurveyResultController implements IController {
       if (!answers.includes(answer)) {
         return Forbidden(new InvalidParamError('answer'));
       }
+
+      await this.saveSurveyResult.save({
+        surveyId,
+        accountId,
+        answer,
+        date: new Date(),
+      });
 
       return null;
     } catch (error) {

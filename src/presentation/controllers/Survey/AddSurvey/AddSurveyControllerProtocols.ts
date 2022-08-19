@@ -4,7 +4,4 @@ export {
   IHttpResponse,
   IValidation,
 } from '@presentation/interfaces';
-export {
-  IAddSurvey,
-  AddSurveyModel
-} from '@domain/usecases/Survey/AddSurvey';
+export { IAddSurvey, AddSurveyModel } from '@domain/usecases/Survey/AddSurvey';

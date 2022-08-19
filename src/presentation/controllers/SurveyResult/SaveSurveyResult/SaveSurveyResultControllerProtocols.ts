@@ -5,3 +5,4 @@ export {
 } from '@presentation/interfaces';
 export { ILoadSurveyById } from '@domain/usecases/Survey/LoadSurveyById';
 export { SurveyModel } from '@domain/models/Survey';
+export { ISaveSurveyResult } from '@domain/usecases/SurveyResult/SaveSurveyResult';
