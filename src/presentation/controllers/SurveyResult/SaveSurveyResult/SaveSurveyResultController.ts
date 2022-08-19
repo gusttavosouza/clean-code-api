@@ -1,5 +1,5 @@
 import { InvalidParamError } from '@presentation/errors';
-import { Forbidden, InternalError } from '@presentation/helpers/http';
+import { Forbidden, InternalError, Success } from '@presentation/helpers/http';
 import {
   IController,
   IHttpRequest,
@@ -33,14 +33,14 @@ export class SaveSurveyResultController implements IController {
         return Forbidden(new InvalidParamError('answer'));
       }
 
-      await this.saveSurveyResult.save({
+      const surveyResult = await this.saveSurveyResult.save({
         surveyId,
         accountId,
         answer,
         date: new Date(),
       });
 
-      return null;
+      return Success(surveyResult);
     } catch (error) {
       return InternalError(error);
     }
