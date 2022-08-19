@@ -1,5 +1,5 @@
 import { IMiddleware } from '@presentation/interfaces';
-import { makeDbLoadAccountByToken } from '@main/factories/usecases/account/loadAccountByToken/DbLoadAccountByTokenFactory';
+import { makeDbLoadAccountByToken } from '@main/factories/usecases/Account/LoadAccountByToken/DbLoadAccountByTokenFactory';
 import { AuthMiddleware } from '@presentation/middlewares/AuthMiddleware';
 
 export const makeAuthMiddleware = (role?: string): IMiddleware => {
