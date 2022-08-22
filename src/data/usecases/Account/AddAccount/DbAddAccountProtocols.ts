@@ -1,7 +1,7 @@
 export { AccountModel } from '@domain/models/Account';
 export {
   IAddAccount,
-  AddAccountModel,
+  AddAccountParams,
 } from '@domain/usecases/Account/AddAccount';
 export { IHasher } from '@data/interfaces/cryptography/IHasher';
 export { IAddAccountRepository } from '@data/interfaces/db/Account';

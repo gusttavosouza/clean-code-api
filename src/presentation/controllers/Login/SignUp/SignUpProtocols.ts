@@ -1,7 +1,7 @@
-export { AccountModel} from '@domain/models/Account';
+export { AccountModel } from '@domain/models/Account';
 export {
   IAddAccount,
-  AddAccountModel
+  AddAccountParams,
 } from '@domain/usecases/Account/AddAccount';
 export { IAuthentication } from '@domain/usecases/Account/Authentication';
 
@@ -11,3 +11,5 @@ export {
   IHttpResponse,
   IValidation,
 } from '@presentation/interfaces';
+
+export { AuthenticationParams } from '@data/usecases/Account/Authentication/DBAuthenticationProtocols';

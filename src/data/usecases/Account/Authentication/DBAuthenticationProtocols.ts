@@ -1,8 +1,8 @@
 export { IHashComparer, IEncrypter } from '@data/interfaces/cryptography';
 export { AccountModel } from '@domain/models/Account';
 export {
-  AuthenticationModel,
-  IAuthentication
+  AuthenticationParams,
+  IAuthentication,
 } from '@domain/usecases/Account/Authentication';
 
 export {

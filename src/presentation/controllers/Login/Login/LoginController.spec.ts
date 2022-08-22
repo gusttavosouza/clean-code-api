@@ -1,5 +1,5 @@
 import { MissingParamError } from '@presentation/errors';
-import { AuthenticationModel } from '@domain/usecases/Account/Authentication';
+import { AuthenticationParams } from '@domain/usecases/Account/Authentication';
 import {
   BadRequest,
   InternalError,
@@ -21,7 +21,7 @@ type SutTypes = {
 
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
-    async auth(_: AuthenticationModel): Promise<string> {
+    async auth(_: AuthenticationParams): Promise<string> {
       return new Promise(resolve => resolve('any_token'));
     }
   }

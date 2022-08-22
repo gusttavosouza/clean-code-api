@@ -3,7 +3,7 @@ import {
   ILoadAccountByEmailRepository,
   IUpdateAccessTokenRepository,
   IHashComparer,
-  AuthenticationModel,
+  AuthenticationParams,
   AccountModel,
   IEncrypter,
 } from './DBAuthenticationProtocols';
@@ -23,7 +23,7 @@ const makeFakeAccount = (): AccountModel => ({
   password: 'hashed_password',
 });
 
-const makeFakeAuthentication = (): AuthenticationModel => ({
+const makeFakeAuthentication = (): AuthenticationParams => ({
   email: 'any_email@mail.com',
   password: 'any_password',
 });

@@ -3,7 +3,7 @@ import {
   IUpdateAccessTokenRepository,
   IHashComparer,
   IEncrypter,
-  AuthenticationModel,
+  AuthenticationParams,
   IAuthentication,
 } from './DBAuthenticationProtocols';
 
@@ -21,7 +21,7 @@ export class DbAuthentication implements IAuthentication {
     this.updateAccessTokenRepository = updateAccessTokenRepository;
   }
 
-  public async auth(authentication: AuthenticationModel): Promise<string> {
+  public async auth(authentication: AuthenticationParams): Promise<string> {
     const account = await this.loadAccountByEmail.loadByEmail(
       authentication.email,
     );
