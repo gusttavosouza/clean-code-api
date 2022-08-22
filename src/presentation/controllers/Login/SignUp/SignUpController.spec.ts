@@ -5,6 +5,7 @@ import {
   Forbidden,
 } from '@presentation/helpers/http';
 import { IHttpRequest } from '@presentation/interfaces';
+import { mockAccountModel, ThrowError } from '@domain/test';
 
 import {
   MissingParamError,
@@ -28,17 +29,10 @@ type SutTypes = {
   authenticationStub: IAuthentication;
 };
 
-const makeFakeAccount = (): AccountModel => ({
-  id: 'valid_id',
-  name: 'valid_name',
-  email: 'valid_email@email.com',
-  password: 'valid_password',
-});
-
 const makeAddAccount = (): IAddAccount => {
   class AddAccountStub implements IAddAccount {
     async add(_: AddAccountParams): Promise<AccountModel> {
-      const fakeAccount = makeFakeAccount();
+      const fakeAccount = mockAccountModel();
 
       return new Promise(resolve => resolve(fakeAccount));
     }
@@ -108,9 +102,7 @@ describe('SignUp Controller', () => {
 
   test('Should return 500 if AddAccount throws', async () => {
     const { sut, addAccountStub } = makeSut();
-    jest.spyOn(addAccountStub, 'add').mockImplementation(() => {
-      return new Promise((_, reject) => reject(new Error()));
-    });
+    jest.spyOn(addAccountStub, 'add').mockImplementation(ThrowError);
 
     const httpRequest = makeFakeRequest();
     const httpResponse = await sut.handle(httpRequest);
@@ -170,9 +162,7 @@ describe('SignUp Controller', () => {
 
   test('Should return 500 if Authentication throws', async () => {
     const { sut, authenticationStub } = makeSut();
-    jest
-      .spyOn(authenticationStub, 'auth')
-      .mockReturnValueOnce(new Promise((_, reject) => reject(new Error())));
+    jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(ThrowError);
 
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(InternalError(new Error()));

@@ -1,3 +1,4 @@
+import { ThrowError } from '@domain/test';
 import { InternalError, NoContent, Success } from '@presentation/helpers/http';
 import mockdate from 'mockdate';
 import { LoadSurveysController } from './LoadSurveysController';
@@ -87,11 +88,7 @@ describe('AddSurvey Controller', () => {
 
   test('Should return 500 LoadSurveys throws', async () => {
     const { sut, loadSurveysStub } = makeSut();
-    jest
-      .spyOn(loadSurveysStub, 'loadAll')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+    jest.spyOn(loadSurveysStub, 'loadAll').mockImplementationOnce(ThrowError);
     const httpResponse = await sut.handle({});
     expect(httpResponse).toEqual(InternalError(new Error()));
   });

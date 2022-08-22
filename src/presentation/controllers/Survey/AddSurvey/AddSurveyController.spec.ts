@@ -4,6 +4,7 @@ import {
   InternalError,
   NoContent,
 } from '@presentation/helpers/http';
+import { ThrowError } from '@domain/test';
 import { AddSurveyController } from './AddSurveyController';
 import {
   IHttpRequest,
@@ -96,11 +97,7 @@ describe('AddSurvey Controller', () => {
 
   test('Should return 500 AddSurvey throws', async () => {
     const { sut, addSurveyStub } = makeSut();
-    jest
-      .spyOn(addSurveyStub, 'add')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+    jest.spyOn(addSurveyStub, 'add').mockImplementationOnce(ThrowError);
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(InternalError(new Error()));
   });

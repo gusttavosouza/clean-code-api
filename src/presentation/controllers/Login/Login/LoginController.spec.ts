@@ -1,5 +1,6 @@
 import { MissingParamError } from '@presentation/errors';
 import { AuthenticationParams } from '@domain/usecases/Account/Authentication';
+import { ThrowError } from '@domain/test';
 import {
   BadRequest,
   InternalError,
@@ -75,9 +76,7 @@ describe('', () => {
 
   test('Should return 500 if Authentication throws', async () => {
     const { sut, authenticationStub } = makeSut();
-    jest
-      .spyOn(authenticationStub, 'auth')
-      .mockReturnValueOnce(new Promise((_, reject) => reject(new Error())));
+    jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(ThrowError);
 
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(InternalError(new Error()));

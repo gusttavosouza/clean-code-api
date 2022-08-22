@@ -1,3 +1,3 @@
-export { ILoadSurveyByIdRepository } from '@data/interfaces/db/Survey/ILoadSurveyByIdRepository';
-export { SurveyModel } from '@domain/models/Survey';
-export { ILoadSurveyById } from '@domain/usecases/Survey/LoadSurveyById';
+export * from '@data/interfaces/db/Survey/ILoadSurveyByIdRepository';
+export * from '@domain/models/Survey';
+export * from '@domain/usecases/Survey/LoadSurveyById';

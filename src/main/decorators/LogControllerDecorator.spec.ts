@@ -1,5 +1,6 @@
 import { ILogErrorRepository } from '@data/interfaces/db/Log/ILogErrorRepository';
-import { AccountModel } from '@domain/models/Account';
+import { mockLogErrorRepository } from '@data/test';
+import { mockAccountModel } from '@domain/test';
 import { Success, InternalError } from '@presentation/helpers/http';
 import {
   IController,
@@ -14,29 +15,13 @@ type SutTypes = {
   logErrorRepositoryStub: ILogErrorRepository;
 };
 
-const makeFakeAccount = (): AccountModel => ({
-  id: 'valid_id',
-  name: 'valid_name',
-  email: 'valid_email@email.com',
-  password: 'valid_password',
-});
-
 const makeController = (): IController => {
   class ControllerStub implements IController {
     async handle(_: IHttpRequest): Promise<IHttpResponse> {
-      return new Promise(resolve => resolve(Success(makeFakeAccount())));
+      return new Promise(resolve => resolve(Success(mockAccountModel())));
     }
   }
   return new ControllerStub();
-};
-
-const makeLogErrorRepository = (): ILogErrorRepository => {
-  class LogErrorRepositoryStub implements ILogErrorRepository {
-    async logError(_: string): Promise<void> {
-      return new Promise(resolve => resolve());
-    }
-  }
-  return new LogErrorRepositoryStub();
 };
 
 const makeFakeRequest = (): IHttpRequest => ({
@@ -56,7 +41,7 @@ const makeFakeError = (): IHttpResponse => {
 
 const makeSut = (): SutTypes => {
   const controllerStub = makeController();
-  const logErrorRepositoryStub = makeLogErrorRepository();
+  const logErrorRepositoryStub = mockLogErrorRepository();
   const sut = new LogControllerDecorator(
     controllerStub,
     logErrorRepositoryStub,
@@ -79,7 +64,7 @@ describe('LogController Decorator', () => {
 
     const httpResponse = await sut.handle(makeFakeRequest());
 
-    expect(httpResponse).toEqual(Success(makeFakeAccount()));
+    expect(httpResponse).toEqual(Success(mockAccountModel()));
   });
 
   test('Should call LogErrorRepository with correct error if controller returns a server error', async () => {

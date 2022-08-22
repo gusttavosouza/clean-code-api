@@ -1,4 +1,6 @@
 import mockdate from 'mockdate';
+import { ThrowError } from '@domain/test';
+import { mockAddSurveyRepositoryStub } from '@data/test';
 import { IAddSurveyRepository, AddSurveyModel } from './DbAddSurveyProtocols';
 import { DbAddSurvey } from './DbAddSurvey';
 
@@ -18,17 +20,8 @@ const makeFakeSurveyData = (): AddSurveyModel => ({
   date: new Date(),
 });
 
-const makeAddSurveyRepositoryStub = (): IAddSurveyRepository => {
-  class AddSurveyRepositoryStub implements IAddSurveyRepository {
-    public async add(_: AddSurveyModel): Promise<void> {
-      return new Promise(resolve => resolve());
-    }
-  }
-  return new AddSurveyRepositoryStub();
-};
-
 const makeSut = (): SutTypes => {
-  const addSurveyRepositoryStub = makeAddSurveyRepositoryStub();
+  const addSurveyRepositoryStub = mockAddSurveyRepositoryStub();
   const sut = new DbAddSurvey(addSurveyRepositoryStub);
   return {
     sut,
@@ -56,7 +49,7 @@ describe('DbAddSurvey UseCase', () => {
     const { sut, addSurveyRepositoryStub } = makeSut();
     jest
       .spyOn(addSurveyRepositoryStub, 'add')
-      .mockReturnValueOnce(new Promise((_, reject) => reject(new Error())));
+      .mockImplementationOnce(ThrowError);
     const promise = sut.add(makeFakeSurveyData());
     await expect(promise).rejects.toThrow();
   });
