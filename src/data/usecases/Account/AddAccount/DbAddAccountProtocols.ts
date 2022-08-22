@@ -1,8 +1,5 @@
-export { AccountModel } from '@domain/models/Account';
-export {
-  IAddAccount,
-  AddAccountParams,
-} from '@domain/usecases/Account/AddAccount';
-export { IHasher } from '@data/interfaces/cryptography/IHasher';
-export { IAddAccountRepository } from '@data/interfaces/db/Account';
-export { ILoadAccountByEmailRepository } from '@data/interfaces/db/Account';
+export * from '@domain/models/Account';
+export * from '@domain/usecases/Account/AddAccount';
+export * from '@data/interfaces/cryptography/IHasher';
+export * from '@data/interfaces/db/Account';
+export * from '@data/interfaces/db/Account';
