@@ -1,6 +1,6 @@
 import { IValidation } from '@presentation/interfaces/IValidation';
 import { MissingParamError } from '@presentation/errors';
-import { mockValidation } from '@validation/tests';
+import { mockValidation } from '@validation/test';
 import { ValidationComposite } from './ValidationComposite';
 
 type SutTypes = {
