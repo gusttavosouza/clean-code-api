@@ -1,5 +1,6 @@
 import { IValidation } from '@presentation/interfaces/IValidation';
 import { MissingParamError } from '@presentation/errors';
+import { mockValidation } from '@validation/tests';
 import { ValidationComposite } from './ValidationComposite';
 
 type SutTypes = {
@@ -7,17 +8,8 @@ type SutTypes = {
   validationStubs: IValidation[];
 };
 
-const makeValidation = (): IValidation => {
-  class ValidationStub implements IValidation {
-    validate(_: any): Error {
-      return null;
-    }
-  }
-  return new ValidationStub();
-};
-
 const makeSut = (): SutTypes => {
-  const validationStubs = [makeValidation(), makeValidation()];
+  const validationStubs = [mockValidation(), mockValidation()];
   const sut = new ValidationComposite(validationStubs);
   return {
     sut,
