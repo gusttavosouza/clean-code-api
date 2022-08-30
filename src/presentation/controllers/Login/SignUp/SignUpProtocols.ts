@@ -11,5 +11,3 @@ export {
   IHttpResponse,
   IValidation,
 } from '@presentation/interfaces';
-
-export { AuthenticationParams } from '@data/usecases/Account/Authentication/DBAuthenticationProtocols';

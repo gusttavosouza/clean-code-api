@@ -1,5 +1,5 @@
-import { IAddSurvey, AddSurveyParams } from '@domain/usecases/Survey/AddSurvey';
-import { IAddSurveyRepository } from './DbAddSurveyProtocols';
+import { AddSurveyParams } from '@domain/usecases/Survey/AddSurvey';
+import { IAddSurveyRepository, IAddSurvey } from './DbAddSurveyProtocols';
 
 export class DbAddSurvey implements IAddSurvey {
   constructor(private readonly addSurveyRepository: IAddSurveyRepository) {

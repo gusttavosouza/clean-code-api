@@ -10,8 +10,7 @@ import {
 } from '@domain/usecases/Account/Authentication';
 
 import { IValidation } from '@presentation/interfaces';
-
-import { ILoadAccountByToken } from '@presentation/middlewares/AuthMiddlewareProtocols';
+import { ILoadAccountByToken } from '@domain/usecases/Account/LoadAccountByToken';
 
 export const mockAddAccount = (): IAddAccount => {
   class AddAccountStub implements IAddAccount {

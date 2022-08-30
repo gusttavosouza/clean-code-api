@@ -1,3 +1,3 @@
-export * from '@data/interfaces/db/SurveyResult/ISaveSurveyResultRepository';
-export * from '@domain/models/SurveyResult';
-export * from '@domain/usecases/SurveyResult/SaveSurveyResult';
+export { ISaveSurveyResultRepository } from '@data/interfaces/db/SurveyResult/ISaveSurveyResultRepository';
+export { SurveyResultModel } from '@domain/models/SurveyResult';
+export { SaveSurveyResultModel } from '@domain/usecases/SurveyResult/SaveSurveyResult';

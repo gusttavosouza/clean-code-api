@@ -1,10 +1,10 @@
 import {
+  IAuthentication,
   ILoadAccountByEmailRepository,
-  IUpdateAccessTokenRepository,
   IHashComparer,
   IEncrypter,
+  IUpdateAccessTokenRepository,
   AuthenticationParams,
-  IAuthentication,
 } from './DBAuthenticationProtocols';
 
 export class DbAuthentication implements IAuthentication {

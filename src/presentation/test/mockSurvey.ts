@@ -1,12 +1,11 @@
-import { IAddSurvey } from '@domain/usecases/Survey/AddSurvey';
-import { AddSurveyModel } from '@presentation/controllers/Survey/AddSurvey/AddSurveyControllerProtocols';
+import { IAddSurvey, AddSurveyParams } from '@domain/usecases/Survey/AddSurvey';
 
 import { SurveyModel } from '@domain/models/Survey';
 import { ILoadSurveys } from '@domain/usecases/Survey/LoadSurveys';
 
 export const mockAddSurvey = (): IAddSurvey => {
   class AddSurveyStub implements IAddSurvey {
-    async add(_: AddSurveyModel): Promise<void> {
+    async add(_: AddSurveyParams): Promise<void> {
       return new Promise(resolve => resolve());
     }
   }

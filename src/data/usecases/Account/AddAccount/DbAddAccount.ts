@@ -1,10 +1,10 @@
 import {
   AccountModel,
   IAddAccount,
-  AddAccountParams,
   IAddAccountRepository,
   IHasher,
   ILoadAccountByEmailRepository,
+  AddAccountParams,
 } from './DbAddAccountProtocols';
 
 export default class DbAddAccount implements IAddAccount {
