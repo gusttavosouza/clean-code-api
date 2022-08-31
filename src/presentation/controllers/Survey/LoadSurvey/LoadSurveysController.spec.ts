@@ -46,7 +46,7 @@ describe('AddSurvey Controller', () => {
     const { sut, loadSurveysStub } = makeSut();
     jest
       .spyOn(loadSurveysStub, 'loadAll')
-      .mockReturnValueOnce(new Promise(resolve => resolve([])));
+      .mockReturnValueOnce(Promise.resolve([]));
     const httpResponse = await sut.handle({});
     expect(httpResponse).toEqual(NoContent());
   });

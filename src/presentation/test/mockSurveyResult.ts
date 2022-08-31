@@ -10,7 +10,7 @@ import {
 export const mockSurveyById = (): ILoadSurveyById => {
   class LoadSurveyByIdStub {
     async loadById(_: string): Promise<SurveyModel> {
-      return new Promise(resolve => resolve(mockSurvey()));
+      return Promise.resolve(mockSurvey());
     }
   }
   return new LoadSurveyByIdStub();
@@ -19,7 +19,7 @@ export const mockSurveyById = (): ILoadSurveyById => {
 export const mockSaveSurveyResult = (): ISaveSurveyResult => {
   class SaveSurveyResultStub implements ISaveSurveyResult {
     async save(_: SaveSurveyResultModel): Promise<SurveyResultModel> {
-      return new Promise(resolve => resolve(mockSurveyResult()));
+      return Promise.resolve(mockSurveyResult());
     }
   }
   return new SaveSurveyResultStub();

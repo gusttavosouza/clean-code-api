@@ -17,7 +17,7 @@ export const mockAddAccount = (): IAddAccount => {
     async add(_: AddAccountParams): Promise<AccountModel> {
       const fakeAccount = mockAccountModel();
 
-      return new Promise(resolve => resolve(fakeAccount));
+      return Promise.resolve(fakeAccount);
     }
   }
   return new AddAccountStub();
@@ -26,7 +26,7 @@ export const mockAddAccount = (): IAddAccount => {
 export const mockAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
     async auth(_: AuthenticationParams): Promise<string> {
-      return new Promise(resolve => resolve('any_token'));
+      return Promise.resolve('any_token');
     }
   }
 
@@ -46,7 +46,7 @@ export const mockLoadAccountByToken = (): ILoadAccountByToken => {
   class LoadAccountByTokenStub implements ILoadAccountByToken {
     async load(_: string, __?: string): Promise<AccountModel> {
       const account = mockAccountModel();
-      return new Promise(resolve => resolve(account));
+      return Promise.resolve(account);
     }
   }
   return new LoadAccountByTokenStub();

@@ -82,7 +82,7 @@ describe('SignUp Controller', () => {
     const { sut, addAccountStub } = makeSut();
     jest
       .spyOn(addAccountStub, 'add')
-      .mockReturnValueOnce(new Promise(resolve => resolve(null)));
+      .mockReturnValueOnce(Promise.resolve(null));
     const httpRequest = mockRequest();
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(Forbidden(new EmailInUseError()));

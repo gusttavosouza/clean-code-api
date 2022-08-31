@@ -18,7 +18,7 @@ type SutTypes = {
 const makeController = (): IController => {
   class ControllerStub implements IController {
     async handle(_: IHttpRequest): Promise<IHttpResponse> {
-      return new Promise(resolve => resolve(Success(mockAccountModel())));
+      return Promise.resolve(Success(mockAccountModel()));
     }
   }
   return new ControllerStub();
@@ -73,7 +73,7 @@ describe('LogController Decorator', () => {
 
     jest
       .spyOn(controllerStub, 'handle')
-      .mockReturnValueOnce(new Promise(resolve => resolve(makeFakeError())));
+      .mockReturnValueOnce(Promise.resolve(makeFakeError()));
 
     await sut.handle(makeFakeRequest());
 

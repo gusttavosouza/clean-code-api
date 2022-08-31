@@ -6,10 +6,10 @@ const salt = 12;
 
 jest.mock('bcrypt', () => ({
   async hash(): Promise<string> {
-    return new Promise(resolve => resolve('hash'));
+    return Promise.resolve('hash');
   },
   async compare(): Promise<boolean> {
-    return new Promise(resolve => resolve(true));
+    return Promise.resolve(true);
   },
 }));
 
@@ -58,7 +58,7 @@ describe('Bcrypt Adapter', () => {
       const sut = makeSut();
       jest
         .spyOn(bcrypt, 'compare')
-        .mockReturnValueOnce(new Promise(resolve => resolve(false)) as any);
+        .mockReturnValueOnce(Promise.resolve(false) as any);
 
       const isValid = await sut.compare('any_value', 'any_hash');
       expect(isValid).toBe(false);

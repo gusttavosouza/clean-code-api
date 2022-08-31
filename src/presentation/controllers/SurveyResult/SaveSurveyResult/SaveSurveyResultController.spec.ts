@@ -62,7 +62,7 @@ describe('SaveSurveyResult Controller', () => {
     const { sut, loadSurveyByIdStub } = makeSut();
     jest
       .spyOn(loadSurveyByIdStub, 'loadById')
-      .mockImplementationOnce(() => new Promise(resolve => resolve(null)));
+      .mockImplementationOnce(() => Promise.resolve(null));
 
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(
