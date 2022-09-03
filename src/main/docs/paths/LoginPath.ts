@@ -22,15 +22,15 @@ export const LoginPaths = {
           },
         },
       },
-    },
-    400: {
-      $ref: '#/components/BadRequest',
-    },
-    401: {
-      $ref: '#/components/Unauthorized',
-    },
-    500: {
-      $ref: '#/components/ServerError',
+      400: {
+        $ref: '#/components/BadRequest',
+      },
+      401: {
+        $ref: '#/components/Unauthorized',
+      },
+      500: {
+        $ref: '#/components/ServerError',
+      },
     },
   },
 };
