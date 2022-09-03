@@ -1,4 +1,4 @@
-export { LoginPaths } from './LoginPath';
-export { SignUpPath } from './SignUpPath';
-export { SurveyPaths } from './SurveyPath';
-export { SurveyResultPath } from './SurveyResultPath';
+export * from './SignUpPath';
+export * from './SurveyResultPath';
+export * from './LoginPath';
+export * from './SurveyPath';

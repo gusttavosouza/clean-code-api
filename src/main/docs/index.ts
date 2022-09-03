@@ -1,4 +1,3 @@
-import { SignUpSchema } from './schemas/SignUpSchema';
 import {
   ErrorSchema,
   LoginSchema,
@@ -10,10 +9,13 @@ import {
   AddSurveySchema,
   SurveyResultSchema,
   SurveyResultSchemaParams,
+  SignUpSchema,
 } from './schemas';
-import { LoginPaths } from './paths/LoginPath';
 import { BadRequest, ServerError, Unauthorized, Forbidden } from './components';
-import { SignUpPath, SurveyPaths, SurveyResultPath } from './paths';
+import { SignUpPath } from './paths/SignUpPath';
+import { SurveyResultPath } from './paths/SurveyResultPath';
+import { LoginPaths } from './paths/LoginPath';
+import { SurveyPaths } from './paths/SurveyPath';
 
 export default {
   openapi: '3.0.0',
@@ -34,9 +36,6 @@ export default {
   tags: [
     {
       name: 'Login',
-    },
-    {
-      name: 'Enquete',
     },
     {
       name: 'Enquete',
