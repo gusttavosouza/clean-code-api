@@ -5,3 +5,4 @@ export { SurveyAnswerSchema } from './SurveyAnswerSchema';
 export { SurveySchema } from './SurveySchema';
 export { SurveysSchema } from './SurveysSchema';
 export { ApiKeyAuthSchema } from './ApiKeyAuthSchema';
+export { SignUpSchema } from './SignUpSchema';
