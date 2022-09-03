@@ -7,3 +7,5 @@ export { SurveysSchema } from './SurveysSchema';
 export { ApiKeyAuthSchema } from './ApiKeyAuthSchema';
 export { SignUpSchema } from './SignUpSchema';
 export { AddSurveySchema } from './AddSurveySchema';
+export { SurveyResultSchema } from './SurveyResultSchema';
+export { SurveyResultSchemaParams } from './SurveyResultSchemaParams';
