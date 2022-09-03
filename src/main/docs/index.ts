@@ -7,6 +7,7 @@ import {
   SurveySchema,
   SurveysSchema,
   ApiKeyAuthSchema,
+  AddSurveySchema,
 } from './schemas';
 import { LoginPaths } from './paths/LoginPath';
 import { BadRequest, ServerError, Unauthorized, Forbidden } from './components';
@@ -49,6 +50,7 @@ export default {
     SurveySchema,
     SurveysSchema,
     SignUpSchema,
+    AddSurveySchema,
   },
   components: {
     securitySchemes: {
