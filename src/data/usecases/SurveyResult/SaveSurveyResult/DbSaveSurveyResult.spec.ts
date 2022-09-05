@@ -1,6 +1,6 @@
 import mockdate from 'mockdate';
 import {
-  mockSaveSurveyResultModel,
+  mockSurveyResultModel,
   mockSaveSurveyResultParams,
   ThrowError,
 } from '@domain/test';
@@ -51,6 +51,6 @@ describe('DbAddSurvey UseCase', () => {
   test('Should return SurveyResult on success', async () => {
     const { sut } = makeSut();
     const survey = await sut.save(mockSaveSurveyResultParams());
-    expect(survey).toEqual(mockSaveSurveyResultModel());
+    expect(survey).toEqual(mockSurveyResultModel());
   });
 });

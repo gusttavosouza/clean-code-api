@@ -17,10 +17,21 @@ export const mockSurvey = (): SurveyModel => {
 };
 
 export const mockSurveyResult = (): SurveyResultModel => ({
-  id: 'any_id',
-  accountId: 'any_account_id',
   surveyId: 'any_survey_id',
-  answer: 'any_answers',
+  question: 'any_question',
+  answers: [
+    {
+      answer: 'any_answer',
+      count: 1,
+      percent: 1,
+    },
+    {
+      answer: 'other_answer',
+      count: 10,
+      percent: 10,
+      image: 'other_image',
+    },
+  ],
   date: new Date(),
 });
 
