@@ -9,6 +9,7 @@ import {
   AddSurveySchema,
   SurveyResultSchema,
   SurveyResultSchemaParams,
+  SurveyResultAnswerSchema,
   SignUpSchema,
 } from './schemas';
 import { BadRequest, ServerError, Unauthorized, Forbidden } from './components';
@@ -58,6 +59,7 @@ export default {
     AddSurveySchema,
     SurveyResultSchema,
     SurveyResultSchemaParams,
+    SurveyResultAnswerSchema,
   },
   components: {
     securitySchemes: {

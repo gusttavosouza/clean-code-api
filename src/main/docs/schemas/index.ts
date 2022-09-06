@@ -9,3 +9,4 @@ export { SignUpSchema } from './SignUpSchema';
 export { AddSurveySchema } from './AddSurveySchema';
 export { SurveyResultSchema } from './SurveyResultSchema';
 export { SurveyResultSchemaParams } from './SurveyResultSchemaParams';
+export { SurveyResultAnswerSchema } from './SurveyResultAnswerSchema';
