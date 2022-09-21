@@ -10,7 +10,7 @@ type ISut = {
   loadSurveyResultRepositoryStub: ILoadSurveyResultRepository;
 };
 
-const makeLoadSurveyResultRepositoryStub = () => {
+const mockLoadSurveyResultRepositoryStub = () => {
   class LoadSurveyResultRepositoryStub implements ILoadSurveyResultRepository {
     public async loadBySurveyId(_: string): Promise<SurveyResultModel> {
       return Promise.resolve(mockSurveyResultModel());
@@ -21,7 +21,7 @@ const makeLoadSurveyResultRepositoryStub = () => {
 };
 
 const makeSut = (): ISut => {
-  const loadSurveyResultRepositoryStub = makeLoadSurveyResultRepositoryStub();
+  const loadSurveyResultRepositoryStub = mockLoadSurveyResultRepositoryStub();
   const sut = new DbLoadSurveyResult(loadSurveyResultRepositoryStub);
   return {
     sut,
