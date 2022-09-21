@@ -1,5 +1,6 @@
+import { ThrowError } from '@domain/test';
 import { InvalidParamError } from '@presentation/errors';
-import { Forbidden } from '@presentation/helpers/http';
+import { Forbidden, InternalError } from '@presentation/helpers/http';
 import { mockSurveyById } from '@presentation/test';
 import { LoadSurveyResultController } from './LoadSurveyResultController';
 import {
@@ -36,12 +37,21 @@ describe('LoadSurveyResult Controller', () => {
     expect(loadSurveyByIdSpy).toHaveBeenCalledWith('any_id');
   });
 
-  test('Should call LoadSurveyResult with correct values', async () => {
+  test('Should return 403 if LoadSurveyById return null', async () => {
     const { sut, loadSurveyByIdStub } = makeSut();
     jest
       .spyOn(loadSurveyByIdStub, 'loadById')
       .mockReturnValueOnce(Promise.resolve(null));
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(Forbidden(new InvalidParamError('surveyId')));
+  });
+
+  test('Should return 500 if LoadSurveyById throws', async () => {
+    const { sut, loadSurveyByIdStub } = makeSut();
+    jest
+      .spyOn(loadSurveyByIdStub, 'loadById')
+      .mockImplementationOnce(ThrowError);
+    const httpResponse = await sut.handle(mockRequest());
+    expect(httpResponse).toEqual(InternalError(new Error()));
   });
 });
