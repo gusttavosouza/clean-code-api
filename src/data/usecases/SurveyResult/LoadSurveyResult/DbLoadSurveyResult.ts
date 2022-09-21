@@ -1,3 +1,4 @@
+import { ILoadSurveyByIdRepository } from '@data/interfaces/db/Survey/ILoadSurveyByIdRepository';
 import {
   ILoadSurveyResult,
   ILoadSurveyResultRepository,
@@ -7,6 +8,7 @@ import {
 export class DbLoadSurveyResult implements ILoadSurveyResult {
   constructor(
     private readonly loadSurveyResultRepository: ILoadSurveyResultRepository,
+    private readonly loadSurveyByIdRepository: ILoadSurveyByIdRepository,
   ) {
     this.loadSurveyResultRepository = loadSurveyResultRepository;
   }
@@ -15,6 +17,10 @@ export class DbLoadSurveyResult implements ILoadSurveyResult {
     const surveyResult = await this.loadSurveyResultRepository.loadBySurveyId(
       surveyId,
     );
+
+    if (!surveyResult) {
+      await this.loadSurveyByIdRepository.loadById(surveyId);
+    }
 
     return surveyResult;
   }
