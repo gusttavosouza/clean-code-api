@@ -106,4 +106,26 @@ describe('Survey Routes', () => {
       await request(app).get('/api/surveys/any_id/results').expect(403);
     });
   });
+
+  test('Should return 200 on load survey result with accessToken', async () => {
+    const res = await surveyCollections.insertOne({
+      question: 'any_question',
+      answers: [
+        {
+          image: 'any_image',
+          answer: 'any_answer',
+        },
+        {
+          answer: 'other_answer',
+        },
+      ],
+      date: new Date(),
+    });
+
+    const accessToken = await makeAccessToken();
+    await request(app)
+      .get(`/api/surveys/${res.ops[0]._id}/results`)
+      .set('x-access-token', accessToken)
+      .expect(200);
+  });
 });
