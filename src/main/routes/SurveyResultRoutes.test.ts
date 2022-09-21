@@ -84,3 +84,26 @@ describe('Survey Routes', () => {
     });
   });
 });
+
+describe('Survey Routes', () => {
+  beforeAll(async () => {
+    await MongoHelper.connect(process.env.MONGO_URL);
+  });
+
+  afterAll(async () => {
+    await MongoHelper.disconnect();
+  });
+
+  beforeEach(async () => {
+    surveyCollections = await MongoHelper.getCollection('surveys');
+    await surveyCollections.deleteMany({});
+    accountCollections = await MongoHelper.getCollection('accounts');
+    await surveyCollections.deleteMany({});
+  });
+
+  describe('GET /surveys/:surveyId/results', () => {
+    test('Should return 403 on load survey result without accessToken', async () => {
+      await request(app).get('/api/surveys/any_id/results').expect(403);
+    });
+  });
+});
