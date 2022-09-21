@@ -1,3 +1,7 @@
-export { ISaveSurveyResultRepository } from '@data/interfaces/db/SurveyResult/ISaveSurveyResultRepository';
+export {
+  ISaveSurveyResult,
+  SaveSurveyResultParams,
+} from '@domain/usecases/SurveyResult/SaveSurveyResult';
 export { SurveyResultModel } from '@domain/models/SurveyResult';
-export { SaveSurveyResultParams as SaveSurveyResultModel } from '@domain/usecases/SurveyResult/SaveSurveyResult';
+export { ILoadSurveyResultRepository } from '@data/interfaces/db/SurveyResult/ILoadSurveyResultRepository';
+export { ISaveSurveyResultRepository } from '@data/interfaces/db/SurveyResult/ISaveSurveyResultRepository';
