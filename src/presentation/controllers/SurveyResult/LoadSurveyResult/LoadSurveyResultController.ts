@@ -1,3 +1,5 @@
+import { InvalidParamError } from '@presentation/errors';
+import { Forbidden } from '@presentation/helpers/http';
 import {
   IController,
   IHttpRequest,
@@ -10,7 +12,11 @@ export class LoadSurveyResultController implements IController {
 
   public async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
     const { surveyId } = httpRequest.params;
-    this.loadSurveyByIdStub.loadById(surveyId);
+    const survey = await this.loadSurveyByIdStub.loadById(surveyId);
+    if (!survey) {
+      return Forbidden(new InvalidParamError('surveyId'));
+    }
+
     return Promise.resolve(null);
   }
 }
