@@ -1,11 +1,12 @@
 import { ThrowError } from '@domain/test';
 import { InvalidParamError } from '@presentation/errors';
 import { Forbidden, InternalError } from '@presentation/helpers/http';
-import { mockSurveyById } from '@presentation/test';
+import { mockLoadSurveyResult, mockSurveyById } from '@presentation/test';
 import { LoadSurveyResultController } from './LoadSurveyResultController';
 import {
   IHttpRequest,
   ILoadSurveyById,
+  ILoadSurveyResult,
 } from './LoadSurveyResultControllerProtocols';
 
 const mockRequest = (): IHttpRequest => ({
@@ -17,15 +18,21 @@ const mockRequest = (): IHttpRequest => ({
 type ISut = {
   sut: LoadSurveyResultController;
   loadSurveyByIdStub: ILoadSurveyById;
+  loadSurveyResultStub: ILoadSurveyResult;
 };
 
 const makeSut = (): ISut => {
   const loadSurveyByIdStub = mockSurveyById();
-  const sut = new LoadSurveyResultController(loadSurveyByIdStub);
+  const loadSurveyResultStub = mockLoadSurveyResult();
+  const sut = new LoadSurveyResultController(
+    loadSurveyByIdStub,
+    loadSurveyResultStub,
+  );
 
   return {
     sut,
     loadSurveyByIdStub,
+    loadSurveyResultStub,
   };
 };
 
@@ -53,5 +60,12 @@ describe('LoadSurveyResult Controller', () => {
       .mockImplementationOnce(ThrowError);
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(InternalError(new Error()));
+  });
+
+  test('Should call LoadSurveyResult with correct values', async () => {
+    const { sut, loadSurveyByIdStub } = makeSut();
+    const loadSurveyByIdSpy = jest.spyOn(loadSurveyByIdStub, 'loadById');
+    await sut.handle(mockRequest());
+    expect(loadSurveyByIdSpy).toHaveBeenCalledWith('any_id');
   });
 });
