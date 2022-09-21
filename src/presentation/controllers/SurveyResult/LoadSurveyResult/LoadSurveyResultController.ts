@@ -24,7 +24,6 @@ export class LoadSurveyResultController implements IController {
 
       const surveyResult = await this.loadSurveyResult.load(surveyId);
       return Success(surveyResult);
-      return null;
     } catch (error) {
       return InternalError(new Error());
     }
