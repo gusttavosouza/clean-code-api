@@ -1,6 +1,6 @@
-import { ThrowError } from '@domain/test';
+import { mockSurveyResultModel, ThrowError } from '@domain/test';
 import { InvalidParamError } from '@presentation/errors';
-import { Forbidden, InternalError } from '@presentation/helpers/http';
+import { Forbidden, InternalError, Success } from '@presentation/helpers/http';
 import { mockLoadSurveyResult, mockSurveyById } from '@presentation/test';
 import { LoadSurveyResultController } from './LoadSurveyResultController';
 import {
@@ -74,5 +74,11 @@ describe('LoadSurveyResult Controller', () => {
     jest.spyOn(loadSurveyResultStub, 'load').mockImplementationOnce(ThrowError);
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(InternalError(new Error()));
+  });
+
+  test('Should return LoadSurvey on success', async () => {
+    const { sut } = makeSut();
+    const httpResponse = await sut.handle(mockRequest());
+    expect(httpResponse).toEqual(Success(mockSurveyResultModel()));
   });
 });

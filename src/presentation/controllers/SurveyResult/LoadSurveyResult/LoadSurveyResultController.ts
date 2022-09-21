@@ -1,5 +1,5 @@
 import { InvalidParamError } from '@presentation/errors';
-import { Forbidden, InternalError } from '@presentation/helpers/http';
+import { Forbidden, InternalError, Success } from '@presentation/helpers/http';
 import {
   IController,
   IHttpRequest,
@@ -22,7 +22,8 @@ export class LoadSurveyResultController implements IController {
         return Forbidden(new InvalidParamError('surveyId'));
       }
 
-      await this.loadSurveyResult.load(surveyId);
+      const surveyResult = await this.loadSurveyResult.load(surveyId);
+      return Success(surveyResult);
       return null;
     } catch (error) {
       return InternalError(new Error());
