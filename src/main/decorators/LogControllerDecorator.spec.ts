@@ -24,7 +24,7 @@ const makeController = (): IController => {
   return new ControllerStub();
 };
 
-const makeFakeRequest = (): IHttpRequest => ({
+const mockRequest = (): IHttpRequest => ({
   body: {
     name: 'any_name',
     email: 'any_email@mail.com',
@@ -33,7 +33,7 @@ const makeFakeRequest = (): IHttpRequest => ({
   },
 });
 
-const makeFakeError = (): IHttpResponse => {
+const mockError = (): IHttpResponse => {
   const fakeError = new Error();
   fakeError.stack = 'any_stack';
   return InternalError(fakeError);
@@ -54,15 +54,15 @@ describe('LogController Decorator', () => {
     const { controllerStub, sut } = makeSut();
     const handleSpy = jest.spyOn(controllerStub, 'handle');
 
-    await sut.handle(makeFakeRequest());
+    await sut.handle(mockRequest());
 
-    expect(handleSpy).toHaveBeenCalledWith(makeFakeRequest());
+    expect(handleSpy).toHaveBeenCalledWith(mockRequest());
   });
 
   test('Should return the same result of the controller', async () => {
     const { sut } = makeSut();
 
-    const httpResponse = await sut.handle(makeFakeRequest());
+    const httpResponse = await sut.handle(mockRequest());
 
     expect(httpResponse).toEqual(Success(mockAccountModel()));
   });
@@ -73,9 +73,9 @@ describe('LogController Decorator', () => {
 
     jest
       .spyOn(controllerStub, 'handle')
-      .mockReturnValueOnce(Promise.resolve(makeFakeError()));
+      .mockReturnValueOnce(Promise.resolve(mockError()));
 
-    await sut.handle(makeFakeRequest());
+    await sut.handle(mockRequest());
 
     expect(logSpy).toHaveBeenCalledWith('any_stack');
   });
