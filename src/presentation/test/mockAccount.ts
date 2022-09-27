@@ -11,6 +11,7 @@ import {
 
 import { IValidation } from '@presentation/interfaces';
 import { ILoadAccountByToken } from '@domain/usecases/Account/LoadAccountByToken';
+import { AuthenticationModel } from '@domain/models/Authentication';
 
 export const mockAddAccount = (): IAddAccount => {
   class AddAccountStub implements IAddAccount {
@@ -25,8 +26,8 @@ export const mockAddAccount = (): IAddAccount => {
 
 export const mockAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
-    async auth(_: AuthenticationParams): Promise<string> {
-      return Promise.resolve('any_token');
+    async auth(_: AuthenticationParams): Promise<AuthenticationModel> {
+      return Promise.resolve({ accessToken: 'any_token', name: 'any_name' });
     }
   }
 

@@ -5,3 +5,4 @@ export {
   AuthenticationParams,
   IAuthentication,
 } from '@domain/usecases/Account/Authentication';
+export { AuthenticationModel } from '@domain/models/Authentication';

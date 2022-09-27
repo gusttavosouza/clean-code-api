@@ -5,6 +5,7 @@ import {
   IEncrypter,
   IUpdateAccessTokenRepository,
   AuthenticationParams,
+  AuthenticationModel,
 } from './DBAuthenticationProtocols';
 
 export class DbAuthentication implements IAuthentication {
@@ -21,7 +22,9 @@ export class DbAuthentication implements IAuthentication {
     this.updateAccessTokenRepository = updateAccessTokenRepository;
   }
 
-  public async auth(authentication: AuthenticationParams): Promise<string> {
+  public async auth(
+    authentication: AuthenticationParams,
+  ): Promise<AuthenticationModel> {
     const account = await this.loadAccountByEmail.loadByEmail(
       authentication.email,
     );
@@ -35,7 +38,7 @@ export class DbAuthentication implements IAuthentication {
       if (isValid) {
         const accessToken = await this.encrypter.encrypt(id);
         this.updateAccessTokenRepository.updateAccessToken(id, accessToken);
-        return accessToken;
+        return { accessToken, name: account.name };
       }
     }
     return null;
