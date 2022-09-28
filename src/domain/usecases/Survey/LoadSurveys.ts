@@ -1,5 +1,5 @@
 import { SurveyModel } from '@domain/models/Survey';
 
 export interface ILoadSurveys {
-  loadAll(): Promise<SurveyModel[]>;
+  load(accountId: string): Promise<SurveyModel[]>;
 }

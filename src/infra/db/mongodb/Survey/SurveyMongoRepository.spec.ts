@@ -1,8 +1,21 @@
-import { Collection } from 'mongodb';
+import { AccountModel } from '@domain/models/Account';
+import { mockAddAccountParams } from '@domain/test';
+import { Collection, ObjectId } from 'mongodb';
 import { MongoHelper } from '../helpers/MongoHelper';
 import { SurveyMongoRepository } from './SurveyMongoRepository';
 
 let surveyCollection: Collection;
+let surveyResultCollection: Collection;
+let accountCollection: Collection;
+
+const mockAccount = async (): Promise<AccountModel> => {
+  const res = await accountCollection.insertOne(mockAddAccountParams());
+  return MongoHelper.mapper(res.ops[0]);
+};
+
+const makeSut = (): SurveyMongoRepository => {
+  return new SurveyMongoRepository();
+};
 
 describe('Survey Mongo Repository', () => {
   beforeAll(async () => {
@@ -16,11 +29,11 @@ describe('Survey Mongo Repository', () => {
   beforeEach(async () => {
     surveyCollection = await MongoHelper.getCollection('surveys');
     await surveyCollection.deleteMany({});
+    surveyResultCollection = await MongoHelper.getCollection('surveyResults');
+    await surveyResultCollection.deleteMany({});
+    accountCollection = await MongoHelper.getCollection('accounts');
+    await accountCollection.deleteMany({});
   });
-
-  const makeSut = (): SurveyMongoRepository => {
-    return new SurveyMongoRepository();
-  };
 
   describe('Add Survey Mongo Repository', () => {
     test('Should add a survey on success', async () => {
@@ -47,7 +60,8 @@ describe('Survey Mongo Repository', () => {
 
   describe('LoadAll Survey Mongo Repository', () => {
     test('Should loadAll a surveys on success', async () => {
-      await surveyCollection.insertMany([
+      const account = await mockAccount();
+      const result = await surveyCollection.insertMany([
         {
           question: 'any_question',
           answers: [
@@ -62,17 +76,28 @@ describe('Survey Mongo Repository', () => {
           date: new Date(),
         },
       ]);
-
+      const survey = await surveyCollection.findOne({
+        _id: result.insertedIds[0],
+      });
+      await surveyResultCollection.insertOne({
+        surveyId: survey._id,
+        accountId: new ObjectId(account.id),
+        answer: survey.answers[0].answer,
+        date: new Date(),
+      });
       const sut = makeSut();
-      const surveys = await sut.loadAll();
+      const surveys = await sut.loadAll(account.id);
+
       expect(surveys.length).toBe(1);
       expect(surveys[0].id).toBeTruthy();
       expect(surveys[0].question).toBe('any_question');
+      expect(surveys[0].isAnswered).toBe(true);
     });
 
     test('Should load empty list', async () => {
       const sut = makeSut();
-      const surveys = await sut.loadAll();
+      const account = await mockAccount();
+      const surveys = await sut.loadAll(account.id);
       expect(surveys.length).toBe(0);
     });
   });

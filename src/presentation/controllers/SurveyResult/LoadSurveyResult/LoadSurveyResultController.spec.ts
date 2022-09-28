@@ -2,6 +2,7 @@ import { mockSurveyResultModel, ThrowError } from '@domain/test';
 import { InvalidParamError } from '@presentation/errors';
 import { Forbidden, InternalError, Success } from '@presentation/helpers/http';
 import { mockLoadSurveyResult, mockSurveyById } from '@presentation/test';
+import MockDate from 'mockdate';
 import { LoadSurveyResultController } from './LoadSurveyResultController';
 import {
   IHttpRequest,
@@ -37,6 +38,14 @@ const makeSut = (): ISut => {
 };
 
 describe('LoadSurveyResult Controller', () => {
+  beforeAll(() => {
+    MockDate.set(new Date());
+  });
+
+  afterAll(() => {
+    MockDate.reset();
+  });
+
   test('Should call LoadSurveyResult with correct values', async () => {
     const { sut, loadSurveyByIdStub } = makeSut();
     const loadSurveyByIdSpy = jest.spyOn(loadSurveyByIdStub, 'loadById');

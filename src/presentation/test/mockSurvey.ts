@@ -41,7 +41,7 @@ const mockSurveys = (): SurveyModel[] => {
 
 export const mockLoadSurveys = (): ILoadSurveys => {
   class LoadSurveysStub implements ILoadSurveys {
-    async loadAll(): Promise<SurveyModel[]> {
+    async load(_: string): Promise<SurveyModel[]> {
       return Promise.resolve(mockSurveys());
     }
   }
