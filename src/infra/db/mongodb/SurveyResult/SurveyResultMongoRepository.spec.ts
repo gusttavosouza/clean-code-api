@@ -112,7 +112,7 @@ describe('save()', () => {
   });
 
   describe('loadBySurveyId()', () => {
-    test('Should add a survey result if its not new', async () => {
+    test('Should add a survey result if its not new 1', async () => {
       const sut = makeSut();
       const survey = await makeSurvey();
       const account = await makeAccount();
@@ -143,10 +143,9 @@ describe('save()', () => {
         },
       ]);
 
-      const surveyResult = await sut.loadBySurveyId(survey.id);
-
+      const surveyResult = await sut.loadBySurveyId(survey.id, account.id);
       expect(surveyResult).toBeTruthy();
-      expect(surveyResult.surveyId).toEqual(survey.id);
+      expect(surveyResult.surveyId).toBe(survey.id.toString());
       expect(surveyResult.answers[0].count).toBe(2);
       expect(surveyResult.answers[0].percent).toBe(50);
       expect(surveyResult.answers[1].count).toBe(2);
@@ -158,7 +157,8 @@ describe('save()', () => {
     test('Should return null if there is no survey result', async () => {
       const sut = makeSut();
       const survey = await makeSurvey();
-      const surveyResult = await sut.loadBySurveyId(survey.id);
+      const account = await makeAccount();
+      const surveyResult = await sut.loadBySurveyId(survey.id, account.id);
       expect(surveyResult).toBeNull();
     });
   });

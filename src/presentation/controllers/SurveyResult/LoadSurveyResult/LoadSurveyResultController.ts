@@ -22,7 +22,10 @@ export class LoadSurveyResultController implements IController {
         return Forbidden(new InvalidParamError('surveyId'));
       }
 
-      const surveyResult = await this.loadSurveyResult.load(surveyId);
+      const surveyResult = await this.loadSurveyResult.load(
+        surveyId,
+        httpRequest.accountId,
+      );
       return Success(surveyResult);
     } catch (error) {
       return InternalError(new Error());

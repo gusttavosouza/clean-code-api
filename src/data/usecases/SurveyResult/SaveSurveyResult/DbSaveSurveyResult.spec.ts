@@ -68,7 +68,10 @@ describe('DbAddSurvey UseCase', () => {
     );
     const surveyResultData = mockSaveSurveyResultParams();
     await sut.save(surveyResultData);
-    expect(loadBySurveyId).toHaveBeenCalledWith(surveyResultData.surveyId);
+    expect(loadBySurveyId).toHaveBeenCalledWith(
+      surveyResultData.surveyId,
+      surveyResultData.accountId,
+    );
   });
 
   test('should throw if LoadSurveyResultRepository throws', async () => {

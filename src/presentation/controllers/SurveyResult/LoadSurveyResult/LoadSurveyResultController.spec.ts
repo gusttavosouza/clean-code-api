@@ -11,8 +11,9 @@ import {
 } from './LoadSurveyResultControllerProtocols';
 
 const mockRequest = (): IHttpRequest => ({
+  accountId: 'any_account_id',
   params: {
-    surveyId: 'any_id',
+    surveyId: 'any_survey_id',
   },
 });
 
@@ -46,11 +47,11 @@ describe('LoadSurveyResult Controller', () => {
     MockDate.reset();
   });
 
-  test('Should call LoadSurveyResult with correct values', async () => {
+  test('Should call LoadSurveyById with correct values', async () => {
     const { sut, loadSurveyByIdStub } = makeSut();
     const loadSurveyByIdSpy = jest.spyOn(loadSurveyByIdStub, 'loadById');
     await sut.handle(mockRequest());
-    expect(loadSurveyByIdSpy).toHaveBeenCalledWith('any_id');
+    expect(loadSurveyByIdSpy).toHaveBeenCalledWith('any_survey_id');
   });
 
   test('Should return 403 if LoadSurveyById return null', async () => {
@@ -72,10 +73,13 @@ describe('LoadSurveyResult Controller', () => {
   });
 
   test('Should call LoadSurveyResult with correct values', async () => {
-    const { sut, loadSurveyByIdStub } = makeSut();
-    const loadSurveyByIdSpy = jest.spyOn(loadSurveyByIdStub, 'loadById');
+    const { sut, loadSurveyResultStub } = makeSut();
+    const loadSurveyByIdSpy = jest.spyOn(loadSurveyResultStub, 'load');
     await sut.handle(mockRequest());
-    expect(loadSurveyByIdSpy).toHaveBeenCalledWith('any_id');
+    expect(loadSurveyByIdSpy).toHaveBeenCalledWith(
+      'any_survey_id',
+      'any_account_id',
+    );
   });
 
   test('Should return 500 if LoadSurveyResult throws', async () => {
