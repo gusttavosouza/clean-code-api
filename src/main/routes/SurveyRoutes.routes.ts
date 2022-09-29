@@ -1,7 +1,6 @@
 import { Router } from 'express';
-import { AdapterExpressRoute } from '@main/adapters/ExpressRouteAdapter';
-import { adminAuth } from '@main/middlewares/AdminAuth';
-import { auth } from '@main/middlewares/Auth';
+import { AdapterExpressRoute } from '@main/adapters';
+import { adminAuth, auth } from '@main/middlewares';
 import {
   makeLoadSurveysController,
   makeAddSurveyController,

@@ -1,4 +1,4 @@
-import { SignUpController } from '@presentation/controllers/Login/SignUp/SignUpController';
+import { SignUpController } from '@presentation/controllers';
 import { IController } from '@presentation/interfaces';
 import {
   makeDbAuthentication,

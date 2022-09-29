@@ -3,8 +3,8 @@ import {
   ILoadSurveyResultRepository,
   ISaveSurveyResultRepository,
 } from '@data/interfaces/db';
-import { SurveyResultModel } from '@domain/models/SurveyResult';
-import { SaveSurveyResultParams } from '@domain/usecases/SaveSurveyResult';
+import { SurveyResultModel } from '@domain/models';
+import { SaveSurveyResultParams } from '@domain/usecases';
 import round from 'mongo-round';
 import { MongoHelper, QueryBuilder } from './helpers';
 

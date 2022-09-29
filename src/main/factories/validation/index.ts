@@ -1,3 +1,3 @@
-export { makeAddSurveyValidation } from './AddSurveyValidationFactory';
-export { makeLoginValidation } from './LoginValidationFactory';
-export { makeSignUpValidation } from './SignUpValidationFactory';
+export * from './AddSurveyValidationFactory';
+export * from './LoginValidationFactory';
+export * from './SignUpValidationFactory';

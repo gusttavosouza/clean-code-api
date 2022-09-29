@@ -1,1 +1,1 @@
-export { EmailValidatorAdapter } from './EmailValidatorAdapter';
+export * from './EmailValidatorAdapter';

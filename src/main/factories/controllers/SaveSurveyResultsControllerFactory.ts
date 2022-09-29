@@ -1,5 +1,5 @@
 import { IController } from '@presentation/interfaces';
-import { SaveSurveyResultController } from '@presentation/controllers/SurveyResult/SaveSurveyResult/SaveSurveyResultController';
+import { SaveSurveyResultController } from '@presentation/controllers';
 import { makeLogControllerDecoratorFactory } from '@main/factories/decorators';
 import {
   makeDbSaveSurveyResults,

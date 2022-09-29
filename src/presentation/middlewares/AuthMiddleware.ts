@@ -1,12 +1,11 @@
+import { ILoadAccountByToken } from '@domain/usecases';
 import { AccessDeniedError } from '@presentation/errors';
 import { Forbidden, Success, InternalError } from '@presentation/helpers/http';
-
 import {
   IHttpRequest,
   IHttpResponse,
   IMiddleware,
-  ILoadAccountByToken,
-} from './AuthMiddlewareProtocols';
+} from '@presentation/interfaces';
 
 export class AuthMiddleware implements IMiddleware {
   constructor(

@@ -1,2 +1,2 @@
-export { BcryptAdapter } from './BcryptAdapter';
-export { JwtAdapter } from './JwtAdapter';
+export * from './BcryptAdapter';
+export * from './JwtAdapter';

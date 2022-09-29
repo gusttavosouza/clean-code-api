@@ -1,8 +1,8 @@
-export { DbAddAccount } from './DbAddAccount';
-export { DbAuthentication } from './DbAuthentication';
-export { DbLoadAccountByToken } from './DbLoadAccountByToken';
-export { DbAddSurvey } from './DbAddSurvey';
-export { DbLoadSurveyById } from './DbLoadSurveyById';
-export { DbLoadSurveys } from './DbLoadSurveys';
-export { DbLoadSurveyResult } from './DbLoadSurveyResult';
-export { DbSaveSurveyResult } from './DbSaveSurveyResult';
+export * from './DbAddAccount';
+export * from './DbAuthentication';
+export * from './DbLoadAccountByToken';
+export * from './DbAddSurvey';
+export * from './DbLoadSurveyById';
+export * from './DbLoadSurveys';
+export * from './DbLoadSurveyResult';
+export * from './DbSaveSurveyResult';

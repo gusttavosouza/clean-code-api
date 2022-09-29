@@ -1,6 +1,6 @@
 import { IController } from '@presentation/interfaces';
-import { makeLogControllerDecoratorFactory } from '@main/factories/decorators/LogControllerDecoratorFactory';
-import { LoadSurveyResultController } from '@presentation/controllers/SurveyResult/LoadSurveyResult/LoadSurveyResultController';
+import { makeLogControllerDecoratorFactory } from '@main/factories/decorators';
+import { LoadSurveyResultController } from '@presentation/controllers';
 import {
   makeDbLoadSurveyById,
   makeDbLoadSurveyResult,

@@ -4,8 +4,8 @@ import {
   IAddAccountRepository,
   ILoadAccountByTokenRepository,
 } from '@data/interfaces/db';
-import { AccountModel } from '@domain/models/Account';
-import { AddAccountParams } from '@domain/usecases/AddAccount';
+import { AccountModel } from '@domain/models';
+import { AddAccountParams } from '@domain/usecases';
 
 import { MongoHelper } from './helpers';
 

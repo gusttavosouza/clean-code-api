@@ -1,1 +1,1 @@
-export { LogControllerDecorator } from './LogControllerDecorator';
+export * from './LogControllerDecorator';

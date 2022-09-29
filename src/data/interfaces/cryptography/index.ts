@@ -1,4 +1,4 @@
-export { IHasher } from './IHasher';
-export { IHashComparer } from './IHashComparer';
-export { IEncrypter } from './IEncrypter';
-export { IDecrypter } from './IDecrypter';
+export * from './IHasher';
+export * from './IHashComparer';
+export * from './IEncrypter';
+export * from './IDecrypter';

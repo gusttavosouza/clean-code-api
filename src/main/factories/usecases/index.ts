@@ -1,8 +1,8 @@
-export { makeDbAddAccount } from './DbAddAccountFactory';
-export { makeDbAddSurvey } from './DbAddSurveyFactory';
-export { makeDbAuthentication } from './DbAuthenticationFactory';
-export { makeDbLoadAccountByToken } from './DbLoadAccountByTokenFactory';
-export { makeDbLoadSurveyById } from './DbLoadSurveyByIdFactory';
-export { makeDbLoadSurveyResult } from './DbLoadSurveyResultFactory';
-export { makeDbLoadSurveys } from './DbLoadSurveysFactory';
-export { makeDbSaveSurveyResults } from './DbSurveyResultFactory';
+export * from './DbAddAccountFactory';
+export * from './DbAddSurveyFactory';
+export * from './DbAuthenticationFactory';
+export * from './DbLoadAccountByTokenFactory';
+export * from './DbLoadSurveyByIdFactory';
+export * from './DbLoadSurveyResultFactory';
+export * from './DbLoadSurveysFactory';
+export * from './DbSurveyResultFactory';

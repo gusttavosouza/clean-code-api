@@ -1,9 +1,7 @@
 import { IDecrypter } from '@data/interfaces/cryptography';
 import { ILoadAccountByTokenRepository } from '@data/interfaces/db';
-import {
-  AccountModel,
-  ILoadAccountByToken,
-} from '@presentation/middlewares/AuthMiddlewareProtocols';
+import { AccountModel } from '@domain/models';
+import { ILoadAccountByToken } from '@domain/usecases';
 
 export class DbLoadAccountByToken implements ILoadAccountByToken {
   constructor(

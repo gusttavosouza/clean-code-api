@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
-import { AddSurveyParams } from '@domain/usecases/AddSurvey';
-import { SurveyModel } from '@domain/models/Survey';
+import { AddSurveyParams } from '@domain/usecases';
+import { SurveyModel } from '@domain/models';
 import {
   IAddSurveyRepository,
   ILoadSurveysRepository,

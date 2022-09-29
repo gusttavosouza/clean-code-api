@@ -1,4 +1,4 @@
-export { IController } from './IController';
-export { IMiddleware } from './IMiddleware';
-export { IValidation } from './IValidation';
-export { IHttpRequest, IHttpResponse } from './IHttp';
+export * from './IController';
+export * from './IMiddleware';
+export * from './IValidation';
+export * from './IHttp';

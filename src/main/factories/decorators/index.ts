@@ -1,1 +1,1 @@
-export { makeLogControllerDecoratorFactory } from './LogControllerDecoratorFactory';
+export * from './LogControllerDecoratorFactory';

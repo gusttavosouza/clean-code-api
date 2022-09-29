@@ -1,1 +1,1 @@
-export { IEmailValidator } from './IEmailValidator';
+export * from './IEmailValidator';
