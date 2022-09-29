@@ -4,10 +4,7 @@ import {
   ILoadAccountByEmailRepository,
 } from '@data/interfaces/db';
 import { AccountModel } from '@domain/models/Account';
-import {
-  AddAccountParams,
-  IAddAccount,
-} from '@domain/usecases/Account/AddAccount';
+import { AddAccountParams, IAddAccount } from '@domain/usecases/AddAccount';
 
 export class DbAddAccount implements IAddAccount {
   constructor(

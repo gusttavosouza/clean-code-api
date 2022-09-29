@@ -5,7 +5,7 @@ import {
   ILoadAccountByTokenRepository,
 } from '@data/interfaces/db';
 import { AccountModel } from '@domain/models/Account';
-import { AddAccountParams } from '@domain/usecases/Account/AddAccount';
+import { AddAccountParams } from '@domain/usecases/AddAccount';
 
 import { MongoHelper } from './helpers';
 

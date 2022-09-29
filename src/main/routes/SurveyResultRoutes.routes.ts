@@ -1,8 +1,10 @@
 import { Router } from 'express';
 import { AdapterExpressRoute } from '@main/adapters/ExpressRouteAdapter';
 import { auth } from '@main/middlewares/Auth';
-import { makeSaveSurveyResultsController } from '@main/factories/controllers/SurveyResults/SaveSurveyResults/SaveSurveyResultsControllerFactory';
-import { makeLoadSurveyResultsController } from '@main/factories/controllers/SurveyResults/LoadSurveyResults/LoadSurveyResultsControllerFactory';
+import {
+  makeSaveSurveyResultsController,
+  makeLoadSurveyResultsController,
+} from '@main/factories/controllers';
 
 export default (router: Router): void => {
   router.put(

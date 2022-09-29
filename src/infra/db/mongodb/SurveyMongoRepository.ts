@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { AddSurveyParams } from '@domain/usecases/Survey/AddSurvey';
+import { AddSurveyParams } from '@domain/usecases/AddSurvey';
 import { SurveyModel } from '@domain/models/Survey';
 import {
   IAddSurveyRepository,

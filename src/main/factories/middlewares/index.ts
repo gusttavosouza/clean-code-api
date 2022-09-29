@@ -1,0 +1,1 @@
+export { makeAuthMiddleware } from './AuthMiddleware';

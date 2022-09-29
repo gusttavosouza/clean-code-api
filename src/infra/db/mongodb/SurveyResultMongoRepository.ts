@@ -4,7 +4,7 @@ import {
   ISaveSurveyResultRepository,
 } from '@data/interfaces/db';
 import { SurveyResultModel } from '@domain/models/SurveyResult';
-import { SaveSurveyResultParams } from '@domain/usecases/SurveyResult/SaveSurveyResult';
+import { SaveSurveyResultParams } from '@domain/usecases/SaveSurveyResult';
 import round from 'mongo-round';
 import { MongoHelper, QueryBuilder } from './helpers';
 

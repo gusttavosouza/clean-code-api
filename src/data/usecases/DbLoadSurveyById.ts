@@ -1,6 +1,6 @@
 import { ILoadSurveyByIdRepository } from '@data/interfaces/db';
 import { SurveyModel } from '@domain/models/Survey';
-import { ILoadSurveyById } from '@domain/usecases/Survey/LoadSurveyById';
+import { ILoadSurveyById } from '@domain/usecases/LoadSurveyById';
 
 export class DbLoadSurveyById implements ILoadSurveyById {
   constructor(

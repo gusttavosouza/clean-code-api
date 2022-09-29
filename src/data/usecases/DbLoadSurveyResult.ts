@@ -3,7 +3,7 @@ import {
   ILoadSurveyResultRepository,
 } from '@data/interfaces/db';
 import { SurveyResultModel } from '@domain/models/SurveyResult';
-import { ILoadSurveyResult } from '@domain/usecases/SurveyResult/LoadSurveyResult';
+import { ILoadSurveyResult } from '@domain/usecases/LoadSurveyResult';
 
 export class DbLoadSurveyResult implements ILoadSurveyResult {
   constructor(

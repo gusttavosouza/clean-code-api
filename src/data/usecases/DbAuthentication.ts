@@ -7,7 +7,7 @@ import { AuthenticationModel } from '@domain/models/Authentication';
 import {
   AuthenticationParams,
   IAuthentication,
-} from '@domain/usecases/Account/Authentication';
+} from '@domain/usecases/Authentication';
 
 export class DbAuthentication implements IAuthentication {
   constructor(

@@ -1,0 +1,1 @@
+export { makeLogControllerDecoratorFactory } from './LogControllerDecoratorFactory';

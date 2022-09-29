@@ -4,5 +4,5 @@ export {
   IHttpResponse,
 } from '@presentation/interfaces';
 
-export { ILoadSurveyById } from '@domain/usecases/Survey/LoadSurveyById';
-export { ILoadSurveyResult } from '@domain/usecases/SurveyResult/LoadSurveyResult';
+export { ILoadSurveyById } from '@domain/usecases/LoadSurveyById';
+export { ILoadSurveyResult } from '@domain/usecases/LoadSurveyResult';

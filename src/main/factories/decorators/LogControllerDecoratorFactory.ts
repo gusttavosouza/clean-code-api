@@ -1,4 +1,4 @@
-import { LogErrorMongoRepository } from '@infra/db/mongodb/LogError/LogErrorMongoRepository';
+import { LogErrorMongoRepository } from '@infra/db/mongodb';
 import { LogControllerDecorator } from '@main/decorators/LogControllerDecorator';
 import { IController } from '@presentation/interfaces';
 

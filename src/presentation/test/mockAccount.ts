@@ -1,15 +1,12 @@
 import { AccountModel } from '@domain/models/Account';
-import {
-  AddAccountParams,
-  IAddAccount,
-} from '@domain/usecases/Account/AddAccount';
+import { AddAccountParams, IAddAccount } from '@domain/usecases/AddAccount';
 import {
   AuthenticationParams,
   IAuthentication,
-} from '@domain/usecases/Account/Authentication';
+} from '@domain/usecases/Authentication';
 
 import { IValidation } from '@presentation/interfaces';
-import { ILoadAccountByToken } from '@domain/usecases/Account/LoadAccountByToken';
+import { ILoadAccountByToken } from '@domain/usecases/LoadAccountByToken';
 import { AuthenticationModel } from '@domain/models/Authentication';
 import { mockAccountModel } from '@tests/domain/mocks';
 

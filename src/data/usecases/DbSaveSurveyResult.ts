@@ -6,7 +6,7 @@ import { SurveyResultModel } from '@domain/models/SurveyResult';
 import {
   ISaveSurveyResult,
   SaveSurveyResultParams,
-} from '@domain/usecases/SurveyResult/SaveSurveyResult';
+} from '@domain/usecases/SaveSurveyResult';
 
 export class DbSaveSurveyResult implements ISaveSurveyResult {
   constructor(

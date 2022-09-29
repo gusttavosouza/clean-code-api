@@ -1,11 +1,11 @@
 import { SurveyModel } from '@domain/models/Survey';
 import { SurveyResultModel } from '@domain/models/SurveyResult';
-import { ILoadSurveyById } from '@domain/usecases/Survey/LoadSurveyById';
-import { ILoadSurveyResult } from '@domain/usecases/SurveyResult/LoadSurveyResult';
+import { ILoadSurveyById } from '@domain/usecases/LoadSurveyById';
+import { ILoadSurveyResult } from '@domain/usecases/LoadSurveyResult';
 import {
   ISaveSurveyResult,
   SaveSurveyResultParams,
-} from '@domain/usecases/SurveyResult/SaveSurveyResult';
+} from '@domain/usecases/SaveSurveyResult';
 import { mockSurvey, mockSurveyResult } from '../tests/domain/test';
 
 export const mockSurveyById = (): ILoadSurveyById => {
