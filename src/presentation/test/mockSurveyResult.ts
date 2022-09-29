@@ -1,12 +1,12 @@
 import { SurveyModel } from '@domain/models/Survey';
 import { SurveyResultModel } from '@domain/models/SurveyResult';
-import { mockSurvey, mockSurveyResult } from '@domain/test';
 import { ILoadSurveyById } from '@domain/usecases/Survey/LoadSurveyById';
 import { ILoadSurveyResult } from '@domain/usecases/SurveyResult/LoadSurveyResult';
 import {
   ISaveSurveyResult,
   SaveSurveyResultParams,
 } from '@domain/usecases/SurveyResult/SaveSurveyResult';
+import { mockSurvey, mockSurveyResult } from '../tests/domain/test';
 
 export const mockSurveyById = (): ILoadSurveyById => {
   class LoadSurveyByIdStub {

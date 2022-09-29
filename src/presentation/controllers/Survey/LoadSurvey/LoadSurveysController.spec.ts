@@ -1,7 +1,7 @@
 import mockdate from 'mockdate';
-import { mockSurveys, ThrowError } from '@domain/test';
 import { InternalError, NoContent, Success } from '@presentation/helpers/http';
 import { mockLoadSurveys } from '@presentation/test';
+import { mockSurveys, ThrowError } from '../tests/domain/test';
 import { LoadSurveysController } from './LoadSurveysController';
 import { ILoadSurveys, IHttpRequest } from './LoadSurveysControllerProtocols';
 

@@ -1,5 +1,4 @@
 import { AccountModel } from '@domain/models/Account';
-import { mockAccountModel } from '@domain/test';
 import {
   AddAccountParams,
   IAddAccount,
@@ -12,6 +11,7 @@ import {
 import { IValidation } from '@presentation/interfaces';
 import { ILoadAccountByToken } from '@domain/usecases/Account/LoadAccountByToken';
 import { AuthenticationModel } from '@domain/models/Authentication';
+import { mockAccountModel } from '@tests/domain/mocks';
 
 export const mockAddAccount = (): IAddAccount => {
   class AddAccountStub implements IAddAccount {

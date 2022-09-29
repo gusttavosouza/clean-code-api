@@ -1,5 +1,4 @@
 import { MissingParamError } from '@presentation/errors';
-import { ThrowError } from '@domain/test';
 import {
   BadRequest,
   InternalError,
@@ -7,6 +6,7 @@ import {
   Unauthorized,
 } from '@presentation/helpers/http';
 import { mockAuthentication, mockValidation } from '@presentation/test';
+import { ThrowError } from '../tests/domain/test';
 import { LoginController } from './LoginController';
 import {
   IHttpRequest,

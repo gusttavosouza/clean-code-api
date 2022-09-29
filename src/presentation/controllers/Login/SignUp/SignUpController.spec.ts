@@ -5,7 +5,6 @@ import {
   Forbidden,
 } from '@presentation/helpers/http';
 import { IHttpRequest } from '@presentation/interfaces';
-import { ThrowError } from '@domain/test';
 
 import {
   MissingParamError,
@@ -17,6 +16,7 @@ import {
   mockAuthentication,
   mockValidation,
 } from '@presentation/test';
+import { ThrowError } from '../tests/domain/test';
 import { SignUpController } from './SignUpController';
 import { IAddAccount, IValidation, IAuthentication } from './SignUpProtocols';
 

@@ -2,8 +2,8 @@ import mockdate from 'mockdate';
 import { InvalidParamError } from '@presentation/errors';
 import { Forbidden, InternalError, Success } from '@presentation/helpers/http';
 import { mockSaveSurveyResult, mockSurveyById } from '@presentation/test';
-import { mockSurveyResult, ThrowError } from '@domain/test';
 import { ISaveSurveyResult } from '@domain/usecases/SurveyResult/SaveSurveyResult';
+import { mockSurveyResult, ThrowError } from '../tests/domain/test';
 import { SaveSurveyResultController } from './SaveSurveyResultController';
 import {
   IHttpRequest,

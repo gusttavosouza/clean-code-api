@@ -1,0 +1,10 @@
+export { IAddAccountRepository } from './IAddAccountRepository';
+export { IAddSurveyRepository } from './IAddSurveyRepository';
+export { ILoadAccountByEmailRepository } from './ILoadAccountByEmailRepository';
+export { ILoadAccountByTokenRepository } from './ILoadAccountByTokenRepository';
+export { ILoadSurveyByIdRepository } from './ILoadSurveyByIdRepository';
+export { ILoadSurveyResultRepository } from './ILoadSurveyResultRepository';
+export { ILoadSurveysRepository } from './ILoadSurveysRepository';
+export { ILogErrorRepository } from './ILogErrorRepository';
+export { ISaveSurveyResultRepository } from './ISaveSurveyResultRepository';
+export { IUpdateAccessTokenRepository } from './IUpdateAccessTokenRepository';

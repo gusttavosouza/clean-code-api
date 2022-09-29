@@ -1,7 +1,7 @@
 import { AccessDeniedError } from '@presentation/errors';
 import { Forbidden, InternalError, Success } from '@presentation/helpers/http';
 import { mockLoadAccountByToken } from '@presentation/test';
-import { ThrowError } from '@domain/test';
+import { ThrowError } from '../tests/domain/test';
 import { AuthMiddleware } from './AuthMiddleware';
 import { ILoadAccountByToken, IHttpRequest } from './AuthMiddlewareProtocols';
 

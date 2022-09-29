@@ -1,12 +1,12 @@
-import { ILogErrorRepository } from '@data/interfaces/db/Log/ILogErrorRepository';
-import { mockLogErrorRepository } from '@data/test';
-import { mockAccountModel } from '@domain/test';
+import { ILogErrorRepository } from '@data/interfaces/db/ILogErrorRepository';
 import { Success, InternalError } from '@presentation/helpers/http';
 import {
   IController,
   IHttpRequest,
   IHttpResponse,
 } from '@presentation/interfaces';
+import { mockAccountModel } from '../tests/domain/test';
+import { mockLogErrorRepository } from '../tests/data/test';
 import { LogControllerDecorator } from './LogControllerDecorator';
 
 type SutTypes = {

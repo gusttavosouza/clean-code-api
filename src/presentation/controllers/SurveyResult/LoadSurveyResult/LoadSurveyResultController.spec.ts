@@ -1,8 +1,8 @@
-import { mockSurveyResultModel, ThrowError } from '@domain/test';
 import { InvalidParamError } from '@presentation/errors';
 import { Forbidden, InternalError, Success } from '@presentation/helpers/http';
 import { mockLoadSurveyResult, mockSurveyById } from '@presentation/test';
 import MockDate from 'mockdate';
+import { mockSurveyResultModel, ThrowError } from '../tests/domain/test';
 import { LoadSurveyResultController } from './LoadSurveyResultController';
 import {
   IHttpRequest,

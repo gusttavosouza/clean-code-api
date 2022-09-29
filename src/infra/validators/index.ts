@@ -1,0 +1,1 @@
+export { EmailValidatorAdapter } from './EmailValidatorAdapter';

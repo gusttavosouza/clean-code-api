@@ -4,8 +4,8 @@ import {
   InternalError,
   NoContent,
 } from '@presentation/helpers/http';
-import { ThrowError } from '@domain/test';
 import { mockAddSurvey, mockValidation } from '@presentation/test';
+import { ThrowError } from '../tests/domain/test';
 import { AddSurveyController } from './AddSurveyController';
 import {
   IHttpRequest,
