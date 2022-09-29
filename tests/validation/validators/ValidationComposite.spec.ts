@@ -1,7 +1,7 @@
+import { mockValidation } from '@tests/validation/mocks';
 import { IValidation } from '@presentation/interfaces/IValidation';
 import { MissingParamError } from '@presentation/errors';
-import { mockValidation } from '@validation/test';
-import { ValidationComposite } from './ValidationComposite';
+import { ValidationComposite } from '@validation/Validators';
 
 type SutTypes = {
   sut: ValidationComposite;
