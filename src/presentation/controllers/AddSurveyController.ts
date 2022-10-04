@@ -6,10 +6,19 @@ import {
 } from '@presentation/helpers/http';
 import {
   IController,
-  IHttpRequest,
   IHttpResponse,
   IValidation,
 } from '@presentation/interfaces';
+
+type Answer = {
+  image?: string;
+  answer: string;
+};
+
+type AddSurveyProps = {
+  question: string;
+  answers: Answer[];
+};
 
 export class AddSurveyController implements IController {
   constructor(
@@ -20,13 +29,13 @@ export class AddSurveyController implements IController {
     this.addSurvey = addSurvey;
   }
 
-  public async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
+  public async handle(request: AddSurveyProps): Promise<IHttpResponse> {
     try {
-      const error = this.validation.validate(httpRequest.body);
+      const error = this.validation.validate(request);
       if (error) {
         return BadRequest(error);
       }
-      const { question, answers } = httpRequest.body;
+      const { question, answers } = request;
       await this.addSurvey.add({ question, answers, date: new Date() });
 
       return NoContent();

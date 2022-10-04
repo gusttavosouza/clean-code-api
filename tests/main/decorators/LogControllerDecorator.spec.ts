@@ -1,10 +1,6 @@
 import { ILogErrorRepository } from '@data/interfaces/db/ILogErrorRepository';
 import { Success, InternalError } from '@presentation/helpers/http';
-import {
-  IController,
-  IHttpRequest,
-  IHttpResponse,
-} from '@presentation/interfaces';
+import { IController, IHttpResponse } from '@presentation/interfaces';
 import { mockAccountModel } from '@tests/domain/mocks';
 import { mockLogErrorRepository } from '@tests/data/mocks';
 import { LogControllerDecorator } from '@main/decorators';
@@ -17,21 +13,12 @@ type SutTypes = {
 
 const makeController = (): IController => {
   class ControllerStub implements IController {
-    async handle(_: IHttpRequest): Promise<IHttpResponse> {
+    async handle(_: any): Promise<IHttpResponse> {
       return Promise.resolve(Success(mockAccountModel()));
     }
   }
   return new ControllerStub();
 };
-
-const mockRequest = (): IHttpRequest => ({
-  body: {
-    name: 'any_name',
-    email: 'any_email@mail.com',
-    password: 'any_password',
-    passwordConfirmation: 'any_password',
-  },
-});
 
 const mockError = (): IHttpResponse => {
   const fakeError = new Error();
@@ -54,15 +41,15 @@ describe('LogController Decorator', () => {
     const { controllerStub, sut } = makeSut();
     const handleSpy = jest.spyOn(controllerStub, 'handle');
 
-    await sut.handle(mockRequest());
+    await sut.handle('any_request');
 
-    expect(handleSpy).toHaveBeenCalledWith(mockRequest());
+    expect(handleSpy).toHaveBeenCalledWith('any_request');
   });
 
   test('Should return the same result of the controller', async () => {
     const { sut } = makeSut();
 
-    const httpResponse = await sut.handle(mockRequest());
+    const httpResponse = await sut.handle('any_request');
 
     expect(httpResponse).toEqual(Success(mockAccountModel()));
   });
@@ -75,7 +62,7 @@ describe('LogController Decorator', () => {
       .spyOn(controllerStub, 'handle')
       .mockReturnValueOnce(Promise.resolve(mockError()));
 
-    await sut.handle(mockRequest());
+    await sut.handle('any_request');
 
     expect(logSpy).toHaveBeenCalledWith('any_stack');
   });

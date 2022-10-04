@@ -4,7 +4,7 @@ import {
   Success,
   Forbidden,
 } from '@presentation/helpers/http';
-import { IHttpRequest, IValidation } from '@presentation/interfaces';
+import { IValidation } from '@presentation/interfaces';
 
 import {
   MissingParamError,
@@ -27,13 +27,11 @@ type SutTypes = {
   authenticationStub: IAuthentication;
 };
 
-const mockRequest = (): IHttpRequest => ({
-  body: {
-    name: 'any_name',
-    email: 'any_email@mail.com',
-    password: 'any_password',
-    passwordConfirmation: 'any_password',
-  },
+const mockRequest = () => ({
+  name: 'any_name',
+  email: 'any_email@mail.com',
+  password: 'any_password',
+  passwordConfirmation: 'any_password',
 });
 
 const makeSut = (): SutTypes => {
@@ -101,9 +99,9 @@ describe('SignUp Controller', () => {
     const { sut, validationStub } = makeSut();
     const validateSpy = jest.spyOn(validationStub, 'validate');
 
-    const httpRequest = mockRequest();
-    await sut.handle(httpRequest);
-    expect(validateSpy).toHaveBeenCalledWith(httpRequest.body);
+    const request = mockRequest();
+    await sut.handle(request);
+    expect(validateSpy).toHaveBeenCalledWith(request);
   });
 
   test('Should return 400 if Validation returns an error', async () => {

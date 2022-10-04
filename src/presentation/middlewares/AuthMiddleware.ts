@@ -1,11 +1,11 @@
 import { ILoadAccountByToken } from '@domain/usecases';
 import { AccessDeniedError } from '@presentation/errors';
 import { Forbidden, Success, InternalError } from '@presentation/helpers/http';
-import {
-  IHttpRequest,
-  IHttpResponse,
-  IMiddleware,
-} from '@presentation/interfaces';
+import { IHttpResponse, IMiddleware } from '@presentation/interfaces';
+
+type AuthMiddlewareProps = {
+  accessToken: string;
+};
 
 export class AuthMiddleware implements IMiddleware {
   constructor(
@@ -16,9 +16,9 @@ export class AuthMiddleware implements IMiddleware {
     this.role = role;
   }
 
-  public async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
+  public async handle(request: AuthMiddlewareProps): Promise<IHttpResponse> {
     try {
-      const accessToken = httpRequest.headers?.['x-access-token'];
+      const { accessToken } = request;
       if (accessToken) {
         const account = await this.loadAccountByToken.load(
           accessToken,

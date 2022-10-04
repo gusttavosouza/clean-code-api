@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import { IHttpRequest, IController } from '@presentation/interfaces';
+import { IController } from '@presentation/interfaces';
 
 export const AdapterExpressRoute = (controller: IController) => {
   return async (request: Request, response: Response) => {
-    const httpRequest: IHttpRequest = {
-      body: request.body,
-      params: request.params,
+    const httpRequest = {
+      ...(request.body || {}),
+      ...(request.params || {}),
       accountId: request.accountId,
     };
     const httpResponse = await controller.handle(httpRequest);

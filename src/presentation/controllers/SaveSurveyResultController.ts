@@ -1,11 +1,13 @@
 import { ILoadSurveyById, ISaveSurveyResult } from '@domain/usecases';
 import { InvalidParamError } from '@presentation/errors';
 import { Forbidden, InternalError, Success } from '@presentation/helpers/http';
-import {
-  IController,
-  IHttpRequest,
-  IHttpResponse,
-} from '@presentation/interfaces';
+import { IController, IHttpResponse } from '@presentation/interfaces';
+
+type SaveSurveyResultProps = {
+  accountId: string;
+  surveyId: string;
+  answer: string;
+};
 
 export class SaveSurveyResultController implements IController {
   constructor(
@@ -16,11 +18,9 @@ export class SaveSurveyResultController implements IController {
     this.saveSurveyResult = saveSurveyResult;
   }
 
-  public async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
+  public async handle(request: SaveSurveyResultProps): Promise<IHttpResponse> {
     try {
-      const { surveyId } = httpRequest.params;
-      const { answer } = httpRequest.body;
-      const { accountId } = httpRequest;
+      const { surveyId, answer, accountId } = request;
 
       const survey = await this.loadSurveyById.loadById(surveyId);
       if (!survey) {

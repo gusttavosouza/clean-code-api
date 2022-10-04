@@ -7,10 +7,14 @@ import {
 } from '@presentation/helpers/http';
 import {
   IController,
-  IHttpRequest,
   IHttpResponse,
   IValidation,
 } from '@presentation/interfaces';
+
+type LoginProps = {
+  email: string;
+  password: string;
+};
 
 export class LoginController implements IController {
   constructor(
@@ -21,14 +25,14 @@ export class LoginController implements IController {
     this.validation = validation;
   }
 
-  public async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
+  public async handle(request: LoginProps): Promise<IHttpResponse> {
     try {
-      const error = this.validation.validate(httpRequest.body);
+      const error = this.validation.validate(request);
       if (error) {
         return BadRequest(error);
       }
 
-      const { email, password } = httpRequest.body;
+      const { email, password } = request;
 
       const authenticationModel = await this.authentication.auth({
         email,

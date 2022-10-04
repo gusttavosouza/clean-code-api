@@ -8,14 +8,11 @@ import {
 } from '@tests/presentation/mocks';
 import { mockSurveyResultModel, ThrowError } from '@tests/domain/mocks';
 import { LoadSurveyResultController } from '@presentation/controllers';
-import { IHttpRequest } from '@presentation/interfaces';
 import { ILoadSurveyById, ILoadSurveyResult } from '@domain/usecases';
 
-const mockRequest = (): IHttpRequest => ({
+const mockRequest = () => ({
   accountId: 'any_account_id',
-  params: {
-    surveyId: 'any_survey_id',
-  },
+  surveyId: 'any_survey_id',
 });
 
 type ISut = {

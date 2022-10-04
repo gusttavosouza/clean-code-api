@@ -4,7 +4,6 @@ import { ILoadSurveyById } from '@domain/usecases';
 import { InvalidParamError } from '@presentation/errors';
 import { SaveSurveyResultController } from '@presentation/controllers';
 import { Forbidden, InternalError, Success } from '@presentation/helpers/http';
-import { IHttpRequest } from '@presentation/interfaces';
 import { mockSurveyResult, ThrowError } from '@tests/domain/mocks';
 import {
   mockSaveSurveyResult,
@@ -31,16 +30,10 @@ const makeSut = (): SutTypes => {
   };
 };
 
-const mockRequest = (): IHttpRequest => ({
-  params: {
-    surveyId: 'any_id',
-    accountId: 'any_id',
-    answer: 'any_answer',
-  },
-  body: {
-    answer: 'any_answer',
-  },
+const mockRequest = () => ({
+  surveyId: 'any_id',
   accountId: 'any_accountId',
+  answer: 'any_answer',
 });
 
 describe('SaveSurveyResult Controller', () => {
@@ -83,12 +76,9 @@ describe('SaveSurveyResult Controller', () => {
   test('Should return 403 if an invalid answer is provided', async () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle({
-      params: {
-        surveyId: 'any_id',
-      },
-      body: {
-        answer: 'wrong_answer',
-      },
+      surveyId: 'any_id',
+      accountId: 'any_account_id',
+      answer: 'wrong_answer',
     });
     expect(httpResponse).toEqual(Forbidden(new InvalidParamError('answer')));
   });

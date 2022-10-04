@@ -9,10 +9,15 @@ import {
 } from '@presentation/helpers/http';
 import {
   IController,
-  IHttpRequest,
   IHttpResponse,
   IValidation,
 } from '@presentation/interfaces';
+
+type SignUpProps = {
+  email: string;
+  password: string;
+  name: string;
+};
 
 export class SignUpController implements IController {
   constructor(
@@ -25,14 +30,14 @@ export class SignUpController implements IController {
     this.authentication = authentication;
   }
 
-  async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
+  async handle(request: SignUpProps): Promise<IHttpResponse> {
     try {
-      const error = this.validation.validate(httpRequest.body);
+      const error = this.validation.validate(request);
       if (error) {
         return BadRequest(error);
       }
 
-      const { email, password, name } = httpRequest.body;
+      const { email, password, name } = request;
       const account = await this.addAccount.add({
         name,
         email,

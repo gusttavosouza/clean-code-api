@@ -1,11 +1,12 @@
 import { ILoadSurveyById, ILoadSurveyResult } from '@domain/usecases';
 import { InvalidParamError } from '@presentation/errors';
 import { Forbidden, InternalError, Success } from '@presentation/helpers/http';
-import {
-  IController,
-  IHttpRequest,
-  IHttpResponse,
-} from '@presentation/interfaces';
+import { IController, IHttpResponse } from '@presentation/interfaces';
+
+type LoadSurveyResultProps = {
+  surveyId: string;
+  accountId: string;
+};
 
 export class LoadSurveyResultController implements IController {
   constructor(
@@ -13,9 +14,9 @@ export class LoadSurveyResultController implements IController {
     private readonly loadSurveyResult: ILoadSurveyResult,
   ) {}
 
-  public async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
+  public async handle(request: LoadSurveyResultProps): Promise<IHttpResponse> {
     try {
-      const { surveyId } = httpRequest.params;
+      const { surveyId, accountId } = request;
       const survey = await this.loadSurveyById.loadById(surveyId);
       if (!survey) {
         return Forbidden(new InvalidParamError('surveyId'));
@@ -23,7 +24,7 @@ export class LoadSurveyResultController implements IController {
 
       const surveyResult = await this.loadSurveyResult.load(
         surveyId,
-        httpRequest.accountId,
+        accountId,
       );
       return Success(surveyResult);
     } catch (error) {

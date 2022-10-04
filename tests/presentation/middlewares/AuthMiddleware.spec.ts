@@ -4,7 +4,6 @@ import { ThrowError } from '@tests/domain/mocks';
 import { Forbidden, InternalError, Success } from '@presentation/helpers/http';
 import { AccessDeniedError } from '@presentation/errors';
 import { AuthMiddleware } from '@presentation/middlewares';
-import { IHttpRequest } from '@presentation/interfaces';
 import { ILoadAccountByToken } from '@domain/usecases';
 
 interface ISytTypes {
@@ -12,10 +11,8 @@ interface ISytTypes {
   loadAccountByTokenStub: ILoadAccountByToken;
 }
 
-const mockRequest = (): IHttpRequest => ({
-  headers: {
-    'x-access-token': 'any_token',
-  },
+const mockRequest = () => ({
+  accessToken: 'any_token',
 });
 
 const makeSut = (role?: string): ISytTypes => {
@@ -30,7 +27,7 @@ const makeSut = (role?: string): ISytTypes => {
 describe('Auth Middleware', () => {
   it('Should return 403 if no x-access-token exists in headers', async () => {
     const { sut } = makeSut();
-    const httpResponse = await sut.handle({});
+    const httpResponse = await sut.handle({ accessToken: undefined });
     expect(httpResponse).toEqual(Forbidden(new AccessDeniedError()));
   });
 

@@ -6,9 +6,8 @@ import { mockLoadSurveys } from '@tests/presentation/mocks';
 import { ILoadSurveys } from '@domain/usecases';
 import { InternalError, NoContent, Success } from '@presentation/helpers/http';
 import { LoadSurveysController } from '@presentation/controllers';
-import { IHttpRequest } from '@presentation/interfaces';
 
-const mockRequest = (): IHttpRequest => ({
+const mockRequest = () => ({
   accountId: 'any_account_id',
 });
 
@@ -62,7 +61,7 @@ describe('AddSurvey Controller', () => {
   test('Should return 500 LoadSurveys throws', async () => {
     const { sut, loadSurveysStub } = makeSut();
     jest.spyOn(loadSurveysStub, 'load').mockImplementationOnce(ThrowError);
-    const httpResponse = await sut.handle({});
+    const httpResponse = await sut.handle({ accountId: 'any_account_id' });
     expect(httpResponse).toEqual(InternalError(new Error()));
   });
 });

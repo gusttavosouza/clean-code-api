@@ -4,7 +4,7 @@ import { mockAddSurvey, mockValidation } from '@tests/presentation/mocks';
 import { ThrowError } from '@tests/domain/mocks';
 
 import { AddSurveyController } from '@presentation/controllers';
-import { IHttpRequest, IValidation } from '@presentation/interfaces';
+import { IValidation } from '@presentation/interfaces';
 import { IAddSurvey } from '@domain/usecases';
 import {
   BadRequest,
@@ -30,17 +30,15 @@ const makeSut = (): SutTypes => {
   };
 };
 
-const mockRequest = (): IHttpRequest => ({
-  body: {
-    question: 'any_question',
-    answers: [
-      {
-        image: 'any_image',
-        answer: 'any_answer',
-      },
-    ],
-    date: new Date(),
-  },
+const mockRequest = () => ({
+  question: 'any_question',
+  answers: [
+    {
+      image: 'any_image',
+      answer: 'any_answer',
+    },
+  ],
+  date: new Date(),
 });
 
 describe('AddSurvey Controller', () => {
@@ -57,7 +55,7 @@ describe('AddSurvey Controller', () => {
     const validateSpy = jest.spyOn(validationStub, 'validate');
     const httpRequest = mockRequest();
     await sut.handle(httpRequest);
-    expect(validateSpy).toHaveBeenCalledWith(httpRequest.body);
+    expect(validateSpy).toHaveBeenCalledWith(httpRequest);
   });
 
   test('Should return 400 if Validation fails', async () => {
@@ -72,7 +70,7 @@ describe('AddSurvey Controller', () => {
     const addSpy = jest.spyOn(addSurveyStub, 'add');
     const httpRequest = mockRequest();
     await sut.handle(httpRequest);
-    expect(addSpy).toHaveBeenCalledWith(httpRequest.body);
+    expect(addSpy).toHaveBeenCalledWith(httpRequest);
   });
 
   test('Should return 500 AddSurvey throws', async () => {

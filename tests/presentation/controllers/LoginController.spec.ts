@@ -9,7 +9,7 @@ import { mockAuthentication, mockValidation } from '@tests/presentation/mocks';
 import { ThrowError } from '@tests/domain/mocks';
 import { LoginController } from '@presentation/controllers';
 import { IAuthentication } from '@domain/usecases';
-import { IHttpRequest, IValidation } from '@presentation/interfaces';
+import { IValidation } from '@presentation/interfaces';
 
 type SutTypes = {
   sut: LoginController;
@@ -24,11 +24,9 @@ const makeSut = (): SutTypes => {
   return { sut, authenticationStub, validationStub };
 };
 
-const mockRequest = (): IHttpRequest => ({
-  body: {
-    email: 'mail@email.com',
-    password: 'any_password',
-  },
+const mockRequest = () => ({
+  email: 'mail@email.com',
+  password: 'any_password',
 });
 
 describe('', () => {
@@ -75,7 +73,7 @@ describe('', () => {
 
     const httpRequest = mockRequest();
     await sut.handle(httpRequest);
-    expect(validateSpy).toHaveBeenCalledWith(httpRequest.body);
+    expect(validateSpy).toHaveBeenCalledWith(httpRequest);
   });
 
   test('Should return 400 if Validation returns an error', async () => {
