@@ -84,49 +84,49 @@ describe('Survey Routes', () => {
         .expect(200);
     });
   });
-});
 
-describe('Survey Routes', () => {
-  beforeAll(async () => {
-    await MongoHelper.connect(process.env.MONGO_URL);
-  });
-
-  afterAll(async () => {
-    await MongoHelper.disconnect();
-  });
-
-  beforeEach(async () => {
-    surveyCollections = await MongoHelper.getCollection('surveys');
-    await surveyCollections.deleteMany({});
-    accountCollections = await MongoHelper.getCollection('accounts');
-    await surveyCollections.deleteMany({});
-  });
-
-  describe('GET /surveys/:surveyId/results', () => {
-    test('Should return 403 on load survey result without accessToken', async () => {
-      await request(app).get('/api/surveys/any_id/results').expect(403);
-    });
-  });
-
-  test('Should return 200 on load survey result with accessToken', async () => {
-    const res = await surveyCollections.insertOne({
-      question: 'any_question',
-      answers: [
-        {
-          image: 'any_image',
-          answer: 'any_answer',
-        },
-        {
-          answer: 'other_answer',
-        },
-      ],
-      date: new Date(),
+  describe('Survey Routes', () => {
+    beforeAll(async () => {
+      await MongoHelper.connect(process.env.MONGO_URL);
     });
 
-    const accessToken = await makeAccessToken();
-    await request(app)
-      .get(`/api/surveys/${res.ops[0]._id}/results`)
-      .set('x-access-token', accessToken)
-      .expect(200);
+    afterAll(async () => {
+      await MongoHelper.disconnect();
+    });
+
+    beforeEach(async () => {
+      surveyCollections = await MongoHelper.getCollection('surveys');
+      await surveyCollections.deleteMany({});
+      accountCollections = await MongoHelper.getCollection('accounts');
+      await surveyCollections.deleteMany({});
+    });
+
+    describe('GET /surveys/:surveyId/results', () => {
+      test('Should return 403 on load survey result without accessToken', async () => {
+        await request(app).get('/api/surveys/any_id/results').expect(403);
+      });
+    });
+
+    test('Should return 200 on load survey result with accessToken', async () => {
+      const res = await surveyCollections.insertOne({
+        question: 'any_question',
+        answers: [
+          {
+            image: 'any_image',
+            answer: 'any_answer',
+          },
+          {
+            answer: 'other_answer',
+          },
+        ],
+        date: new Date(),
+      });
+
+      const accessToken = await makeAccessToken();
+      await request(app)
+        .get(`/api/surveys/${res.ops[0]._id}/results`)
+        .set('x-access-token', accessToken)
+        .expect(200);
+    });
   });
 });
