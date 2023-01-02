@@ -13,7 +13,7 @@ import {
   IValidation,
 } from '@presentation/interfaces';
 
-type SignUpProps = {
+type SignUpParams = {
   email: string;
   password: string;
   name: string;
@@ -30,7 +30,7 @@ export class SignUpController implements IController {
     this.authentication = authentication;
   }
 
-  async handle(request: SignUpProps): Promise<IHttpResponse> {
+  async handle(request: SignUpParams): Promise<IHttpResponse> {
     try {
       const error = this.validation.validate(request);
       if (error) {

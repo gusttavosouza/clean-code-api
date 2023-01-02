@@ -3,7 +3,7 @@ import { AccessDeniedError } from '@presentation/errors';
 import { Forbidden, Success, InternalError } from '@presentation/helpers/http';
 import { IHttpResponse, IMiddleware } from '@presentation/interfaces';
 
-type AuthMiddlewareProps = {
+type AuthMiddlewareParams = {
   accessToken: string;
 };
 
@@ -16,7 +16,7 @@ export class AuthMiddleware implements IMiddleware {
     this.role = role;
   }
 
-  public async handle(request: AuthMiddlewareProps): Promise<IHttpResponse> {
+  public async handle(request: AuthMiddlewareParams): Promise<IHttpResponse> {
     try {
       const { accessToken } = request;
       if (accessToken) {

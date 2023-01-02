@@ -3,7 +3,7 @@ import { InvalidParamError } from '@presentation/errors';
 import { Forbidden, InternalError, Success } from '@presentation/helpers/http';
 import { IController, IHttpResponse } from '@presentation/interfaces';
 
-type LoadSurveyResultProps = {
+type LoadSurveyResultParams = {
   surveyId: string;
   accountId: string;
 };
@@ -14,7 +14,7 @@ export class LoadSurveyResultController implements IController {
     private readonly loadSurveyResult: ILoadSurveyResult,
   ) {}
 
-  public async handle(request: LoadSurveyResultProps): Promise<IHttpResponse> {
+  public async handle(request: LoadSurveyResultParams): Promise<IHttpResponse> {
     try {
       const { surveyId, accountId } = request;
       const survey = await this.loadSurveyById.loadById(surveyId);

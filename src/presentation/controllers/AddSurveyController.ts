@@ -15,7 +15,7 @@ type Answer = {
   answer: string;
 };
 
-type AddSurveyProps = {
+type AddSurveyParams = {
   question: string;
   answers: Answer[];
 };
@@ -29,7 +29,7 @@ export class AddSurveyController implements IController {
     this.addSurvey = addSurvey;
   }
 
-  public async handle(request: AddSurveyProps): Promise<IHttpResponse> {
+  public async handle(request: AddSurveyParams): Promise<IHttpResponse> {
     try {
       const error = this.validation.validate(request);
       if (error) {

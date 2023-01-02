@@ -3,7 +3,7 @@ import { InvalidParamError } from '@presentation/errors';
 import { Forbidden, InternalError, Success } from '@presentation/helpers/http';
 import { IController, IHttpResponse } from '@presentation/interfaces';
 
-type SaveSurveyResultProps = {
+type SaveSurveyResultParams = {
   accountId: string;
   surveyId: string;
   answer: string;
@@ -18,7 +18,7 @@ export class SaveSurveyResultController implements IController {
     this.saveSurveyResult = saveSurveyResult;
   }
 
-  public async handle(request: SaveSurveyResultProps): Promise<IHttpResponse> {
+  public async handle(request: SaveSurveyResultParams): Promise<IHttpResponse> {
     try {
       const { surveyId, answer, accountId } = request;
 

@@ -11,7 +11,7 @@ import {
   IValidation,
 } from '@presentation/interfaces';
 
-type LoginProps = {
+type LoginControllerParams = {
   email: string;
   password: string;
 };
@@ -25,7 +25,7 @@ export class LoginController implements IController {
     this.validation = validation;
   }
 
-  public async handle(request: LoginProps): Promise<IHttpResponse> {
+  public async handle(request: LoginControllerParams): Promise<IHttpResponse> {
     try {
       const error = this.validation.validate(request);
       if (error) {
