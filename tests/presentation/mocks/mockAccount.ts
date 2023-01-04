@@ -1,18 +1,17 @@
-import { AccountModel } from '@domain/models/Account';
-import { AddAccountParams, IAddAccount } from '@domain/usecases/AddAccount';
+import { AccountModel, AuthenticationModel } from '@domain/models';
 import {
+  IAddAccount,
   AuthenticationParams,
   IAuthentication,
-} from '@domain/usecases/Authentication';
+  ILoadAccountByToken,
+} from '@domain/usecases';
 
 import { IValidation } from '@presentation/interfaces';
-import { ILoadAccountByToken } from '@domain/usecases/LoadAccountByToken';
-import { AuthenticationModel } from '@domain/models/Authentication';
 import { mockAccountModel } from '@tests/domain/mocks';
 
 export const mockAddAccount = (): IAddAccount => {
   class AddAccountStub implements IAddAccount {
-    async add(_: AddAccountParams): Promise<AccountModel> {
+    async add(_: IAddAccount.Params): Promise<IAddAccount.Result> {
       const fakeAccount = mockAccountModel();
 
       return Promise.resolve(fakeAccount);

@@ -1,10 +1,9 @@
 import { IHasher } from '@data/interfaces/cryptography';
+import { IAddAccount } from '@domain/usecases/AddAccount';
 import {
   IAddAccountRepository,
   ILoadAccountByEmailRepository,
 } from '@data/interfaces/db';
-import { AccountModel } from '@domain/models/Account';
-import { AddAccountParams, IAddAccount } from '@domain/usecases/AddAccount';
 
 export class DbAddAccount implements IAddAccount {
   constructor(
@@ -17,7 +16,9 @@ export class DbAddAccount implements IAddAccount {
     this.loadAccountByEmailRepository = loadAccountByEmailRepository;
   }
 
-  public async add(accountData: AddAccountParams): Promise<AccountModel> {
+  public async add(
+    accountData: IAddAccount.Params,
+  ): Promise<IAddAccount.Result> {
     const account = await this.loadAccountByEmailRepository.loadByEmail(
       accountData.email,
     );

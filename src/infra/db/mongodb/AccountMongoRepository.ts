@@ -5,7 +5,6 @@ import {
   ILoadAccountByTokenRepository,
 } from '@data/interfaces/db';
 import { AccountModel } from '@domain/models';
-import { AddAccountParams } from '@domain/usecases';
 
 import { MongoHelper } from './helpers';
 
@@ -35,9 +34,11 @@ export class AccountMongoRepository
     return account && MongoHelper.mapper(account);
   }
 
-  public async add(accountData: AddAccountParams): Promise<AccountModel> {
+  public async add(
+    data: IAddAccountRepository.Params,
+  ): Promise<IAddAccountRepository.Result> {
     const accountCollection = await MongoHelper.getCollection('accounts');
-    const result = await accountCollection.insertOne(accountData);
+    const result = await accountCollection.insertOne(data);
     return MongoHelper.mapper(result.ops[0]);
   }
 

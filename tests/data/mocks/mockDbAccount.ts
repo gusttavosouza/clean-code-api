@@ -6,12 +6,13 @@ import {
 } from '@data/interfaces/db';
 
 import { AccountModel } from '@domain/models/Account';
-import { AddAccountParams } from '@domain/usecases/AddAccount';
 import { mockAccountModel } from '@tests/domain/mocks';
 
 export const mockAddAccountRepository = (): IAddAccountRepository => {
   class AddAccountRepositoryStub implements IAddAccountRepository {
-    add(_: AddAccountParams): Promise<AccountModel> {
+    add(
+      _: IAddAccountRepository.Params,
+    ): Promise<IAddAccountRepository.Result> {
       return Promise.resolve(mockAccountModel());
     }
   }

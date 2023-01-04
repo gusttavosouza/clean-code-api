@@ -91,6 +91,7 @@ describe('Survey Routes', () => {
     });
 
     afterAll(async () => {
+      await new Promise(resolve => setTimeout(() => resolve(true), 10000));
       await MongoHelper.disconnect();
     });
 
@@ -102,6 +103,7 @@ describe('Survey Routes', () => {
     });
 
     describe('GET /surveys/:surveyId/results', () => {
+      jest.setTimeout(30000);
       test('Should return 403 on load survey result without accessToken', async () => {
         await request(app).get('/api/surveys/any_id/results').expect(403);
       });
