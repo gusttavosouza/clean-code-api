@@ -1,4 +1,3 @@
-import { AccountModel } from '@domain/models';
 import { IAddAccount, ILoadAccountByToken } from '@domain/usecases';
 import { IAuthentication } from '@domain/usecases/Authentication';
 
@@ -37,7 +36,7 @@ export const mockValidation = (): IValidation => {
 
 export const mockLoadAccountByToken = (): ILoadAccountByToken => {
   class LoadAccountByTokenStub implements ILoadAccountByToken {
-    async load(_: string, __?: string): Promise<AccountModel> {
+    async load(_: string, __?: string): Promise<ILoadAccountByToken.Result> {
       const account = mockAccountModel();
       return Promise.resolve(account);
     }

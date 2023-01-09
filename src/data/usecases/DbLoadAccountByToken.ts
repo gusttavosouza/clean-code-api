@@ -1,6 +1,5 @@
 import { IDecrypter } from '@data/interfaces/cryptography';
 import { ILoadAccountByTokenRepository } from '@data/interfaces/db';
-import { AccountModel } from '@domain/models';
 import { ILoadAccountByToken } from '@domain/usecases';
 
 export class DbLoadAccountByToken implements ILoadAccountByToken {
@@ -12,7 +11,10 @@ export class DbLoadAccountByToken implements ILoadAccountByToken {
     this.loadAccountByTokenRepository = loadAccountByTokenRepository;
   }
 
-  async load(accessToken: string, role?: string): Promise<AccountModel> {
+  async load(
+    accessToken: string,
+    role?: string,
+  ): Promise<ILoadAccountByToken.Result> {
     let token: string;
 
     try {

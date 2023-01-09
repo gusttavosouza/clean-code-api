@@ -35,7 +35,10 @@ export const mockLoadAccountByToken = (): ILoadAccountByTokenRepository => {
   class LoadAccountTokenRepositoryStub
     implements ILoadAccountByTokenRepository
   {
-    async loadByToken(_: string, __?: string): Promise<AccountModel> {
+    async loadByToken(
+      _: string,
+      __?: string,
+    ): Promise<ILoadAccountByTokenRepository.Result> {
       return Promise.resolve(mockAccountModel());
     }
   }
