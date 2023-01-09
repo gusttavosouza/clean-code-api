@@ -1,10 +1,6 @@
-import { AccountModel, AuthenticationModel } from '@domain/models';
-import {
-  IAddAccount,
-  AuthenticationParams,
-  IAuthentication,
-  ILoadAccountByToken,
-} from '@domain/usecases';
+import { AccountModel } from '@domain/models';
+import { IAddAccount, ILoadAccountByToken } from '@domain/usecases';
+import { IAuthentication } from '@domain/usecases/Authentication';
 
 import { IValidation } from '@presentation/interfaces';
 import { mockAccountModel } from '@tests/domain/mocks';
@@ -22,7 +18,7 @@ export const mockAddAccount = (): IAddAccount => {
 
 export const mockAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
-    async auth(_: AuthenticationParams): Promise<AuthenticationModel> {
+    async auth(_: IAuthentication.Params): Promise<IAuthentication.Result> {
       return Promise.resolve({ accessToken: 'any_token', name: 'any_name' });
     }
   }

@@ -3,11 +3,7 @@ import {
   ILoadAccountByEmailRepository,
   IUpdateAccessTokenRepository,
 } from '@data/interfaces/db';
-import { AuthenticationModel } from '@domain/models/Authentication';
-import {
-  AuthenticationParams,
-  IAuthentication,
-} from '@domain/usecases/Authentication';
+import { IAuthentication } from '@domain/usecases/Authentication';
 
 export class DbAuthentication implements IAuthentication {
   constructor(
@@ -24,8 +20,8 @@ export class DbAuthentication implements IAuthentication {
   }
 
   public async auth(
-    authentication: AuthenticationParams,
-  ): Promise<AuthenticationModel> {
+    authentication: IAuthentication.Params,
+  ): Promise<IAuthentication.Result> {
     const account = await this.loadAccountByEmail.loadByEmail(
       authentication.email,
     );

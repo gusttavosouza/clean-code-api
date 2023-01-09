@@ -8,8 +8,8 @@ import {
 import { mockAuthentication, mockValidation } from '@tests/presentation/mocks';
 import { ThrowError } from '@tests/domain/mocks';
 import { LoginController } from '@presentation/controllers';
-import { IAuthentication } from '@domain/usecases';
 import { IValidation } from '@presentation/interfaces';
+import { IAuthentication } from '@domain/usecases/Authentication';
 
 type SutTypes = {
   sut: LoginController;
