@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { AddSurveyParams } from '@domain/usecases';
+import { IAddSurvey } from '@domain/usecases';
 import { SurveyModel } from '@domain/models';
 import {
   IAddSurveyRepository,
@@ -14,7 +14,7 @@ export class SurveyMongoRepository
     ILoadSurveysRepository,
     ILoadSurveyByIdRepository
 {
-  public async add(surveyData: AddSurveyParams): Promise<void> {
+  public async add(surveyData: IAddSurvey.Params): Promise<void> {
     const surveyCollection = await MongoHelper.getCollection('surveys');
     await surveyCollection.insertOne(surveyData);
   }

@@ -4,14 +4,14 @@ import {
   ISaveSurveyResultRepository,
 } from '@data/interfaces/db';
 import { SurveyResultModel } from '@domain/models';
-import { SaveSurveyResultParams } from '@domain/usecases';
 import round from 'mongo-round';
+import { ISaveSurveyResult } from '@domain/usecases';
 import { MongoHelper, QueryBuilder } from './helpers';
 
 export class SurveyResultMongoRepository
   implements ISaveSurveyResultRepository, ILoadSurveyResultRepository
 {
-  public async save(data: SaveSurveyResultParams): Promise<void> {
+  public async save(data: ISaveSurveyResult.Params): Promise<void> {
     const surveyResultsCollection = await MongoHelper.getCollection(
       'surveyResults',
     );

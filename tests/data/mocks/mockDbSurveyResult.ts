@@ -3,13 +3,13 @@ import {
   ISaveSurveyResultRepository,
 } from '@data/interfaces/db';
 import { SurveyResultModel } from '@domain/models/SurveyResult';
-import { SaveSurveyResultParams } from '@domain/usecases/SaveSurveyResult';
+import { ISaveSurveyResult } from '@domain/usecases';
 import { mockSurveyResultModel } from '@tests/domain/mocks';
 
 export const mockSaveSurveyResultRepositoryStub =
   (): ISaveSurveyResultRepository => {
     class AddSurveyRepositoryStub implements ISaveSurveyResultRepository {
-      public async save(_: SaveSurveyResultParams): Promise<void> {
+      public async save(_: ISaveSurveyResult.Params): Promise<void> {
         return Promise.resolve();
       }
     }

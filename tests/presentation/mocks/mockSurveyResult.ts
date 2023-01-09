@@ -2,10 +2,7 @@ import { SurveyModel } from '@domain/models/Survey';
 import { SurveyResultModel } from '@domain/models/SurveyResult';
 import { ILoadSurveyById } from '@domain/usecases/LoadSurveyById';
 import { ILoadSurveyResult } from '@domain/usecases/LoadSurveyResult';
-import {
-  ISaveSurveyResult,
-  SaveSurveyResultParams,
-} from '@domain/usecases/SaveSurveyResult';
+import { ISaveSurveyResult } from '@domain/usecases/SaveSurveyResult';
 import { mockSurvey, mockSurveyResult } from '@tests/domain/mocks';
 
 export const mockSurveyById = (): ILoadSurveyById => {
@@ -19,7 +16,7 @@ export const mockSurveyById = (): ILoadSurveyById => {
 
 export const mockSaveSurveyResult = (): ISaveSurveyResult => {
   class SaveSurveyResultStub implements ISaveSurveyResult {
-    async save(_: SaveSurveyResultParams): Promise<SurveyResultModel> {
+    async save(_: ISaveSurveyResult.Params): Promise<SurveyResultModel> {
       return Promise.resolve(mockSurveyResult());
     }
   }
