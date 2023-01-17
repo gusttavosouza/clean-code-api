@@ -14,7 +14,7 @@ export class DbLoadSurveyResult implements ILoadSurveyResult {
   async load(
     surveyId: string,
     accountId: string,
-  ): Promise<LoadSurveyResult.Result> {
+  ): Promise<ILoadSurveyResult.Result> {
     let surveyResult = await this.loadSurveyResultRepository.loadBySurveyId(
       surveyId,
       accountId,

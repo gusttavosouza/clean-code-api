@@ -15,8 +15,8 @@ export class DbAuthentication implements IAuthentication {
   ) {}
 
   async auth(
-    authenticationParams: Authentication.Params,
-  ): Promise<Authentication.Result> {
+    authenticationParams: IAuthentication.Params,
+  ): Promise<IAuthentication.Result> {
     const account = await this.loadAccountByEmailRepository.loadByEmail(
       authenticationParams.email,
     );

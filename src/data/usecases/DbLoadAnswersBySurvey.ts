@@ -6,7 +6,7 @@ export class DbLoadAnswersBySurvey implements ILoadAnswersBySurvey {
     private readonly loadAnswersBySurveyRepository: ILoadAnswersBySurveyRepository,
   ) {}
 
-  async loadAnswers(id: string): Promise<LoadAnswersBySurvey.Result> {
+  async loadAnswers(id: string): Promise<ILoadAnswersBySurvey.Result> {
     return this.loadAnswersBySurveyRepository.loadAnswers(id);
   }
 }

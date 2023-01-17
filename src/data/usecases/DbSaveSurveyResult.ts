@@ -10,7 +10,9 @@ export class DbSaveSurveyResult implements ISaveSurveyResult {
     private readonly loadSurveyResultRepository: ILoadSurveyResultRepository,
   ) {}
 
-  async save(data: SaveSurveyResult.Params): Promise<SaveSurveyResult.Result> {
+  async save(
+    data: ISaveSurveyResult.Params,
+  ): Promise<ISaveSurveyResult.Result> {
     await this.saveSurveyResultRepository.save(data);
     return this.loadSurveyResultRepository.loadBySurveyId(
       data.surveyId,
