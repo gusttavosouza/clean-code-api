@@ -5,6 +5,10 @@ export default gql`
     login(email: string!, password: string!): Account!
   }
 
+  extend type Mutation {
+    signUp(name: string!, email: string!, password: string!, passwordConfirmation: string!): Account!
+  }
+
   type Account {
     accessToken: string!;
     name: string;
