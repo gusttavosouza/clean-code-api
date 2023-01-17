@@ -1,15 +1,14 @@
 import express from 'express';
-
-import middlewares from './middlewares';
-import routes from './routes';
-import swagger from './swagger';
-import staticFiles from './staticFiles';
+import setupMiddlewares from './middlewares';
+import setupRoutes from './routes';
+import setupStaticFiles from './static-files';
+import setupSwagger from './ConfigSwagger';
 
 const app = express();
 
-swagger(app);
-staticFiles(app);
-middlewares(app);
-routes(app);
+setupStaticFiles(app);
+setupSwagger(app);
+setupMiddlewares(app);
+setupRoutes(app);
 
 export default app;

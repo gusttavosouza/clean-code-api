@@ -1,14 +1,10 @@
-import { IAddSurveyRepository } from '@data/interfaces/db/IAddSurveyRepository';
-import { IAddSurvey } from '@domain/usecases/AddSurvey';
+import { IAddSurvey } from '@domain/usecases';
+import { IAddSurveyRepository } from '@data/protocols';
 
 export class DbAddSurvey implements IAddSurvey {
-  constructor(private readonly addSurveyRepository: IAddSurveyRepository) {
-    this.addSurveyRepository = addSurveyRepository;
-  }
+  constructor(private readonly addSurveyRepository: IAddSurveyRepository) {}
 
-  public async add(data: IAddSurvey.Params): Promise<void> {
+  async add(data: AddSurvey.Params): Promise<void> {
     await this.addSurveyRepository.add(data);
-
-    return Promise.resolve();
   }
 }

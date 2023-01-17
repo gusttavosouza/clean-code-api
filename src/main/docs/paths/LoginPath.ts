@@ -1,12 +1,14 @@
-export const LoginPaths = {
+export const loginPath = {
   post: {
     tags: ['Login'],
     summary: 'API para autenticar usuário',
+    description: 'Essa rota pode ser executada por **qualquer usuário**',
     requestBody: {
+      required: true,
       content: {
         'application/json': {
           schema: {
-            $ref: '#/schemas/LoginSchema',
+            $ref: '#/schemas/loginParams',
           },
         },
       },
@@ -17,19 +19,22 @@ export const LoginPaths = {
         content: {
           'application/json': {
             schema: {
-              $ref: '#/schemas/AccountSchema',
+              $ref: '#/schemas/account',
             },
           },
         },
       },
       400: {
-        $ref: '#/components/BadRequest',
+        $ref: '#/components/badRequest',
       },
       401: {
-        $ref: '#/components/Unauthorized',
+        $ref: '#/components/unauthorized',
+      },
+      404: {
+        $ref: '#/components/notFound',
       },
       500: {
-        $ref: '#/components/ServerError',
+        $ref: '#/components/serverError',
       },
     },
   },

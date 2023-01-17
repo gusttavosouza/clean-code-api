@@ -1,4 +1,4 @@
-export const SurveyResultAnswerSchema = {
+export const surveyResultAnswerSchema = {
   type: 'object',
   properties: {
     image: {
@@ -17,5 +17,5 @@ export const SurveyResultAnswerSchema = {
       type: 'boolean',
     },
   },
-  require: ['answer', 'count', 'percent', 'isCurrentAccountAnswer'],
+  required: ['answer', 'count', 'percent', 'isCurrentAccountAnswer'],
 };

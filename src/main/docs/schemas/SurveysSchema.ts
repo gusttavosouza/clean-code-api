@@ -1,6 +1,6 @@
-export const SurveysSchema = {
+export const surveysSchema = {
   type: 'array',
   items: {
-    $ref: '#/schemas/SurveySchema',
+    $ref: '#/schemas/survey',
   },
 };

@@ -1,4 +1,4 @@
-export const AccountSchema = {
+export const accountSchema = {
   type: 'object',
   properties: {
     accessToken: {
@@ -8,5 +8,5 @@ export const AccountSchema = {
       type: 'string',
     },
   },
-  require: ['accessToken', 'name'],
+  required: ['accessToken', 'name'],
 };

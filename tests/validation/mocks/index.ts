@@ -1,2 +1,1 @@
-export * from './mockEmailValidator';
-export * from './mockValidation';
+export * from './mock-email-validator'

@@ -1,22 +1,15 @@
-import { ILoadAccountByToken } from '@domain/usecases';
+import { IMiddleware, HttpResponse } from '@presentation/protocols';
+import { Forbidden, Success, ServerError } from '@presentation/helpers';
 import { AccessDeniedError } from '@presentation/errors';
-import { Forbidden, Success, InternalError } from '@presentation/helpers/http';
-import { IHttpResponse, IMiddleware } from '@presentation/interfaces';
-
-type AuthMiddlewareParams = {
-  accessToken: string;
-};
+import { ILoadAccountByToken } from '@domain/usecases';
 
 export class AuthMiddleware implements IMiddleware {
   constructor(
     private readonly loadAccountByToken: ILoadAccountByToken,
     private readonly role?: string,
-  ) {
-    this.loadAccountByToken = loadAccountByToken;
-    this.role = role;
-  }
+  ) {}
 
-  public async handle(request: AuthMiddlewareParams): Promise<IHttpResponse> {
+  async handle(request: AuthMiddleware.Request): Promise<HttpResponse> {
     try {
       const { accessToken } = request;
       if (accessToken) {
@@ -30,7 +23,13 @@ export class AuthMiddleware implements IMiddleware {
       }
       return Forbidden(new AccessDeniedError());
     } catch (error) {
-      return InternalError(error);
+      return ServerError(error);
     }
   }
+}
+
+export namespace AuthMiddleware {
+  export type Request = {
+    accessToken?: string;
+  };
 }

@@ -1,46 +1,42 @@
-import { IAddSurvey } from '@domain/usecases';
-import {
-  BadRequest,
-  InternalError,
-  NoContent,
-} from '@presentation/helpers/http';
 import {
   IController,
-  IHttpResponse,
+  HttpResponse,
   IValidation,
-} from '@presentation/interfaces';
-
-type Answer = {
-  image?: string;
-  answer: string;
-};
-
-type AddSurveyParams = {
-  question: string;
-  answers: Answer[];
-};
+} from '@presentation/protocols';
+import { BadRequest, ServerError, NoContent } from '@presentation/helpers';
+import { IAddSurvey } from '@domain/usecases';
 
 export class AddSurveyController implements IController {
   constructor(
     private readonly validation: IValidation,
     private readonly addSurvey: IAddSurvey,
-  ) {
-    this.validation = validation;
-    this.addSurvey = addSurvey;
-  }
+  ) {}
 
-  public async handle(request: AddSurveyParams): Promise<IHttpResponse> {
+  async handle(request: AddSurveyController.Request): Promise<HttpResponse> {
     try {
       const error = this.validation.validate(request);
       if (error) {
         return BadRequest(error);
       }
-      const { question, answers } = request;
-      await this.addSurvey.add({ question, answers, date: new Date() });
-
+      await this.addSurvey.add({
+        ...request,
+        date: new Date(),
+      });
       return NoContent();
     } catch (error) {
-      return InternalError(error);
+      return ServerError(error);
     }
   }
+}
+
+export namespace AddSurveyController {
+  export type Request = {
+    question: string;
+    answers: Answer[];
+  };
+
+  type Answer = {
+    image?: string;
+    answer: string;
+  };
 }

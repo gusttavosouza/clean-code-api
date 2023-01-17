@@ -1,14 +1,14 @@
-type SurveyAnswerAnswerModel = {
+export type SurveyResultModel = {
+  surveyId: string;
+  question: string;
+  answers: SurveyResultAnswerModel[];
+  date: Date;
+};
+
+type SurveyResultAnswerModel = {
   image?: string;
   answer: string;
   count: number;
   percent: number;
   isCurrentAccountAnswer: boolean;
-};
-
-export type SurveyResultModel = {
-  surveyId: string;
-  question: string;
-  answers: SurveyAnswerAnswerModel[];
-  date: Date;
 };

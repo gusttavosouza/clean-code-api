@@ -1,25 +1,20 @@
+import { ISaveSurveyResult } from '@domain/usecases';
 import {
-  ILoadSurveyResultRepository,
   ISaveSurveyResultRepository,
-} from '@data/interfaces/db';
-import { ISaveSurveyResult } from '@domain/usecases/SaveSurveyResult';
+  ILoadSurveyResultRepository,
+} from '@data/protocols';
 
 export class DbSaveSurveyResult implements ISaveSurveyResult {
   constructor(
-    public readonly saveSurveyResultRepository: ISaveSurveyResultRepository,
-    public readonly loadSurveyResultRepository: ILoadSurveyResultRepository,
-  ) {
-    this.saveSurveyResultRepository = saveSurveyResultRepository;
-  }
+    private readonly saveSurveyResultRepository: ISaveSurveyResultRepository,
+    private readonly loadSurveyResultRepository: ILoadSurveyResultRepository,
+  ) {}
 
-  public async save(
-    data: ISaveSurveyResult.Params,
-  ): Promise<ISaveSurveyResult.Result> {
+  async save(data: SaveSurveyResult.Params): Promise<SaveSurveyResult.Result> {
     await this.saveSurveyResultRepository.save(data);
-    const surveyResult = await this.loadSurveyResultRepository.loadBySurveyId(
+    return this.loadSurveyResultRepository.loadBySurveyId(
       data.surveyId,
       data.accountId,
     );
-    return surveyResult;
   }
 }

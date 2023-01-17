@@ -1,9 +1,9 @@
-export const ServerError = {
-  description: 'Problema no Servidor',
+export const serverError = {
+  description: 'Erro interno no servidor',
   content: {
     'application/json': {
       schema: {
-        $ref: '#/schemas/ErrorSchema',
+        $ref: '#/schemas/error',
       },
     },
   },

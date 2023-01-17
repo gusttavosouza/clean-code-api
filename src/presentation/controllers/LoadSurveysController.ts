@@ -1,26 +1,22 @@
+import { IController, HttpResponse } from '@presentation/protocols';
+import { NoContent, ServerError, Success } from '@presentation/helpers';
 import { ILoadSurveys } from '@domain/usecases';
-import { InternalError, NoContent, Success } from '@presentation/helpers/http';
-import { IController, IHttpResponse } from '@presentation/interfaces';
-
-type LoadSurveysParams = {
-  accountId: string;
-};
 
 export class LoadSurveysController implements IController {
-  constructor(private readonly loadSurveys: ILoadSurveys) {
-    this.loadSurveys = loadSurveys;
-  }
+  constructor(private readonly loadSurveys: ILoadSurveys) {}
 
-  public async handle(request: LoadSurveysParams): Promise<IHttpResponse> {
+  async handle(request: LoadSurveysController.Request): Promise<HttpResponse> {
     try {
       const surveys = await this.loadSurveys.load(request.accountId);
-      if (!surveys.length) {
-        return NoContent();
-      }
-
-      return Success(surveys);
+      return surveys.length ? Success(surveys) : NoContent();
     } catch (error) {
-      return InternalError(error);
+      return ServerError(error);
     }
   }
+}
+
+export namespace LoadSurveysController {
+  export type Request = {
+    accountId: string;
+  };
 }

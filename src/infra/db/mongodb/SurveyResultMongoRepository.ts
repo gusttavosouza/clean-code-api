@@ -1,21 +1,19 @@
 import { ObjectId } from 'mongodb';
-import {
-  ILoadSurveyResultRepository,
-  ISaveSurveyResultRepository,
-} from '@data/interfaces/db';
-import { SurveyResultModel } from '@domain/models';
 import round from 'mongo-round';
-import { ISaveSurveyResult } from '@domain/usecases';
-import { MongoHelper, QueryBuilder } from './helpers';
+import { MongoHelper, QueryBuilder } from '@infra/db';
+import {
+  ISaveSurveyResultRepository,
+  ILoadSurveyResultRepository,
+} from '@data/protocols/db';
 
 export class SurveyResultMongoRepository
   implements ISaveSurveyResultRepository, ILoadSurveyResultRepository
 {
-  public async save(data: ISaveSurveyResult.Params): Promise<void> {
-    const surveyResultsCollection = await MongoHelper.getCollection(
+  async save(data: ISaveSurveyResultRepository.Params): Promise<void> {
+    const surveyResultCollection = await MongoHelper.getCollection(
       'surveyResults',
     );
-    await surveyResultsCollection.findOneAndUpdate(
+    await surveyResultCollection.findOneAndUpdate(
       {
         surveyId: new ObjectId(data.surveyId),
         accountId: new ObjectId(data.accountId),
@@ -32,11 +30,13 @@ export class SurveyResultMongoRepository
     );
   }
 
-  public async loadBySurveyId(
+  async loadBySurveyId(
     surveyId: string,
     accountId: string,
-  ): Promise<SurveyResultModel> {
-    const surveyResultCollection = MongoHelper.getCollection('surveyResults');
+  ): Promise<ILoadSurveyResultRepository.Result> {
+    const surveyResultCollection = await MongoHelper.getCollection(
+      'surveyResults',
+    );
     const query = new QueryBuilder()
       .match({
         surveyId: new ObjectId(surveyId),
@@ -77,7 +77,7 @@ export class SurveyResultMongoRepository
         currentAccountAnswer: {
           $push: {
             $cond: [
-              { $eq: ['$data.accountId', new ObjectId(accountId)] },
+              { $eq: ['$data.accountId', accountId] },
               '$data.answer',
               '$invalid',
             ],
@@ -218,19 +218,15 @@ export class SurveyResultMongoRepository
       })
       .project({
         _id: 0,
-        surveyId: {
-          $toString: '$_id.surveyId',
-        },
+        surveyId: '$_id.surveyId',
         question: '$_id.question',
         date: '$_id.date',
         answers: '$answers',
       })
       .build();
-
-    const surveyResult = await (await surveyResultCollection)
+    const surveyResult = await surveyResultCollection
       .aggregate(query)
       .toArray();
-
     return surveyResult.length ? surveyResult[0] : null;
   }
 }

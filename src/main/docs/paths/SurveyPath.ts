@@ -1,4 +1,4 @@
-export const SurveyPaths = {
+export const surveyPath = {
   get: {
     security: [
       {
@@ -7,22 +7,30 @@ export const SurveyPaths = {
     ],
     tags: ['Enquete'],
     summary: 'API para listar todas as enquetes',
+    description:
+      'Essa rota só pode ser executada por **usuários autenticados**',
     responses: {
       200: {
         description: 'Sucesso',
         content: {
           'application/json': {
             schema: {
-              $ref: '#/schemas/SurveysSchema',
+              $ref: '#/schemas/surveys',
             },
           },
         },
       },
+      204: {
+        description: 'Sucesso, mas sem dados para exibir',
+      },
       403: {
-        $ref: '#/components/Forbidden',
+        $ref: '#/components/forbidden',
+      },
+      404: {
+        $ref: '#/components/notFound',
       },
       500: {
-        $ref: '#/components/ServerError',
+        $ref: '#/components/serverError',
       },
     },
   },
@@ -34,24 +42,29 @@ export const SurveyPaths = {
     ],
     tags: ['Enquete'],
     summary: 'API para criar uma enquete',
+    description: 'Essa rota só pode ser executada por **administradores**',
     requestBody: {
+      required: true,
       content: {
         'application/json': {
           schema: {
-            $ref: '#/schemas/AddSurveySchema',
+            $ref: '#/schemas/addSurveyParams',
           },
         },
       },
     },
     responses: {
       204: {
-        description: 'Sucesso',
+        description: 'Sucesso, mas sem dados para exibir',
       },
       403: {
-        $ref: '#/components/Forbidden',
+        $ref: '#/components/forbidden',
+      },
+      404: {
+        $ref: '#/components/notFound',
       },
       500: {
-        $ref: '#/components/ServerError',
+        $ref: '#/components/serverError',
       },
     },
   },

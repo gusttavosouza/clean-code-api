@@ -1,4 +1,4 @@
-export const SurveyResultPath = {
+export const surveyResultPath = {
   put: {
     security: [
       {
@@ -6,45 +6,49 @@ export const SurveyResultPath = {
       },
     ],
     tags: ['Enquete'],
-    summary: 'API para criar para criar resposta de uma enquete',
-    requestBody: {
-      content: {
-        'application/json': {
-          schema: {
-            $ref: '#/schemas/SurveyResultSchemaParams',
-          },
-        },
-      },
-    },
+    summary: 'API para criar a resposta de uma enquete',
+    description:
+      'Essa rota só pode ser executada por **usuários autenticados**',
     parameters: [
       {
         in: 'path',
         name: 'surveyId',
+        description: 'ID da enquete a ser respondida',
         required: true,
         schema: {
           type: 'string',
         },
       },
     ],
+    requestBody: {
+      required: true,
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/schemas/saveSurveyParams',
+          },
+        },
+      },
+    },
     responses: {
       200: {
         description: 'Sucesso',
         content: {
           'application/json': {
             schema: {
-              $ref: '#/schemas/SurveyResultSchema',
+              $ref: '#/schemas/surveyResult',
             },
           },
         },
       },
-      400: {
-        $ref: '#/components/BadRequest',
-      },
       403: {
-        $ref: '#/components/Forbidden',
+        $ref: '#/components/forbidden',
+      },
+      404: {
+        $ref: '#/components/notFound',
       },
       500: {
-        $ref: '#/components/ServerError',
+        $ref: '#/components/serverError',
       },
     },
   },
@@ -56,10 +60,13 @@ export const SurveyResultPath = {
     ],
     tags: ['Enquete'],
     summary: 'API para consultar o resultado de uma enquete',
+    description:
+      'Essa rota só pode ser executada por **usuários autenticados**',
     parameters: [
       {
         in: 'path',
         name: 'surveyId',
+        description: 'ID da enquete a ser respondida',
         required: true,
         schema: {
           type: 'string',
@@ -72,19 +79,19 @@ export const SurveyResultPath = {
         content: {
           'application/json': {
             schema: {
-              $ref: '#/schemas/SurveyResultSchema',
+              $ref: '#/schemas/surveyResult',
             },
           },
         },
       },
-      400: {
-        $ref: '#/components/BadRequest',
-      },
       403: {
-        $ref: '#/components/Forbidden',
+        $ref: '#/components/forbidden',
+      },
+      404: {
+        $ref: '#/components/notFound',
       },
       500: {
-        $ref: '#/components/ServerError',
+        $ref: '#/components/serverError',
       },
     },
   },

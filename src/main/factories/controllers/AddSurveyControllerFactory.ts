@@ -1,13 +1,15 @@
-import { IController } from '@presentation/interfaces';
-import { makeLogControllerDecoratorFactory } from '@main/factories/decorators';
+import {
+  makeAddSurveyValidation,
+  makeLogControllerDecorator,
+  makeDbAddSurvey,
+} from '@main/factories';
+import { IController } from '@presentation/protocols';
 import { AddSurveyController } from '@presentation/controllers';
-import { makeDbAddSurvey } from '@main/factories/usecases';
-import { makeAddSurveyValidation } from '@main/factories/validation';
 
 export const makeAddSurveyController = (): IController => {
-  const addSurveyController = new AddSurveyController(
+  const controller = new AddSurveyController(
     makeAddSurveyValidation(),
     makeDbAddSurvey(),
   );
-  return makeLogControllerDecoratorFactory(addSurveyController);
+  return makeLogControllerDecorator(controller);
 };

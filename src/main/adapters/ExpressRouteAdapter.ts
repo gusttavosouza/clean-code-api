@@ -1,20 +1,20 @@
 import { Request, Response } from 'express';
-import { IController } from '@presentation/interfaces';
+import { IController } from '@presentation/protocols';
 
-export const AdapterExpressRoute = (controller: IController) => {
-  return async (request: Request, response: Response) => {
-    const httpRequest = {
-      ...(request.body || {}),
-      ...(request.params || {}),
-      accountId: request.accountId,
+export const ExpressRouteAdapter = (controller: IController) => {
+  return async (req: Request, res: Response) => {
+    const request = {
+      ...(req.body || {}),
+      ...(req.params || {}),
+      accountId: req.accountId,
     };
-    const httpResponse = await controller.handle(httpRequest);
+    const httpResponse = await controller.handle(request);
     if (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299) {
-      response.status(httpResponse.statusCode).json(httpResponse.body);
+      res.status(httpResponse.statusCode).json(httpResponse.body);
     } else {
-      response
-        .status(httpResponse.statusCode)
-        .json({ error: httpResponse.body.message });
+      res.status(httpResponse.statusCode).json({
+        error: httpResponse.body.message,
+      });
     }
   };
 };

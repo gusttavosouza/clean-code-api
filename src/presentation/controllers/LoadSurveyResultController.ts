@@ -1,34 +1,37 @@
-import { ILoadSurveyById, ILoadSurveyResult } from '@domain/usecases';
+import { IController, HttpResponse } from '@presentation/protocols';
+import { Forbidden, ServerError, Success } from '@presentation/helpers';
 import { InvalidParamError } from '@presentation/errors';
-import { Forbidden, InternalError, Success } from '@presentation/helpers/http';
-import { IController, IHttpResponse } from '@presentation/interfaces';
-
-type LoadSurveyResultParams = {
-  surveyId: string;
-  accountId: string;
-};
+import { ICheckSurveyById, ILoadSurveyResult } from '@domain/usecases';
 
 export class LoadSurveyResultController implements IController {
   constructor(
-    private readonly loadSurveyById: ILoadSurveyById,
+    private readonly checkSurveyById: ICheckSurveyById,
     private readonly loadSurveyResult: ILoadSurveyResult,
   ) {}
 
-  public async handle(request: LoadSurveyResultParams): Promise<IHttpResponse> {
+  async handle(
+    request: LoadSurveyResultController.Request,
+  ): Promise<HttpResponse> {
     try {
       const { surveyId, accountId } = request;
-      const survey = await this.loadSurveyById.loadById(surveyId);
-      if (!survey) {
+      const exists = await this.checkSurveyById.checkById(surveyId);
+      if (!exists) {
         return Forbidden(new InvalidParamError('surveyId'));
       }
-
       const surveyResult = await this.loadSurveyResult.load(
         surveyId,
         accountId,
       );
       return Success(surveyResult);
     } catch (error) {
-      return InternalError(new Error());
+      return ServerError(error);
     }
   }
+}
+
+export namespace LoadSurveyResultController {
+  export type Request = {
+    surveyId: string;
+    accountId: string;
+  };
 }

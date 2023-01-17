@@ -1,4 +1,4 @@
-export const SurveyResultSchema = {
+export const surveyResultSchema = {
   type: 'object',
   properties: {
     surveyId: {
@@ -10,7 +10,7 @@ export const SurveyResultSchema = {
     answers: {
       type: 'array',
       items: {
-        $ref: '#/schemas/SurveyResultAnswerSchema',
+        $ref: '#/schemas/surveyResultAnswer',
       },
     },
     date: {

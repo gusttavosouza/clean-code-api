@@ -1,41 +1,40 @@
-import { IEncrypter, IHashComparer } from '@data/interfaces/cryptography';
+import { IAuthentication } from '@domain/usecases';
 import {
+  IHashComparer,
+  IEncrypter,
   ILoadAccountByEmailRepository,
   IUpdateAccessTokenRepository,
-} from '@data/interfaces/db';
-import { IAuthentication } from '@domain/usecases/Authentication';
+} from '@data/protocols';
 
 export class DbAuthentication implements IAuthentication {
   constructor(
-    private readonly loadAccountByEmail: ILoadAccountByEmailRepository,
-    private readonly hashCompare: IHashComparer,
+    private readonly loadAccountByEmailRepository: ILoadAccountByEmailRepository,
+    private readonly hashComparer: IHashComparer,
     private readonly encrypter: IEncrypter,
     private readonly updateAccessTokenRepository: IUpdateAccessTokenRepository,
-  ) {
-    this.loadAccountByEmail = loadAccountByEmail;
-    this.hashCompare = hashCompare;
-    this.encrypter = encrypter;
-    this.encrypter = encrypter;
-    this.updateAccessTokenRepository = updateAccessTokenRepository;
-  }
+  ) {}
 
-  public async auth(
-    authentication: IAuthentication.Params,
-  ): Promise<IAuthentication.Result> {
-    const account = await this.loadAccountByEmail.loadByEmail(
-      authentication.email,
+  async auth(
+    authenticationParams: Authentication.Params,
+  ): Promise<Authentication.Result> {
+    const account = await this.loadAccountByEmailRepository.loadByEmail(
+      authenticationParams.email,
     );
-
     if (account) {
-      const { id, password } = account;
-      const isValid = await this.hashCompare.compare(
-        authentication.password,
-        password,
+      const isValid = await this.hashComparer.compare(
+        authenticationParams.password,
+        account.password,
       );
       if (isValid) {
-        const accessToken = await this.encrypter.encrypt(id);
-        this.updateAccessTokenRepository.updateAccessToken(id, accessToken);
-        return { accessToken, name: account.name };
+        const accessToken = await this.encrypter.encrypt(account.id);
+        await this.updateAccessTokenRepository.updateAccessToken(
+          account.id,
+          accessToken,
+        );
+        return {
+          accessToken,
+          name: account.name,
+        };
       }
     }
     return null;

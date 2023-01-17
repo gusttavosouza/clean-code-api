@@ -1,47 +1,41 @@
-import { ILoadSurveyById, ISaveSurveyResult } from '@domain/usecases';
+import { IController, HttpResponse } from '@presentation/protocols';
+import { Forbidden, ServerError, Success } from '@presentation/helpers';
 import { InvalidParamError } from '@presentation/errors';
-import { Forbidden, InternalError, Success } from '@presentation/helpers/http';
-import { IController, IHttpResponse } from '@presentation/interfaces';
-
-type SaveSurveyResultParams = {
-  accountId: string;
-  surveyId: string;
-  answer: string;
-};
+import { ILoadAnswersBySurvey, ISaveSurveyResult } from '@domain/usecases';
 
 export class SaveSurveyResultController implements IController {
   constructor(
-    private readonly loadSurveyById: ILoadSurveyById,
+    private readonly loadAnswersBySurvey: ILoadAnswersBySurvey,
     private readonly saveSurveyResult: ISaveSurveyResult,
-  ) {
-    this.loadSurveyById = loadSurveyById;
-    this.saveSurveyResult = saveSurveyResult;
-  }
+  ) {}
 
-  public async handle(request: SaveSurveyResultParams): Promise<IHttpResponse> {
+  async handle(
+    request: SaveSurveyResultController.Request,
+  ): Promise<HttpResponse> {
     try {
-      const { surveyId, answer, accountId } = request;
-
-      const survey = await this.loadSurveyById.loadById(surveyId);
-      if (!survey) {
-        return Forbidden(new InvalidParamError('Survey not found'));
+      const { surveyId, answer } = request;
+      const answers = await this.loadAnswersBySurvey.loadAnswers(surveyId);
+      if (!answers.length) {
+        return Forbidden(new InvalidParamError('surveyId'));
       }
-
-      const answers = survey.answers.map(item => item.answer);
       if (!answers.includes(answer)) {
         return Forbidden(new InvalidParamError('answer'));
       }
-
       const surveyResult = await this.saveSurveyResult.save({
-        surveyId,
-        accountId,
-        answer,
+        ...request,
         date: new Date(),
       });
-
       return Success(surveyResult);
     } catch (error) {
-      return InternalError(error);
+      return ServerError(error);
     }
   }
+}
+
+export namespace SaveSurveyResultController {
+  export type Request = {
+    surveyId: string;
+    answer: string;
+    accountId: string;
+  };
 }

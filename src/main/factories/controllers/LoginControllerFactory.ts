@@ -1,13 +1,15 @@
+import {
+  makeDbAuthentication,
+  makeLoginValidation,
+  makeLogControllerDecorator,
+} from '@main/factories';
+import { IController } from '@presentation/protocols';
 import { LoginController } from '@presentation/controllers';
-import { IController } from '@presentation/interfaces';
-import { makeDbAuthentication } from '@main/factories/usecases';
-import { makeLogControllerDecoratorFactory } from '@main/factories/decorators';
-import { makeLoginValidation } from '@main/factories/validation';
 
 export const makeLoginController = (): IController => {
-  const loginController = new LoginController(
+  const controller = new LoginController(
     makeDbAuthentication(),
     makeLoginValidation(),
   );
-  return makeLogControllerDecoratorFactory(loginController);
+  return makeLogControllerDecorator(controller);
 };
