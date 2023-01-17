@@ -5,5 +5,5 @@ export interface IAddSurveyRepository {
 }
 
 export namespace IAddSurveyRepository {
-  export type Params = AddSurvey.Params;
+  export type Params = IAddSurvey.Params;
 }

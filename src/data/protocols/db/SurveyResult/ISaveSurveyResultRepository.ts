@@ -5,5 +5,5 @@ export interface ISaveSurveyResultRepository {
 }
 
 export namespace ISaveSurveyResultRepository {
-  export type Params = SaveSurveyResult.Params;
+  export type Params = ISaveSurveyResult.Params;
 }
