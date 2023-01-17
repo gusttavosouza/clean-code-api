@@ -1,10 +1,10 @@
+import { ApolloServerResolverAdapter } from '@main/adapters';
+import { makeLoginController } from '@main/factories';
+
 export default {
   Query: {
-    login() {
-      return {
-        accessToken: 'any_token',
-        name: 'any_name',
-      };
+    async login(_: any, args: any) {
+      return ApolloServerResolverAdapter(makeLoginController(), args);
     },
   },
 };
