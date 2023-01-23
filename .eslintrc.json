@@ -23,6 +23,7 @@
         "no-restricted-syntax": "off",
         "no-underscore-dangle": "off",
         "no-unused-expressions": "off",
+        "no-param-reassign": "off",
         "import/prefer-default-export": "off",
         "max-classes-per-file": "off",
         "no-promise-executor-return": "off",
